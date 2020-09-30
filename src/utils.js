@@ -14,42 +14,30 @@ import "firebase/analytics";
 // USER VARIABLES (FILL STUFF IN BELOW THIS LINE)
 // ************************************************
 
-// general variables related to HIT
-export const buildVer = 'demo' // should be 'demo', 'sandbox' or 'build' based on intended use
-export const labName = 'DWIGHT Lab'; // name of lab running HIT experiment 
-export const email = 'computational.social.affective.neuroscience.lab@dartmouth.edu'; // email for mturk
-export const totalHITTime = '60'; // total time provided for HIT (in minutes)
-export const estHITTime = '15'; // estimated time to complete HIT (in minutes)
-export const HITPay = '0.00'; // pay for HIT completion (in dollars)
-export const studyLocation = 'the office of Dunder Mifflin, located in Scranton, PA'; // location of lab running mturk study
-export const studyAim = 'to learn how to sell more paper'; // aim of mturk study 
-export const studyTasks = 'farming beets and playing Battlestar Galactica'; // brief summary of HIT task for consent form
-export const experiment = 'Demo'; // name of experiment (should match collection name in firebase)
-export const userGroup = 'Group 1'; // name of collection of participants for current HIT
+// lab variables
+export const labName = ''; // name of lab running HIT experiment 
+export const email = ''; // email for mturk
+export const studyLocation = ''; // location of lab running mturk study
+export const studyAim = ''; // aim of mturk study 
+export const studyTasks = ''; // brief summary of HIT task for consent form
+export const experiment = ''; // name of experiment (should match collection name in firebase)
 
-// variables related to stimuli
-// array of movie names, where each movie is the exact spelling of the corresponding file name in cloudfront
-export const movieNames = ["BestOfTimes", "CopsDontCry", "FindingHome", "GMarksTheSpot", 
-                        "Mortified", "StrangerBonding", "ThisIsGoingToSuck", "UnexpectedTwist"];
-// array of rating types                        
-export const ratingTypes = ["afraid", "amused", "angry", "anxious", "bored", "disgusted",
-						"frustrated", "happy", "hopeful", "inspired", "moved", "proud",
-                        "relieved", "sad", "surprised", "uncomfortable"];
-export const awsSrc = 'https://d2jhe455vxf69u.cloudfront.net'; // cloudfront distribution url for stimuli
+// HIT variables
+export const buildVer = '' // should be 'demo', 'sandbox' or 'build' based on intended use
+export const totalHITTime = ''; // total time provided for HIT (in minutes)
+export const estHITTime = ''; // estimated time to complete HIT (in minutes)
+export const HITPay = ''; // pay for HIT completion (format as X.XX)
+export const userGroup = ''; // name of collection of participants for current HIT
+
+// stimuli variables
+export const movieNames = []; // each movie is the exact spelling of file name in cloudfront          
+export const ratingTypes = []; // array of rating types   
+export const awsSrc = ''; // cloudfront distribution url for stimuli
 export const numOptions = movieNames.length; // number of movies
 
 // this configures path to proper firebase
 // PUT YOUR FIREBASE CONFIG HERE
-let firebaseConfig = {
-    apiKey: "AIzaSyB-RA2Pdoea4SsxULDrqtUe1ra1bl0Ze04",
-    authDomain: "svelte-rating.firebaseapp.com",
-    databaseURL: "https://svelte-rating.firebaseio.com",
-    projectId: "svelte-rating",
-    storageBucket: "svelte-rating.appspot.com",
-    messagingSenderId: "16447615457",
-    appId: "1:16447615457:web:92f40fcd143a53e619e2a0",
-    measurementId: "G-0KE9SFH36M"
-};
+let firebaseConfig = {};
 
 // ************************************************
 // STOP. DON'T CHANGE ANYTHING BELOW THIS LINE
