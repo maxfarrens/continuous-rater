@@ -50,8 +50,7 @@ This app has been configured to require minimal coding to repurpose. To add your
 	    appId: "",
 	    measurementId: ""
 	};
-```
+	```
 
 	The above configuration information can be accessed via the firebase console inside a firebase project you have started. Copy and paste yours from the console over this blank one in the file
 
----
