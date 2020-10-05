@@ -1,6 +1,6 @@
 # continuous-rater
 This is an app to collect continuous ratings from movie stimuli.
-Visit this [site](https://suspicious-pare-60fdea.netlify.app) for a pre-configured demo.
+Visit this [site](https://jovial-minsky-2b53e0.netlify.app) for a pre-configured demo.
 
 ---
 
