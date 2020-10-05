@@ -23064,7 +23064,7 @@ var app = (function () {
     const experiment = 'Demo'; // name of experiment (should match collection name in firebase)
 
     // HIT variables
-    const buildVer = 'demo'; // should be 'demo', 'sandbox' or 'build' based on intended use
+    const buildVer = 'sandbox'; // should be 'demo', 'sandbox' or 'build' based on intended use
     const HITPay = '2'; // pay for HIT completion (format as X.XX)
     const userGroup = 'Group 1'; // name of collection of participants for current HIT
     const estHITTime = '2'; // estimated time to complete HIT (in minutes)
@@ -23085,12 +23085,6 @@ var app = (function () {
         appId: "1:16447615457:web:92f40fcd143a53e619e2a0",
         measurementId: "G-0KE9SFH36M"
     };
-
-    // ************************************************
-    // STOP. DON'T CHANGE ANYTHING BELOW THIS LINE
-    // ************************************************
-
-    let url;
     let m;
 
     // firebase info (export for use elsewhere in app)
@@ -23105,8 +23099,7 @@ var app = (function () {
         const params = {};
 
         {
-            url = "https://demo.app/?assignmentId=TEST_ASSIGN&hitId=TEST_HIT&workerId=TEST_WORKER";
-            m = url.match(/[\\?&]([^=]+)=([^&#]*)/g);
+            m = window.location.href.match(/[\\?&]([^=]+)=([^&#]*)/g);
         }
         if (m) {
             let i = 0;
