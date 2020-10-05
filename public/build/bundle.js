@@ -23056,34 +23056,34 @@ var app = (function () {
     // ************************************************
 
     // lab variables
-    const labName = 'beep'; // name of lab running HIT experiment 
-    const email = 'boop@gmail.com'; // email for mturk
-    const studyLocation = 'boston'; // location of lab running mturk study
-    const studyAim = 'boop beeps'; // aim of mturk study 
-    const studyTasks = 'beep boops'; // brief summary of HIT task for consent form
-    const experiment = 'Demo'; // name of experiment (should match collection name in firebase)
+    const labName = ''; // name of lab running HIT experiment 
+    const email = ''; // email for mturk
+    const studyLocation = ''; // location of lab running mturk study
+    const studyAim = ''; // aim of mturk study 
+    const studyTasks = ''; // brief summary of HIT task for consent form
+    const experiment = ''; // name of experiment (should match collection name in firebase)
 
     // HIT variables
-    const buildVer = 'demo'; // should be 'demo', 'sandbox' or 'build' based on intended use
-    const HITPay = '2'; // pay for HIT completion (format as X.XX)
-    const userGroup = 'Group 1'; // name of collection of participants for current HIT
-    const estHITTime = '2'; // estimated time to complete HIT (in minutes)
+    const buildVer = ''; // should be 'demo', 'sandbox' or 'build' based on intended use
+    const HITPay = ''; // pay for HIT completion (format as X.XX)
+    const userGroup = ''; // name of collection of participants for current HIT
+    const estHITTime = ''; // estimated time to complete HIT (in minutes)
     const totalHITTime = estHITTime * 2; // total time provided for HIT (in minutes)
 
     // stimuli variables      
-    const ratingTypes = ['amused', 'angry', 'sad']; // array of rating types   
+    const ratingTypes = ['', '', '']; // array of rating types   
 
     // this configures path to proper firebase
     // PUT YOUR FIREBASE CONFIG HERE
     let firebaseConfig = {
-        apiKey: "AIzaSyB-RA2Pdoea4SsxULDrqtUe1ra1bl0Ze04",
-        authDomain: "svelte-rating.firebaseapp.com",
-        databaseURL: "https://svelte-rating.firebaseio.com",
-        projectId: "svelte-rating",
-        storageBucket: "svelte-rating.appspot.com",
-        messagingSenderId: "16447615457",
-        appId: "1:16447615457:web:92f40fcd143a53e619e2a0",
-        measurementId: "G-0KE9SFH36M"
+        apiKey: "",
+        authDomain: "",
+        databaseURL: "",
+        projectId: "",
+        storageBucket: "",
+        messagingSenderId: "",
+        appId: "",
+        measurementId: ""
     };
 
     // ************************************************
@@ -27718,13 +27718,6 @@ var app = (function () {
     	// create an entry with a new random stimulus order and put them into the instructions state. 
     	// If we do, load their trial order and current experiment state
     	onMount(async () => {
-    		// right when DOM is created
-    		// allows backend to work without connection to mturk
-    		{
-    			params.assignmentId = "TEST_ASSIGNMENT";
-    			params.hitId = "TEST_HIT";
-    			params.workerId = "TEST_WORKER";
-    		}
 
     		try {
     			auth.onAuthStateChanged(async user => {
