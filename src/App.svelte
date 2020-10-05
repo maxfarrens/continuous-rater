@@ -46,11 +46,17 @@
 	
 	// *****************************
 	// main function
-	// *****************************
+    // *****************************
+    
+    if (buildVer = 'demo') {
+        params.assignmentId = 'TEST_ASSIGNMENT';
+        params.hitId = 'TEST_HIT';
+        params.assignmentId = 'TEST_WORKER';
+    }
 
 	// Before we render anything see if we have a db entry for this subject based upon the URL parameters. If not 
 	// create an entry with a new random stimulus order and put them into the instructions state. 
-	// If we do, load their trial order and current experiment state
+    // If we do, load their trial order and current experiment state
 	
 	onMount(async () => { // right when DOM is created
 		try {

@@ -49,9 +49,6 @@ let firebaseConfig = {
 // STOP. DON'T CHANGE ANYTHING BELOW THIS LINE
 // ************************************************
 
-let url;
-let m;
-
 // firebase info (export for use elsewhere in app)
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.firestore();
@@ -62,14 +59,9 @@ export const serverTime = firebase.firestore.Timestamp.now();
 const unescapeURL = (s) => decodeURIComponent(s.replace(/\+/g, '%20'));
 export const getURLParams = () => {
     const params = {};
-
-    if (buildVer == 'demo') {
-        url = "https://demo.app/?assignmentId=TEST_ASSIGNMENT&hitId=TEST_HIT&workerId=TEST_WORKER";
-        m = url.match(/[\\?&]([^=]+)=([^&#]*)/g);
-    } else {
-        url = window.location.href;
-        m = window.location.href.match(/[\\?&]([^=]+)=([^&#]*)/g);
-    }
+    let url = window.location.href;
+    let m = window.location.href.match(/[\\?&]([^=]+)=([^&#]*)/g);
+    
     if (m) {
         let i = 0;
         while (i < m.length) {
