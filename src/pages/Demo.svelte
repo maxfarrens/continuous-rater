@@ -79,7 +79,7 @@
 			bind:time={time}
 			paused={paused}
 			ratingType={ratingType}
-            ratingBoxUse='demo'>
+            ratingBoxUse='demo page'>
 		</RatingBox>
 	</div>
 	<div class="key-box">

@@ -8,7 +8,7 @@
     export let pathway;
     export let time; // used to create dict with timestamp and rating
     export let paused;
-    export let ratingBoxUse = 'actual'; // determines connection with firebase
+    export let ratingBoxUse = 'actual';
     
     let width = "800";
     let height = "200";
@@ -19,7 +19,7 @@
     let docRef;
     
     // grabs reference for rating doc or creates it
-    if (ratingBoxUse != 'demo') {
+    if (ratingBoxUse != 'demo page') {
         docRef = db.doc(pathway);
         docRef.set({0: rating});
     }
@@ -46,7 +46,7 @@
                 rating = Math.min(rating + stepSize, 100);
                 stepSize *= stepAccel;
                 
-                if (ratingBoxUse != 'demo') {
+                if (ratingBoxUse != 'demo page') {
                     let dictTime = Math.round(time);
                     let dictVal = Math.round(rating);
                     docRef.update({[dictTime]: dictVal});
@@ -57,7 +57,7 @@
                 rating = Math.max(rating - stepSize, 0); 
                 stepSize *= stepAccel;
 
-                if (ratingBoxUse != 'demo') {
+                if (ratingBoxUse != 'demo page') {
                     let dictTime = Math.round(time);
                     let dictVal = Math.round(rating);
                     docRef.update({[dictTime]: dictVal});
@@ -68,7 +68,7 @@
                 rating = 100; 
                 stepSize = ogStepSize;
 
-                if (ratingBoxUse != 'demo') {
+                if (ratingBoxUse != 'demo page') {
                     let dictTime = Math.round(time);
                     let dictVal = rating;
                     docRef.update({[dictTime]: dictVal});
@@ -79,7 +79,7 @@
                 rating = 0; 
                 stepSize = ogStepSize;
 
-                if (ratingBoxUse != 'demo') {
+                if (ratingBoxUse != 'demo page') {
                     let dictTime = Math.round(time);
                     let dictVal = rating;
                     docRef.update({[dictTime]: dictVal});

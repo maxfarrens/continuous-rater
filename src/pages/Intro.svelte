@@ -2,6 +2,7 @@
 
 <script>
     import { createEventDispatcher } from 'svelte';
+    import {totalHITTime, estHITTime, HITPay} from '../utils.js'
     const dispatch = createEventDispatcher();
 
     function handleClick () {
@@ -34,6 +35,8 @@
 <div class="container">
     <h1>Thank you for accepting this HIT!</h1>
     <div class="text-box">
+        <p>You are given {totalHITTime} minutes to complete this HIT, but it should only take about {estHITTime}.</p>
+        <p>This HIT pays ${HITPay}.</p>
         <p>By clicking the button below, you will be taken to the experiment, 
         including complete instructions and an informed consent agreement.</p>
     </div>

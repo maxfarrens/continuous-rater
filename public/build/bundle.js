@@ -23051,18 +23051,47 @@ var app = (function () {
     var index_cjs_4$2 = index_cjs$8.resetGlobalVars;
     var index_cjs_5$1 = index_cjs$8.settings;
 
+    // ************************************************
+    // USER VARIABLES (FILL STUFF IN BELOW THIS LINE)
+    // ************************************************
+
+    // lab variables
+    const labName = 'beep'; // name of lab running HIT experiment 
+    const email = 'boop@gmail.com'; // email for mturk
+    const studyLocation = 'boston'; // location of lab running mturk study
+    const studyAim = 'boop beeps'; // aim of mturk study 
+    const studyTasks = 'beep boops'; // brief summary of HIT task for consent form
+    const experiment = 'Demo'; // name of experiment (should match collection name in firebase)
+
+    // HIT variables
+    const buildVer = 'demo'; // should be 'demo', 'sandbox' or 'build' based on intended use
+    const HITPay = '2'; // pay for HIT completion (format as X.XX)
+    const userGroup = 'Group 1'; // name of collection of participants for current HIT
+    const estHITTime = '2'; // estimated time to complete HIT (in minutes)
+    const totalHITTime = estHITTime * 2; // total time provided for HIT (in minutes)
+
+    // stimuli variables      
+    const ratingTypes = ['amused', 'angry', 'sad']; // array of rating types   
+
     // this configures path to proper firebase
-    // PUT YOUR SPECIFIC FIREBASE CONFIG HERE
+    // PUT YOUR FIREBASE CONFIG HERE
     let firebaseConfig = {
-      apiKey: "AIzaSyB-RA2Pdoea4SsxULDrqtUe1ra1bl0Ze04",
-      authDomain: "svelte-rating.firebaseapp.com",
-      databaseURL: "https://svelte-rating.firebaseio.com",
-      projectId: "svelte-rating",
-      storageBucket: "svelte-rating.appspot.com",
-      messagingSenderId: "16447615457",
-      appId: "1:16447615457:web:92f40fcd143a53e619e2a0",
-      measurementId: "G-0KE9SFH36M"
+        apiKey: "AIzaSyB-RA2Pdoea4SsxULDrqtUe1ra1bl0Ze04",
+        authDomain: "svelte-rating.firebaseapp.com",
+        databaseURL: "https://svelte-rating.firebaseio.com",
+        projectId: "svelte-rating",
+        storageBucket: "svelte-rating.appspot.com",
+        messagingSenderId: "16447615457",
+        appId: "1:16447615457:web:92f40fcd143a53e619e2a0",
+        measurementId: "G-0KE9SFH36M"
     };
+
+    // ************************************************
+    // STOP. DON'T CHANGE ANYTHING BELOW THIS LINE
+    // ************************************************
+
+    let url;
+    let m;
 
     // firebase info (export for use elsewhere in app)
     index_cjs$4.initializeApp(firebaseConfig);
@@ -23070,176 +23099,45 @@ var app = (function () {
     const auth = index_cjs$4.auth();
     const serverTime = index_cjs$4.firestore.Timestamp.now();
 
-    // stimulus information
-    // PUT YOUR STIMULUS INFORMATION HERE
-    // switch commenting to shift to NES
-    // export const experiment = "NES";
-    // export const userGroup = "test users";
-    // export const movieNames = ["1sec:day", "aerial", "burgers", "biking", "cookies", "family",
-    //                         "farewell", "ingrid", "lasagna", "nature", "newsroom", "ramen", 
-    //                         "romance", "russian circus", "salad", "sexual", "singing girl", 
-    //                         "skiing", "sky surfing", "soccer", "social kindness", "syrian", 
-    //                         "the present", "woman dancing"];
-
-    const experiment = "Moth";
-    const userGroup = "mturk users";
-    const movieNames = ["BestOfTimes", "CopsDontCry", "FindingHome", "FirstDayYankees", 
-                              "GMarksTheSpot", "Mortified", "StrangerBonding", "ThisIsGoingToSuck", 
-                              "UnexpectedTwist"];
-
-    // export const movieNames = ["ingrid", "biking", "burgers", "aerial", "lasagna", "family", "farewell", "cookies", "ramen"];
-    const ratingTypes = ["afraid", "amused", "angry", "anxious", "bored", "disgusted",
-    						"frustrated", "happy", "hopeful", "inspired", "moved", "proud",
-                "relieved", "sad", "surprised", "uncomfortable"];
-    const numOptions = movieNames.length;
-
-
     // Functions to parse the URL to get workerID, hitID, and assignmentID
     const unescapeURL = (s) => decodeURIComponent(s.replace(/\+/g, '%20'));
     const getURLParams = () => {
-      const params = {};
-      // let url = "https://frosty-cori-c3ab26.netlify.app/?assignmentId=3LBXNTKX0SPM6W6FVK56LHJV9J69XH&hitId=3NRZ1LDP7W0UGUO7NPKNF845K88PZF&workerId=TESTID&turkSubmitTo=https%3A%2F%2Fworkersandbox.mturk.com";
-      // let m = url.match(/[\\?&]([^=]+)=([^&#]*)/g);
-      let url = window.location.href;
-      console.log("UTILS url: ", url);
-      let m = window.location.href.match(/[\\?&]([^=]+)=([^&#]*)/g);
-      // remove at some point
-      if (m) {
-        let i = 0;
-        while (i < m.length) {
-          const a = m[i].match(/.([^=]+)=(.*)/);
-          params[unescapeURL(a[1])] = unescapeURL(a[2]);
-          i += 1;
+        const params = {};
+
+        {
+            url = "https://demo.app/?assignmentId=TEST_ASSIGN&hitId=TEST_HIT&workerId=TEST_WORKER";
+            m = url.match(/[\\?&]([^=]+)=([^&#]*)/g);
         }
-      }
-      return params;
+        if (m) {
+            let i = 0;
+            while (i < m.length) {
+                const a = m[i].match(/.([^=]+)=(.*)/);
+                params[unescapeURL(a[1])] = unescapeURL(a[2]);
+                i += 1;
+            }
+        }
+        return params;
     };
 
     // Use those functions to get the window URL params and make them available throughout the app
     const params = getURLParams();
 
-    /* src/components/Loading.svelte generated by Svelte v3.18.1 */
-
-    const file = "src/components/Loading.svelte";
+    /* src/pages/Intro.svelte generated by Svelte v3.18.1 */
+    const file = "src/pages/Intro.svelte";
 
     function create_fragment(ctx) {
-    	let div2;
-    	let div0;
-    	let t;
-    	let div1;
-    	let h1;
-    	let current;
-    	const default_slot_template = /*$$slots*/ ctx[1].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[0], null);
-
-    	const block = {
-    		c: function create() {
-    			div2 = element("div");
-    			div0 = element("div");
-    			t = space();
-    			div1 = element("div");
-    			h1 = element("h1");
-    			if (default_slot) default_slot.c();
-    			attr_dev(div0, "class", "loader is-loading svelte-10ue5nm");
-    			add_location(div0, file, 27, 2, 467);
-    			attr_dev(h1, "class", "is-size-3");
-    			add_location(h1, file, 29, 4, 534);
-    			attr_dev(div1, "class", "loading-text svelte-10ue5nm");
-    			add_location(div1, file, 28, 2, 503);
-    			attr_dev(div2, "class", "loader-wrapper svelte-10ue5nm");
-    			add_location(div2, file, 26, 0, 436);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div2, anchor);
-    			append_dev(div2, div0);
-    			append_dev(div2, t);
-    			append_dev(div2, div1);
-    			append_dev(div1, h1);
-
-    			if (default_slot) {
-    				default_slot.m(h1, null);
-    			}
-
-    			current = true;
-    		},
-    		p: function update(ctx, [dirty]) {
-    			if (default_slot && default_slot.p && dirty & /*$$scope*/ 1) {
-    				default_slot.p(get_slot_context(default_slot_template, ctx, /*$$scope*/ ctx[0], null), get_slot_changes(default_slot_template, /*$$scope*/ ctx[0], dirty, null));
-    			}
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(default_slot, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(default_slot, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div2);
-    			if (default_slot) default_slot.d(detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    function instance($$self, $$props, $$invalidate) {
-    	let { $$slots = {}, $$scope } = $$props;
-
-    	$$self.$set = $$props => {
-    		if ("$$scope" in $$props) $$invalidate(0, $$scope = $$props.$$scope);
-    	};
-
-    	$$self.$capture_state = () => {
-    		return {};
-    	};
-
-    	$$self.$inject_state = $$props => {
-    		
-    	};
-
-    	return [$$scope, $$slots];
-    }
-
-    class Loading extends SvelteComponentDev {
-    	constructor(options) {
-    		super(options);
-    		init(this, options, instance, create_fragment, safe_not_equal, {});
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "Loading",
-    			options,
-    			id: create_fragment.name
-    		});
-    	}
-    }
-
-    /* src/pages/Intro.svelte generated by Svelte v3.18.1 */
-    const file$1 = "src/pages/Intro.svelte";
-
-    function create_fragment$1(ctx) {
     	let div1;
     	let h1;
     	let t1;
     	let div0;
-    	let p;
-    	let t3;
+    	let p0;
+    	let t7;
+    	let p1;
+    	let t11;
+    	let p2;
+    	let t13;
     	let br;
-    	let t4;
+    	let t14;
     	let button;
     	let dispose;
 
@@ -23250,22 +23148,30 @@ var app = (function () {
     			h1.textContent = "Thank you for accepting this HIT!";
     			t1 = space();
     			div0 = element("div");
-    			p = element("p");
-    			p.textContent = "By clicking the button below, you will be taken to the experiment, \n        including complete instructions and an informed consent agreement.";
-    			t3 = space();
+    			p0 = element("p");
+    			p0.textContent = `You are given ${totalHITTime} minutes to complete this HIT, but it should only take about ${estHITTime}.`;
+    			t7 = space();
+    			p1 = element("p");
+    			p1.textContent = `This HIT pays \$${HITPay}.`;
+    			t11 = space();
+    			p2 = element("p");
+    			p2.textContent = "By clicking the button below, you will be taken to the experiment, \n        including complete instructions and an informed consent agreement.";
+    			t13 = space();
     			br = element("br");
-    			t4 = space();
+    			t14 = space();
     			button = element("button");
     			button.textContent = "Go To Experiment";
-    			add_location(h1, file$1, 34, 4, 578);
-    			add_location(p, file$1, 36, 8, 656);
-    			attr_dev(div0, "class", "text-box svelte-ns4k76");
-    			add_location(div0, file$1, 35, 4, 625);
-    			add_location(br, file$1, 39, 4, 821);
-    			attr_dev(button, "class", "svelte-ns4k76");
-    			add_location(button, file$1, 40, 4, 830);
-    			attr_dev(div1, "class", "container svelte-ns4k76");
-    			add_location(div1, file$1, 33, 0, 550);
+    			add_location(h1, file, 35, 4, 765);
+    			add_location(p0, file, 37, 8, 843);
+    			add_location(p1, file, 38, 8, 961);
+    			add_location(p2, file, 39, 8, 1001);
+    			attr_dev(div0, "class", "text-box svelte-quolgx");
+    			add_location(div0, file, 36, 4, 812);
+    			add_location(br, file, 42, 4, 1166);
+    			attr_dev(button, "class", "svelte-quolgx");
+    			add_location(button, file, 43, 4, 1175);
+    			attr_dev(div1, "class", "container svelte-quolgx");
+    			add_location(div1, file, 34, 0, 737);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23275,10 +23181,14 @@ var app = (function () {
     			append_dev(div1, h1);
     			append_dev(div1, t1);
     			append_dev(div1, div0);
-    			append_dev(div0, p);
-    			append_dev(div1, t3);
+    			append_dev(div0, p0);
+    			append_dev(div0, t7);
+    			append_dev(div0, p1);
+    			append_dev(div0, t11);
+    			append_dev(div0, p2);
+    			append_dev(div1, t13);
     			append_dev(div1, br);
-    			append_dev(div1, t4);
+    			append_dev(div1, t14);
     			append_dev(div1, button);
     			dispose = listen_dev(button, "click", /*handleClick*/ ctx[0], false, false, false);
     		},
@@ -23293,7 +23203,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$1.name,
+    		id: create_fragment.name,
     		type: "component",
     		source: "",
     		ctx
@@ -23302,12 +23212,14 @@ var app = (function () {
     	return block;
     }
 
-    function instance$1($$self) {
+    function instance($$self) {
     	const dispatch = createEventDispatcher();
 
     	function handleClick() {
     		dispatch("finished");
     	}
+
+    	
 
     	$$self.$capture_state = () => {
     		return {};
@@ -23323,21 +23235,21 @@ var app = (function () {
     class Intro extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
+    		init(this, options, instance, create_fragment, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Intro",
     			options,
-    			id: create_fragment$1.name
+    			id: create_fragment.name
     		});
     	}
     }
 
     /* src/pages/Botcheck.svelte generated by Svelte v3.18.1 */
-    const file$2 = "src/pages/Botcheck.svelte";
+    const file$1 = "src/pages/Botcheck.svelte";
 
-    // (85:37) 
+    // (87:37) 
     function create_if_block_2(ctx) {
     	let p;
     	let t0;
@@ -23349,8 +23261,8 @@ var app = (function () {
     			t0 = text("Sorry, too many incorrect answers were entered. ");
     			strong = element("strong");
     			strong.textContent = "This trial will not continue.";
-    			add_location(strong, file$2, 85, 53, 1925);
-    			add_location(p, file$2, 85, 2, 1874);
+    			add_location(strong, file$1, 87, 53, 2116);
+    			add_location(p, file$1, 87, 2, 2065);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -23367,14 +23279,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(85:37) ",
+    		source: "(87:37) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (82:40) 
+    // (84:40) 
     function create_if_block_1(ctx) {
     	let p;
     	let t1;
@@ -23388,9 +23300,9 @@ var app = (function () {
     			t1 = space();
     			button = element("button");
     			button.textContent = "Try again";
-    			add_location(p, file$2, 82, 2, 1702);
+    			add_location(p, file$1, 84, 2, 1893);
     			attr_dev(button, "class", "button svelte-194c2yw");
-    			add_location(button, file$2, 83, 2, 1769);
+    			add_location(button, file$1, 85, 2, 1960);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -23411,14 +23323,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(82:40) ",
+    		source: "(84:40) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (72:1) {#if currentState === 'bot check'}
+    // (74:1) {#if currentState === 'bot check'}
     function create_if_block(ctx) {
     	let div;
     	let p;
@@ -23459,17 +23371,17 @@ var app = (function () {
     			t6 = space();
     			button = element("button");
     			button.textContent = "Continue";
-    			add_location(strong0, file$2, 74, 42, 1378);
-    			add_location(strong1, file$2, 75, 9, 1421);
-    			add_location(p, file$2, 73, 3, 1332);
+    			add_location(strong0, file$1, 76, 42, 1569);
+    			add_location(strong1, file$1, 77, 9, 1612);
+    			add_location(p, file$1, 75, 3, 1523);
     			attr_dev(input, "type", "number");
     			attr_dev(input, "id", "number");
     			attr_dev(input, "name", "number");
-    			add_location(input, file$2, 77, 3, 1507);
+    			add_location(input, file$1, 79, 3, 1698);
     			attr_dev(button, "class", "button svelte-194c2yw");
-    			add_location(button, file$2, 78, 6, 1582);
+    			add_location(button, file$1, 80, 6, 1773);
     			attr_dev(div, "class", "bot-box svelte-194c2yw");
-    			add_location(div, file$2, 72, 3, 1307);
+    			add_location(div, file$1, 74, 3, 1498);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -23512,14 +23424,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(72:1) {#if currentState === 'bot check'}",
+    		source: "(74:1) {#if currentState === 'bot check'}",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$2(ctx) {
+    function create_fragment$1(ctx) {
     	let div;
     	let h1;
     	let t1;
@@ -23540,9 +23452,9 @@ var app = (function () {
     			h1.textContent = "Bot check!";
     			t1 = space();
     			if (if_block) if_block.c();
-    			add_location(h1, file$2, 70, 1, 1248);
+    			add_location(h1, file$1, 72, 1, 1439);
     			attr_dev(div, "class", "container svelte-194c2yw");
-    			add_location(div, file$2, 69, 0, 1223);
+    			add_location(div, file$1, 71, 0, 1414);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23579,7 +23491,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$2.name,
+    		id: create_fragment$1.name,
     		type: "component",
     		source: "",
     		ctx
@@ -23588,7 +23500,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$2($$self, $$props, $$invalidate) {
+    function instance$1($$self, $$props, $$invalidate) {
     	const dispatch = createEventDispatcher();
     	let answer;
     	let numerals = [1, 2, 3, 4];
@@ -23599,21 +23511,26 @@ var app = (function () {
     	let numId1 = Math.floor(Math.random() * words.length);
     	let numId2 = Math.floor(Math.random() * words.length);
 
+    	// checks answer against ground truth
     	function handleSubmit() {
+    		// success!
     		if (answer == numerals[numId1] + numerals[numId2]) {
     			dispatch("finished");
-    		} else if (attemptCounter < numAttempts) {
+    		} else // incorrect; try again
+    		if (attemptCounter < numAttempts) {
     			$$invalidate(0, answer = null);
     			attemptCounter += 1;
     			$$invalidate(2, numId1 = Math.floor(Math.random() * words.length));
     			$$invalidate(3, numId2 = Math.floor(Math.random() * words.length));
     			$$invalidate(1, currentState = "try again");
-    		} else {
+    		} else // failure
+    		{
     			$$invalidate(1, currentState = "failed");
     			dispatch("failed");
     		}
     	}
 
+    	// returns to bot check if previous attempt failed
     	function handleClick() {
     		$$invalidate(1, currentState = "bot check");
     	}
@@ -23657,21 +23574,21 @@ var app = (function () {
     class Botcheck extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Botcheck",
     			options,
-    			id: create_fragment$2.name
+    			id: create_fragment$1.name
     		});
     	}
     }
 
     /* src/pages/Consent.svelte generated by Svelte v3.18.1 */
-    const file$3 = "src/pages/Consent.svelte";
+    const file$2 = "src/pages/Consent.svelte";
 
-    // (53:4) {:else}
+    // (54:4) {:else}
     function create_else_block(ctx) {
     	let h1;
     	let t1;
@@ -23682,19 +23599,26 @@ var app = (function () {
     	let p1;
     	let t5;
     	let p2;
-    	let t7;
+    	let t11;
     	let p3;
-    	let t9;
+    	let t15;
     	let p4;
-    	let t10;
-    	let a;
-    	let t12;
-    	let p5;
-    	let t14;
-    	let h2;
     	let t16;
-    	let button0;
+    	let a0;
+    	let t17;
+    	let a0_href_value;
     	let t18;
+    	let a1;
+    	let t19;
+    	let a1_href_value;
+    	let t20;
+    	let t21;
+    	let p5;
+    	let t23;
+    	let h2;
+    	let t25;
+    	let button0;
+    	let t27;
     	let button1;
     	let dispose;
 
@@ -23712,45 +23636,51 @@ var app = (function () {
     			p1.textContent = "Please read the following material that explains this research study. \n            We want you to understand what you are being asked to do and what risks and benefits \n            --if any-- are associated with the study. Consent with this form will indicate that \n            you have been informed about the study and that you want to participate.";
     			t5 = space();
     			p2 = element("p");
-    			p2.textContent = "This project is being conducted by researchers from the department of Psychological and \n            Brain Sciences at Dartmouth College, Hanover, NH, USA. This study aims to understand how individuals \n            experience different feelings in response to narratives.";
-    			t7 = space();
+    			p2.textContent = `This project is being conducted by researchers from ${studyLocation}. This study aims ${studyAim}.`;
+    			t11 = space();
     			p3 = element("p");
-    			p3.textContent = "Your participation is voluntary. Participation involves periodically making behavioral judgments \n            about how you are feeling in response to video/audio clips, pictures, and text excerpts. The \n            clips will be from public radio, primetime television, or YouTube.";
-    			t9 = space();
+    			p3.textContent = `Your participation is voluntary. Participation involves ${studyTasks}.`;
+    			t15 = space();
     			p4 = element("p");
-    			t10 = text("If you decide to take part in this study, you may be asked to view a variety of media that \n            vary in emotional content. If any of the media presented should make you feel too uncomfortable to \n            continue with the study, you are free to immediately withdraw your participation without giving up payment. \n            To be clear: you may immediately end your participation if any aspect of the research procedure makes you \n            too uncomfortable to continue. Lastly, if you have any discomfort or concerns after viewing the media, you \n            are encouraged to contact the principal investigator at ");
-    			a = element("a");
-    			a.textContent = "cosanlab@gmail.com";
-    			t12 = space();
+    			t16 = text("If you decide to take part in this study, you may be asked to view a variety of media that \n            vary in emotional content. If any of the media presented should make you feel too uncomfortable to \n            continue with the study, you are free to immediately withdraw your participation without giving up payment\n            (send us an email ");
+    			a0 = element("a");
+    			t17 = text("here");
+    			t18 = text(" after withdrawing for payment information).\n            To be clear: you may immediately end your participation if any aspect of the research procedure makes you \n            too uncomfortable to continue. Lastly, if you have any discomfort or concerns after viewing the media, you \n            are also encouraged to contact the principal investigator ");
+    			a1 = element("a");
+    			t19 = text("here");
+    			t20 = text(".");
+    			t21 = space();
     			p5 = element("p");
     			p5.textContent = "The information collected will be anonymous and no identifying information will be stored with the \n            data collected during the experiment. Identifying information will not be used in any presentation or \n            paper written about this project and such presentations will represent the aggregation of data from groups of people.";
-    			t14 = space();
+    			t23 = space();
     			h2 = element("h2");
     			h2.textContent = "Do you understand and consent to these terms?";
-    			t16 = space();
+    			t25 = space();
     			button0 = element("button");
     			button0.textContent = "I agree";
-    			t18 = space();
+    			t27 = space();
     			button1 = element("button");
     			button1.textContent = "No thanks, I do not want to do this HIT";
-    			add_location(h1, file$3, 53, 8, 864);
-    			add_location(strong, file$3, 54, 11, 916);
-    			add_location(p0, file$3, 54, 8, 913);
-    			attr_dev(p1, "class", "intro svelte-4ye1bm");
-    			add_location(p1, file$3, 56, 12, 1036);
-    			add_location(p2, file$3, 61, 12, 1421);
-    			add_location(p3, file$3, 65, 12, 1713);
-    			attr_dev(a, "href", "mailto:cosanlab@gmail.com");
-    			add_location(a, file$3, 74, 68, 2651);
-    			add_location(p4, file$3, 69, 12, 2016);
-    			add_location(p5, file$3, 76, 12, 2727);
-    			attr_dev(div, "class", "consent-box svelte-4ye1bm");
-    			add_location(div, file$3, 55, 8, 998);
-    			add_location(h2, file$3, 81, 8, 3103);
-    			attr_dev(button0, "class", "yes svelte-4ye1bm");
-    			add_location(button0, file$3, 83, 8, 3167);
-    			attr_dev(button1, "class", "no svelte-4ye1bm");
-    			add_location(button1, file$3, 84, 8, 3233);
+    			add_location(h1, file$2, 54, 8, 1113);
+    			add_location(strong, file$2, 55, 11, 1165);
+    			add_location(p0, file$2, 55, 8, 1162);
+    			attr_dev(p1, "class", "intro svelte-1s8xf02");
+    			add_location(p1, file$2, 57, 12, 1285);
+    			add_location(p2, file$2, 62, 12, 1670);
+    			add_location(p3, file$2, 64, 12, 1787);
+    			attr_dev(a0, "href", a0_href_value = "mailto:" + email);
+    			add_location(a0, file$2, 69, 30, 2233);
+    			attr_dev(a1, "href", a1_href_value = "mailto:" + email);
+    			add_location(a1, file$2, 72, 70, 2620);
+    			add_location(p4, file$2, 66, 12, 1877);
+    			add_location(p5, file$2, 74, 12, 2672);
+    			attr_dev(div, "class", "consent-box svelte-1s8xf02");
+    			add_location(div, file$2, 56, 8, 1247);
+    			add_location(h2, file$2, 79, 8, 3048);
+    			attr_dev(button0, "class", "yes svelte-1s8xf02");
+    			add_location(button0, file$2, 81, 8, 3112);
+    			attr_dev(button1, "class", "no svelte-1s8xf02");
+    			add_location(button1, file$2, 82, 8, 3178);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h1, anchor);
@@ -23762,19 +23692,24 @@ var app = (function () {
     			append_dev(div, p1);
     			append_dev(div, t5);
     			append_dev(div, p2);
-    			append_dev(div, t7);
+    			append_dev(div, t11);
     			append_dev(div, p3);
-    			append_dev(div, t9);
+    			append_dev(div, t15);
     			append_dev(div, p4);
-    			append_dev(p4, t10);
-    			append_dev(p4, a);
-    			append_dev(div, t12);
+    			append_dev(p4, t16);
+    			append_dev(p4, a0);
+    			append_dev(a0, t17);
+    			append_dev(p4, t18);
+    			append_dev(p4, a1);
+    			append_dev(a1, t19);
+    			append_dev(p4, t20);
+    			append_dev(div, t21);
     			append_dev(div, p5);
-    			insert_dev(target, t14, anchor);
+    			insert_dev(target, t23, anchor);
     			insert_dev(target, h2, anchor);
-    			insert_dev(target, t16, anchor);
+    			insert_dev(target, t25, anchor);
     			insert_dev(target, button0, anchor);
-    			insert_dev(target, t18, anchor);
+    			insert_dev(target, t27, anchor);
     			insert_dev(target, button1, anchor);
 
     			dispose = [
@@ -23789,11 +23724,11 @@ var app = (function () {
     			if (detaching) detach_dev(p0);
     			if (detaching) detach_dev(t3);
     			if (detaching) detach_dev(div);
-    			if (detaching) detach_dev(t14);
+    			if (detaching) detach_dev(t23);
     			if (detaching) detach_dev(h2);
-    			if (detaching) detach_dev(t16);
+    			if (detaching) detach_dev(t25);
     			if (detaching) detach_dev(button0);
-    			if (detaching) detach_dev(t18);
+    			if (detaching) detach_dev(t27);
     			if (detaching) detach_dev(button1);
     			run_all(dispose);
     		}
@@ -23803,14 +23738,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(53:4) {:else}",
+    		source: "(54:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (51:4) {#if consentRejected}
+    // (52:4) {#if consentRejected}
     function create_if_block$1(ctx) {
     	let p;
 
@@ -23818,7 +23753,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Thank you for your time. You may exit the page.";
-    			add_location(p, file$3, 51, 8, 789);
+    			add_location(p, file$2, 52, 8, 1038);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -23833,14 +23768,14 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(51:4) {#if consentRejected}",
+    		source: "(52:4) {#if consentRejected}",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$3(ctx) {
+    function create_fragment$2(ctx) {
     	let div;
 
     	function select_block_type(ctx, dirty) {
@@ -23855,8 +23790,8 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			if_block.c();
-    			attr_dev(div, "class", "container svelte-4ye1bm");
-    			add_location(div, file$3, 49, 0, 731);
+    			attr_dev(div, "class", "container svelte-1s8xf02");
+    			add_location(div, file$2, 50, 0, 980);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23888,7 +23823,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$3.name,
+    		id: create_fragment$2.name,
     		type: "component",
     		source: "",
     		ctx
@@ -23897,7 +23832,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$3($$self, $$props, $$invalidate) {
+    function instance$2($$self, $$props, $$invalidate) {
     	const dispatch = createEventDispatcher();
     	let consentRejected = false;
 
@@ -23905,10 +23840,14 @@ var app = (function () {
     		dispatch("finished");
     	}
 
+    	
+
     	function handleNo() {
     		$$invalidate(0, consentRejected = true);
     		dispatch("return");
     	}
+
+    	
 
     	$$self.$capture_state = () => {
     		return {};
@@ -23924,21 +23863,21 @@ var app = (function () {
     class Consent extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
+    		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Consent",
     			options,
-    			id: create_fragment$3.name
+    			id: create_fragment$2.name
     		});
     	}
     }
 
     /* src/pages/Instructions1.svelte generated by Svelte v3.18.1 */
-    const file$4 = "src/pages/Instructions1.svelte";
+    const file$3 = "src/pages/Instructions1.svelte";
 
-    // (75:4) {:else}
+    // (76:4) {:else}
     function create_else_block$1(ctx) {
     	let span;
     	let t;
@@ -23950,9 +23889,9 @@ var app = (function () {
     			t = text("Next\n        ");
     			i = element("i");
     			attr_dev(i, "class", "fas fa-forward");
-    			add_location(i, file$4, 77, 8, 2447);
+    			add_location(i, file$3, 78, 8, 2506);
     			attr_dev(span, "class", "icon");
-    			add_location(span, file$4, 75, 6, 2406);
+    			add_location(span, file$3, 76, 6, 2465);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -23968,14 +23907,14 @@ var app = (function () {
     		block,
     		id: create_else_block$1.name,
     		type: "else",
-    		source: "(75:4) {:else}",
+    		source: "(76:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (73:4) {#if currentPage === instructions.length - 1}
+    // (74:4) {#if currentPage === instructions.length - 1}
     function create_if_block$2(ctx) {
     	let t;
 
@@ -23995,14 +23934,14 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(73:4) {#if currentPage === instructions.length - 1}",
+    		source: "(74:4) {#if currentPage === instructions.length - 1}",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$4(ctx) {
+    function create_fragment$3(ctx) {
     	let div2;
     	let h1;
     	let t1;
@@ -24036,16 +23975,16 @@ var app = (function () {
     			t3 = space();
     			button = element("button");
     			if_block.c();
-    			add_location(h1, file$4, 64, 2, 2115);
+    			add_location(h1, file$3, 65, 2, 2174);
     			attr_dev(div0, "class", "content");
-    			add_location(div0, file$4, 66, 4, 2168);
+    			add_location(div0, file$3, 67, 4, 2227);
     			attr_dev(div1, "class", "text-box svelte-eg0ztp");
-    			add_location(div1, file$4, 65, 2, 2141);
-    			add_location(br, file$4, 70, 2, 2252);
+    			add_location(div1, file$3, 66, 2, 2200);
+    			add_location(br, file$3, 71, 2, 2311);
     			attr_dev(button, "class", "button is-link controls svelte-eg0ztp");
-    			add_location(button, file$4, 71, 2, 2259);
+    			add_location(button, file$3, 72, 2, 2318);
     			attr_dev(div2, "class", "container svelte-eg0ztp");
-    			add_location(div2, file$4, 63, 0, 2089);
+    			add_location(div2, file$3, 64, 0, 2148);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24087,7 +24026,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$4.name,
+    		id: create_fragment$3.name,
     		type: "component",
     		source: "",
     		ctx
@@ -24096,12 +24035,12 @@ var app = (function () {
     	return block;
     }
 
-    function instance$4($$self, $$props, $$invalidate) {
+    function instance$3($$self, $$props, $$invalidate) {
     	let { ratingType } = $$props;
     	let { numOptions } = $$props;
 
     	// Add/remove items here to create more instructions pages
-    	const ratingInstruct = "In this task, you will watch a short video (~2-5 min), provide continuous ratings related to that video, and answer a series of follow-up questions. <br><br> Specifically, you will rate how <strong>" + ratingType + "</strong> a video makes you feel by using your keyboard to control a rating box, which is demoed on the next page. <br><br> You may redo this HIT up to " + numOptions + " times (you will be provided with a different video each time). ";
+    	const ratingInstruct = "In this task, you will watch a short video, provide ratings related to that video continuously as you watch, and answer a series of follow-up questions. <br><br> Specifically, you will rate how <strong>" + ratingType + "</strong> a video makes you feel by using your keyboard to control a rating box (which is demoed on the next page) throughout the video. <br><br> You may redo this HIT up to " + numOptions + " more times (you are provided with a different video each time). ";
 
     	const instructions = [ratingInstruct];
     	const dispatch = createEventDispatcher();
@@ -24138,13 +24077,13 @@ var app = (function () {
     class Instructions1 extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$4, create_fragment$4, safe_not_equal, { ratingType: 3, numOptions: 4 });
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { ratingType: 3, numOptions: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Instructions1",
     			options,
-    			id: create_fragment$4.name
+    			id: create_fragment$3.name
     		});
 
     		const { ctx } = this.$$;
@@ -24177,9 +24116,9 @@ var app = (function () {
     }
 
     /* src/pages/Instructions2.svelte generated by Svelte v3.18.1 */
-    const file$5 = "src/pages/Instructions2.svelte";
+    const file$4 = "src/pages/Instructions2.svelte";
 
-    // (65:4) {:else}
+    // (67:4) {:else}
     function create_else_block$2(ctx) {
     	let t;
 
@@ -24199,14 +24138,14 @@ var app = (function () {
     		block,
     		id: create_else_block$2.name,
     		type: "else",
-    		source: "(65:4) {:else}",
+    		source: "(67:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (63:4) {#if currentPage === instructions.length - 1}
+    // (65:4) {#if currentPage === instructions.length - 1}
     function create_if_block$3(ctx) {
     	let t;
 
@@ -24226,14 +24165,14 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(63:4) {#if currentPage === instructions.length - 1}",
+    		source: "(65:4) {#if currentPage === instructions.length - 1}",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$5(ctx) {
+    function create_fragment$4(ctx) {
     	let div2;
     	let h1;
     	let t1;
@@ -24272,18 +24211,18 @@ var app = (function () {
     			t5 = space();
     			button1 = element("button");
     			if_block.c();
-    			add_location(h1, file$5, 53, 2, 1613);
+    			add_location(h1, file$4, 55, 2, 1647);
     			attr_dev(div0, "class", "content");
-    			add_location(div0, file$5, 55, 4, 1665);
+    			add_location(div0, file$4, 57, 4, 1699);
     			attr_dev(div1, "class", "text-box svelte-w8dn9e");
-    			add_location(div1, file$5, 54, 2, 1638);
-    			add_location(br, file$5, 59, 2, 1749);
+    			add_location(div1, file$4, 56, 2, 1672);
+    			add_location(br, file$4, 61, 2, 1783);
     			attr_dev(button0, "class", "back svelte-w8dn9e");
-    			add_location(button0, file$5, 60, 2, 1756);
+    			add_location(button0, file$4, 62, 2, 1790);
     			attr_dev(button1, "class", "next svelte-w8dn9e");
-    			add_location(button1, file$5, 61, 2, 1813);
+    			add_location(button1, file$4, 63, 2, 1847);
     			attr_dev(div2, "class", "container svelte-w8dn9e");
-    			add_location(div2, file$5, 52, 0, 1587);
+    			add_location(div2, file$4, 54, 0, 1621);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24331,7 +24270,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$5.name,
+    		id: create_fragment$4.name,
     		type: "component",
     		source: "",
     		ctx
@@ -24340,7 +24279,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$5($$self, $$props, $$invalidate) {
+    function instance$4($$self, $$props, $$invalidate) {
     	const instructions = [
     		"If these instructions make sense and you would like to begin, click the button below to proceed to the task. Otherwise please return this HIT."
     	];
@@ -24376,28 +24315,28 @@ var app = (function () {
     class Instructions2 extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$5, create_fragment$5, safe_not_equal, {});
+    		init(this, options, instance$4, create_fragment$4, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Instructions2",
     			options,
-    			id: create_fragment$5.name
+    			id: create_fragment$4.name
     		});
     	}
     }
 
     /* src/RatingBox.svelte generated by Svelte v3.18.1 */
-    const file$6 = "src/RatingBox.svelte";
+    const file$5 = "src/RatingBox.svelte";
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[18] = list[i];
-    	child_ctx[20] = i;
+    	child_ctx[19] = list[i];
+    	child_ctx[21] = i;
     	return child_ctx;
     }
 
-    // (158:12) {#if i < n - 1}
+    // (169:12) {#if i < n - 1}
     function create_if_block$4(ctx) {
     	let circle;
     	let circle_cx_value;
@@ -24412,31 +24351,31 @@ var app = (function () {
     		c: function create() {
     			circle = svg_element("circle");
     			line = svg_element("line");
-    			attr_dev(circle, "cx", circle_cx_value = /*i*/ ctx[20] / /*n*/ ctx[4] * /*width*/ ctx[2]);
-    			attr_dev(circle, "cy", circle_cy_value = /*y*/ ctx[18] / 100 * /*height*/ ctx[3]);
+    			attr_dev(circle, "cx", circle_cx_value = /*i*/ ctx[21] / /*n*/ ctx[4] * /*width*/ ctx[2]);
+    			attr_dev(circle, "cy", circle_cy_value = /*y*/ ctx[19] / 100 * /*height*/ ctx[3]);
     			attr_dev(circle, "r", "1");
-    			add_location(circle, file$6, 158, 16, 4324);
-    			attr_dev(line, "x1", line_x__value = /*i*/ ctx[20] / /*n*/ ctx[4] * /*width*/ ctx[2]);
-    			attr_dev(line, "y1", line_y__value = /*y*/ ctx[18] / 100 * /*height*/ ctx[3]);
-    			attr_dev(line, "x2", line_x__value_1 = (/*i*/ ctx[20] + 1) / /*n*/ ctx[4] * /*width*/ ctx[2]);
-    			attr_dev(line, "y2", line_y__value_1 = /*numbers*/ ctx[1][/*i*/ ctx[20] + 1] / 100 * /*height*/ ctx[3]);
+    			add_location(circle, file$5, 169, 16, 4660);
+    			attr_dev(line, "x1", line_x__value = /*i*/ ctx[21] / /*n*/ ctx[4] * /*width*/ ctx[2]);
+    			attr_dev(line, "y1", line_y__value = /*y*/ ctx[19] / 100 * /*height*/ ctx[3]);
+    			attr_dev(line, "x2", line_x__value_1 = (/*i*/ ctx[21] + 1) / /*n*/ ctx[4] * /*width*/ ctx[2]);
+    			attr_dev(line, "y2", line_y__value_1 = /*numbers*/ ctx[1][/*i*/ ctx[21] + 1] / 100 * /*height*/ ctx[3]);
     			attr_dev(line, "class", "svelte-19sx4fd");
-    			add_location(line, file$6, 163, 16, 4481);
+    			add_location(line, file$5, 174, 16, 4817);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, circle, anchor);
     			insert_dev(target, line, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*numbers*/ 2 && circle_cy_value !== (circle_cy_value = /*y*/ ctx[18] / 100 * /*height*/ ctx[3])) {
+    			if (dirty & /*numbers*/ 2 && circle_cy_value !== (circle_cy_value = /*y*/ ctx[19] / 100 * /*height*/ ctx[3])) {
     				attr_dev(circle, "cy", circle_cy_value);
     			}
 
-    			if (dirty & /*numbers*/ 2 && line_y__value !== (line_y__value = /*y*/ ctx[18] / 100 * /*height*/ ctx[3])) {
+    			if (dirty & /*numbers*/ 2 && line_y__value !== (line_y__value = /*y*/ ctx[19] / 100 * /*height*/ ctx[3])) {
     				attr_dev(line, "y1", line_y__value);
     			}
 
-    			if (dirty & /*numbers*/ 2 && line_y__value_1 !== (line_y__value_1 = /*numbers*/ ctx[1][/*i*/ ctx[20] + 1] / 100 * /*height*/ ctx[3])) {
+    			if (dirty & /*numbers*/ 2 && line_y__value_1 !== (line_y__value_1 = /*numbers*/ ctx[1][/*i*/ ctx[21] + 1] / 100 * /*height*/ ctx[3])) {
     				attr_dev(line, "y2", line_y__value_1);
     			}
     		},
@@ -24450,17 +24389,17 @@ var app = (function () {
     		block,
     		id: create_if_block$4.name,
     		type: "if",
-    		source: "(158:12) {#if i < n - 1}",
+    		source: "(169:12) {#if i < n - 1}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (157:8) {#each numbers as y, i}
+    // (168:8) {#each numbers as y, i}
     function create_each_block(ctx) {
     	let if_block_anchor;
-    	let if_block = /*i*/ ctx[20] < /*n*/ ctx[4] - 1 && create_if_block$4(ctx);
+    	let if_block = /*i*/ ctx[21] < /*n*/ ctx[4] - 1 && create_if_block$4(ctx);
 
     	const block = {
     		c: function create() {
@@ -24472,7 +24411,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*i*/ ctx[20] < /*n*/ ctx[4] - 1) if_block.p(ctx, dirty);
+    			if (/*i*/ ctx[21] < /*n*/ ctx[4] - 1) if_block.p(ctx, dirty);
     		},
     		d: function destroy(detaching) {
     			if (if_block) if_block.d(detaching);
@@ -24484,14 +24423,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(157:8) {#each numbers as y, i}",
+    		source: "(168:8) {#each numbers as y, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$6(ctx) {
+    function create_fragment$5(ctx) {
     	let article;
     	let div0;
     	let t0;
@@ -24536,27 +24475,27 @@ var app = (function () {
     			t4 = text("Least ");
     			t5 = text(/*ratingType*/ ctx[0]);
     			attr_dev(div0, "class", "first-anchor svelte-19sx4fd");
-    			add_location(div0, file$6, 148, 4, 3963);
+    			add_location(div0, file$5, 159, 4, 4299);
     			attr_dev(line, "class", "reference svelte-19sx4fd");
     			attr_dev(line, "x1", "0");
     			attr_dev(line, "y1", line_y__value = /*height*/ ctx[3] / 2);
     			attr_dev(line, "x2", /*width*/ ctx[2]);
     			attr_dev(line, "y2", line_y__value_1 = /*height*/ ctx[3] / 2);
-    			add_location(line, file$6, 150, 9, 4117);
+    			add_location(line, file$5, 161, 9, 4453);
     			attr_dev(circle, "cx", "0");
     			attr_dev(circle, "cy", circle_cy_value = /*numbers*/ ctx[1][0] / 100 * /*height*/ ctx[3]);
     			attr_dev(circle, "r", "5");
-    			add_location(circle, file$6, 171, 8, 4735);
+    			add_location(circle, file$5, 182, 8, 5071);
     			attr_dev(svg, "viewBox", svg_viewBox_value = "0 0 " + /*width*/ ctx[2] + " " + /*height*/ ctx[3]);
     			attr_dev(svg, "preserveAspectRatio", "none");
     			attr_dev(svg, "width", "100%");
     			attr_dev(svg, "height", "100%");
     			attr_dev(svg, "class", "svelte-19sx4fd");
-    			add_location(svg, file$6, 149, 4, 4017);
+    			add_location(svg, file$5, 160, 4, 4353);
     			attr_dev(div1, "class", "last-anchor svelte-19sx4fd");
-    			add_location(div1, file$6, 173, 4, 4806);
+    			add_location(div1, file$5, 184, 4, 5142);
     			attr_dev(article, "class", "rating-box svelte-19sx4fd");
-    			add_location(article, file$6, 147, 0, 3930);
+    			add_location(article, file$5, 158, 0, 4266);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24628,7 +24567,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$6.name,
+    		id: create_fragment$5.name,
     		type: "component",
     		source: "",
     		ctx
@@ -24637,31 +24576,31 @@ var app = (function () {
     	return block;
     }
 
-    function instance$6($$self, $$props, $$invalidate) {
+    function instance$5($$self, $$props, $$invalidate) {
     	let { ratingType } = $$props;
     	let { rating } = $$props; // median value for ratings
     	let { pathway } = $$props;
     	let { time } = $$props; // used to create dict with timestamp and rating
     	let { paused } = $$props;
+    	let { ratingBoxUse = "actual" } = $$props;
     	let width = "800";
     	let height = "200";
     	let n = width; // number of points displayed in graphic
     	let ogStepSize = 2;
     	let stepAccel = 1.1;
     	let opacity = 0;
+    	let docRef;
 
     	// grabs reference for rating doc or creates it
-    	let docRef = db.doc(pathway);
+    	if (ratingBoxUse != "demo page") {
+    		docRef = db.doc(pathway);
+    		docRef.set({ 0: rating });
+    	}
 
-    	docRef.set({ 0: rating });
-
-    	// also consider rating = 250, ogSS = 2, stepAccel = 1.2
-    	// let scaleFactor = rating / 50;
     	let stepSize = ogStepSize;
-
     	let numbers = [];
 
-    	// Fills array with values
+    	// fills array with values
     	for (let i = 0; i < n; i++) {
     		numbers = [...numbers, rating];
     	}
@@ -24682,33 +24621,45 @@ var app = (function () {
     				$$invalidate(7, rating = Math.min(rating + stepSize, 100));
 
     				stepSize *= stepAccel;
-    				let dictTime = Math.round(time);
-    				let dictVal = Math.round(rating);
-    				docRef.update({ [dictTime]: dictVal });
+
+    				if (ratingBoxUse != "demo page") {
+    					let dictTime = Math.round(time);
+    					let dictVal = Math.round(rating);
+    					docRef.update({ [dictTime]: dictVal });
+    				}
     			} else if (e.keyCode === 40) {
     				// down arrow
     				$$invalidate(7, rating = Math.max(rating - stepSize, 0));
 
     				stepSize *= stepAccel;
-    				let dictTime = Math.round(time);
-    				let dictVal = Math.round(rating);
-    				docRef.update({ [dictTime]: dictVal });
+
+    				if (ratingBoxUse != "demo page") {
+    					let dictTime = Math.round(time);
+    					let dictVal = Math.round(rating);
+    					docRef.update({ [dictTime]: dictVal });
+    				}
     			} else if (e.keyCode === 87) {
     				// w key
     				$$invalidate(7, rating = 100);
 
     				stepSize = ogStepSize;
-    				let dictTime = Math.round(time);
-    				let dictVal = rating;
-    				docRef.update({ [dictTime]: dictVal });
+
+    				if (ratingBoxUse != "demo page") {
+    					let dictTime = Math.round(time);
+    					let dictVal = rating;
+    					docRef.update({ [dictTime]: dictVal });
+    				}
     			} else if (e.keyCode === 83) {
     				// down arrow
     				$$invalidate(7, rating = 0);
 
     				stepSize = ogStepSize;
-    				let dictTime = Math.round(time);
-    				let dictVal = rating;
-    				docRef.update({ [dictTime]: dictVal });
+
+    				if (ratingBoxUse != "demo page") {
+    					let dictTime = Math.round(time);
+    					let dictVal = rating;
+    					docRef.update({ [dictTime]: dictVal });
+    				}
     			}
     		}
     	};
@@ -24733,7 +24684,7 @@ var app = (function () {
     	};
 
     	requestAnimationFrame(animate);
-    	const writable_props = ["ratingType", "rating", "pathway", "time", "paused"];
+    	const writable_props = ["ratingType", "rating", "pathway", "time", "paused", "ratingBoxUse"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<RatingBox> was created with unknown prop '${key}'`);
@@ -24745,6 +24696,7 @@ var app = (function () {
     		if ("pathway" in $$props) $$invalidate(8, pathway = $$props.pathway);
     		if ("time" in $$props) $$invalidate(9, time = $$props.time);
     		if ("paused" in $$props) $$invalidate(10, paused = $$props.paused);
+    		if ("ratingBoxUse" in $$props) $$invalidate(11, ratingBoxUse = $$props.ratingBoxUse);
     	};
 
     	$$self.$capture_state = () => {
@@ -24754,6 +24706,7 @@ var app = (function () {
     			pathway,
     			time,
     			paused,
+    			ratingBoxUse,
     			width,
     			height,
     			n,
@@ -24772,6 +24725,7 @@ var app = (function () {
     		if ("pathway" in $$props) $$invalidate(8, pathway = $$props.pathway);
     		if ("time" in $$props) $$invalidate(9, time = $$props.time);
     		if ("paused" in $$props) $$invalidate(10, paused = $$props.paused);
+    		if ("ratingBoxUse" in $$props) $$invalidate(11, ratingBoxUse = $$props.ratingBoxUse);
     		if ("width" in $$props) $$invalidate(2, width = $$props.width);
     		if ("height" in $$props) $$invalidate(3, height = $$props.height);
     		if ("n" in $$props) $$invalidate(4, n = $$props.n);
@@ -24794,7 +24748,8 @@ var app = (function () {
     		rating,
     		pathway,
     		time,
-    		paused
+    		paused,
+    		ratingBoxUse
     	];
     }
 
@@ -24802,19 +24757,20 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$6, create_fragment$6, safe_not_equal, {
+    		init(this, options, instance$5, create_fragment$5, safe_not_equal, {
     			ratingType: 0,
     			rating: 7,
     			pathway: 8,
     			time: 9,
-    			paused: 10
+    			paused: 10,
+    			ratingBoxUse: 11
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "RatingBox",
     			options,
-    			id: create_fragment$6.name
+    			id: create_fragment$5.name
     		});
 
     		const { ctx } = this.$$;
@@ -24880,15 +24836,20 @@ var app = (function () {
     	set paused(value) {
     		throw new Error("<RatingBox>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
+
+    	get ratingBoxUse() {
+    		throw new Error("<RatingBox>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set ratingBoxUse(value) {
+    		throw new Error("<RatingBox>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
     }
 
     /* src/pages/Demo.svelte generated by Svelte v3.18.1 */
+    const file$6 = "src/pages/Demo.svelte";
 
-    const { console: console_1 } = globals;
-
-    const file$7 = "src/pages/Demo.svelte";
-
-    // (91:2) <RatingBox     pathway={pathway}    rating={rating}    bind:time={time}    paused={paused}    ratingType={ratingType}>
+    // (76:2) <RatingBox     pathway={pathway}    rating={rating}    bind:time={time}    paused={paused}    ratingType={ratingType}             ratingBoxUse='demo page'>
     function create_default_slot(ctx) {
     	const block = { c: noop, m: noop, d: noop };
 
@@ -24896,14 +24857,14 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(91:2) <RatingBox     pathway={pathway}    rating={rating}    bind:time={time}    paused={paused}    ratingType={ratingType}>",
+    		source: "(76:2) <RatingBox     pathway={pathway}    rating={rating}    bind:time={time}    paused={paused}    ratingType={ratingType}             ratingBoxUse='demo page'>",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$7(ctx) {
+    function create_fragment$6(ctx) {
     	let div3;
     	let h1;
     	let t1;
@@ -24949,6 +24910,7 @@ var app = (function () {
     		rating: /*rating*/ ctx[4],
     		paused: /*paused*/ ctx[3],
     		ratingType: /*ratingType*/ ctx[1],
+    		ratingBoxUse: "demo page",
     		$$slots: { default: [create_default_slot] },
     		$$scope: { ctx }
     	};
@@ -25003,34 +24965,34 @@ var app = (function () {
     			t21 = space();
     			button1 = element("button");
     			button1.textContent = "Next";
-    			attr_dev(h1, "class", "svelte-1lrjkmq");
-    			add_location(h1, file$7, 88, 1, 1373);
-    			attr_dev(div0, "class", "container svelte-1lrjkmq");
-    			add_location(div0, file$7, 89, 1, 1388);
-    			add_location(strong0, file$7, 101, 6, 1610);
-    			attr_dev(p0, "class", "svelte-1lrjkmq");
-    			add_location(p0, file$7, 101, 3, 1607);
-    			add_location(strong1, file$7, 102, 6, 1670);
-    			attr_dev(p1, "class", "svelte-1lrjkmq");
-    			add_location(p1, file$7, 102, 3, 1667);
-    			add_location(strong2, file$7, 103, 6, 1734);
-    			attr_dev(p2, "class", "svelte-1lrjkmq");
-    			add_location(p2, file$7, 103, 3, 1731);
-    			add_location(strong3, file$7, 104, 6, 1801);
-    			attr_dev(p3, "class", "svelte-1lrjkmq");
-    			add_location(p3, file$7, 104, 3, 1798);
-    			attr_dev(p4, "class", "svelte-1lrjkmq");
-    			add_location(p4, file$7, 105, 3, 1866);
-    			attr_dev(div1, "class", "keys svelte-1lrjkmq");
-    			add_location(div1, file$7, 100, 2, 1585);
-    			add_location(br, file$7, 107, 2, 1973);
-    			attr_dev(button0, "class", "back svelte-1lrjkmq");
-    			add_location(button0, file$7, 108, 2, 1980);
-    			attr_dev(button1, "class", "next svelte-1lrjkmq");
-    			add_location(button1, file$7, 109, 2, 2039);
-    			attr_dev(div2, "class", "key-box svelte-1lrjkmq");
-    			add_location(div2, file$7, 99, 1, 1561);
-    			add_location(div3, file$7, 87, 0, 1366);
+    			attr_dev(h1, "class", "svelte-15zfwy6");
+    			add_location(h1, file$6, 73, 1, 1404);
+    			attr_dev(div0, "class", "container svelte-15zfwy6");
+    			add_location(div0, file$6, 74, 1, 1419);
+    			add_location(strong0, file$6, 86, 6, 1674);
+    			attr_dev(p0, "class", "svelte-15zfwy6");
+    			add_location(p0, file$6, 86, 3, 1671);
+    			add_location(strong1, file$6, 87, 6, 1734);
+    			attr_dev(p1, "class", "svelte-15zfwy6");
+    			add_location(p1, file$6, 87, 3, 1731);
+    			add_location(strong2, file$6, 88, 6, 1798);
+    			attr_dev(p2, "class", "svelte-15zfwy6");
+    			add_location(p2, file$6, 88, 3, 1795);
+    			add_location(strong3, file$6, 89, 6, 1865);
+    			attr_dev(p3, "class", "svelte-15zfwy6");
+    			add_location(p3, file$6, 89, 3, 1862);
+    			attr_dev(p4, "class", "svelte-15zfwy6");
+    			add_location(p4, file$6, 90, 3, 1930);
+    			attr_dev(div1, "class", "keys svelte-15zfwy6");
+    			add_location(div1, file$6, 85, 2, 1649);
+    			add_location(br, file$6, 92, 2, 2037);
+    			attr_dev(button0, "class", "back svelte-15zfwy6");
+    			add_location(button0, file$6, 93, 2, 2044);
+    			attr_dev(button1, "class", "next svelte-15zfwy6");
+    			add_location(button1, file$6, 94, 2, 2103);
+    			attr_dev(div2, "class", "key-box svelte-15zfwy6");
+    			add_location(div2, file$6, 84, 1, 1625);
+    			add_location(div3, file$6, 72, 0, 1397);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -25112,7 +25074,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$7.name,
+    		id: create_fragment$6.name,
     		type: "component",
     		source: "",
     		ctx
@@ -25121,7 +25083,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$7($$self, $$props, $$invalidate) {
+    function instance$6($$self, $$props, $$invalidate) {
     	const dispatch = createEventDispatcher();
     	let { time = 0 } = $$props;
     	let { ratingType } = $$props;
@@ -25140,11 +25102,10 @@ var app = (function () {
     	}
 
     	
-    	console.log("yep");
     	const writable_props = ["time", "ratingType"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<Demo> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Demo> was created with unknown prop '${key}'`);
     	});
 
     	function ratingbox_time_binding(value) {
@@ -25191,20 +25152,20 @@ var app = (function () {
     class Demo extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$7, create_fragment$7, safe_not_equal, { time: 0, ratingType: 1 });
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { time: 0, ratingType: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Demo",
     			options,
-    			id: create_fragment$7.name
+    			id: create_fragment$6.name
     		});
 
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
     		if (/*ratingType*/ ctx[1] === undefined && !("ratingType" in props)) {
-    			console_1.warn("<Demo> was created without expected prop 'ratingType'");
+    			console.warn("<Demo> was created without expected prop 'ratingType'");
     		}
     	}
 
@@ -25228,9 +25189,9 @@ var app = (function () {
     /* src/CustomVideo.svelte generated by Svelte v3.18.1 */
 
     const { isNaN: isNaN_1 } = globals;
-    const file$8 = "src/CustomVideo.svelte";
+    const file$7 = "src/CustomVideo.svelte";
 
-    function create_fragment$8(ctx) {
+    function create_fragment$7(ctx) {
     	let div2;
     	let video;
     	let video_src_value;
@@ -25291,24 +25252,24 @@ var app = (function () {
     			attr_dev(video, "preload", "auto");
     			attr_dev(video, "class", "svelte-7z3lmg");
     			if (/*duration*/ ctx[2] === void 0) add_render_callback(() => /*video_durationchange_handler*/ ctx[11].call(video));
-    			add_location(video, file$8, 136, 1, 2496);
+    			add_location(video, file$7, 130, 1, 2508);
     			progress.value = progress_value_value = /*time*/ ctx[0] / /*duration*/ ctx[2] || 0;
     			attr_dev(progress, "class", "svelte-7z3lmg");
-    			add_location(progress, file$8, 147, 2, 2780);
+    			add_location(progress, file$7, 141, 2, 2792);
     			attr_dev(span0, "class", "time svelte-7z3lmg");
-    			add_location(span0, file$8, 149, 3, 2849);
+    			add_location(span0, file$7, 143, 3, 2861);
     			attr_dev(span1, "id", "instruction_text");
     			attr_dev(span1, "class", "svelte-7z3lmg");
-    			add_location(span1, file$8, 150, 3, 2893);
+    			add_location(span1, file$7, 144, 3, 2905);
     			attr_dev(span2, "class", "time svelte-7z3lmg");
-    			add_location(span2, file$8, 151, 3, 2974);
+    			add_location(span2, file$7, 145, 3, 2986);
     			attr_dev(div0, "class", "info svelte-7z3lmg");
-    			add_location(div0, file$8, 148, 2, 2827);
+    			add_location(div0, file$7, 142, 2, 2839);
     			attr_dev(div1, "class", "controls svelte-7z3lmg");
     			set_style(div1, "opacity", /*duration*/ ctx[2] && /*showControls*/ ctx[4] ? 1 : 0);
-    			add_location(div1, file$8, 146, 1, 2703);
+    			add_location(div1, file$7, 140, 1, 2715);
     			attr_dev(div2, "class", "video_cont svelte-7z3lmg");
-    			add_location(div2, file$8, 135, 0, 2470);
+    			add_location(div2, file$7, 129, 0, 2482);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -25378,7 +25339,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$8.name,
+    		id: create_fragment$7.name,
     		type: "component",
     		source: "",
     		ctx
@@ -25395,7 +25356,7 @@ var app = (function () {
     	return `${minutes}:${seconds}`;
     }
 
-    function instance$8($$self, $$props, $$invalidate) {
+    function instance$7($$self, $$props, $$invalidate) {
     	const dispatch = createEventDispatcher();
     	let { time = 0 } = $$props;
     	let { src } = $$props;
@@ -25407,6 +25368,8 @@ var app = (function () {
     	function handleEnd() {
     		dispatch("finished");
     	}
+
+    	
 
     	function handleMousemove(e) {
     		// Make the controls visible, but fade out after
@@ -25444,6 +25407,8 @@ var app = (function () {
     		setTimeout(cancel, 200);
     	}
 
+    	
+    	
     	const writable_props = ["time", "src"];
 
     	Object.keys($$props).forEach(key => {
@@ -25510,13 +25475,13 @@ var app = (function () {
     class CustomVideo extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$8, create_fragment$8, safe_not_equal, { time: 0, src: 1 });
+    		init(this, options, instance$7, create_fragment$7, safe_not_equal, { time: 0, src: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "CustomVideo",
     			options,
-    			id: create_fragment$8.name
+    			id: create_fragment$7.name
     		});
 
     		const { ctx } = this.$$;
@@ -25545,9 +25510,9 @@ var app = (function () {
     }
 
     /* src/pages/Task.svelte generated by Svelte v3.18.1 */
-    const file$9 = "src/pages/Task.svelte";
+    const file$8 = "src/pages/Task.svelte";
 
-    // (69:2) <RatingBox     pathway={pathway}    rating={rating}    bind:time={time}    bind:paused={paused}    ratingType={ratingType}>
+    // (64:2) <RatingBox     pathway={pathway}    rating={rating}    bind:time={time}    bind:paused={paused}    ratingType={ratingType}>
     function create_default_slot$1(ctx) {
     	const block = { c: noop, m: noop, d: noop };
 
@@ -25555,14 +25520,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(69:2) <RatingBox     pathway={pathway}    rating={rating}    bind:time={time}    bind:paused={paused}    ratingType={ratingType}>",
+    		source: "(64:2) <RatingBox     pathway={pathway}    rating={rating}    bind:time={time}    bind:paused={paused}    ratingType={ratingType}>",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$9(ctx) {
+    function create_fragment$8(ctx) {
     	let main;
     	let div;
     	let updating_time;
@@ -25634,14 +25599,14 @@ var app = (function () {
     			strong = element("strong");
     			t3 = text(/*ratingType*/ ctx[3]);
     			t4 = text(" you feel");
-    			add_location(strong, file$9, 76, 48, 1228);
+    			add_location(strong, file$8, 70, 48, 1294);
     			set_style(h2, "text-align", "center");
-    			attr_dev(h2, "class", "svelte-1uqf4n3");
-    			add_location(h2, file$9, 76, 2, 1182);
-    			attr_dev(div, "class", "container svelte-1uqf4n3");
-    			add_location(div, file$9, 60, 1, 868);
-    			attr_dev(main, "class", "svelte-1uqf4n3");
-    			add_location(main, file$9, 59, 0, 860);
+    			attr_dev(h2, "class", "svelte-90yk2z");
+    			add_location(h2, file$8, 70, 2, 1248);
+    			attr_dev(div, "class", "container svelte-90yk2z");
+    			add_location(div, file$8, 55, 1, 938);
+    			attr_dev(main, "class", "svelte-90yk2z");
+    			add_location(main, file$8, 54, 0, 930);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -25714,7 +25679,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$9.name,
+    		id: create_fragment$8.name,
     		type: "component",
     		source: "",
     		ctx
@@ -25723,7 +25688,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$9($$self, $$props, $$invalidate) {
+    function instance$8($$self, $$props, $$invalidate) {
     	const dispatch = createEventDispatcher();
     	let { src } = $$props;
     	let { time } = $$props;
@@ -25736,9 +25701,13 @@ var app = (function () {
     		$$invalidate(4, paused = true);
     	}
 
+    	
+
     	function handlePlay() {
     		$$invalidate(4, paused = false);
     	}
+
+    	
 
     	function handleEnd() {
     		dispatch("finished");
@@ -25814,7 +25783,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$9, create_fragment$9, safe_not_equal, {
+    		init(this, options, instance$8, create_fragment$8, safe_not_equal, {
     			src: 1,
     			time: 0,
     			pathway: 2,
@@ -25825,7 +25794,7 @@ var app = (function () {
     			component: this,
     			tagName: "Task",
     			options,
-    			id: create_fragment$9.name
+    			id: create_fragment$8.name
     		});
 
     		const { ctx } = this.$$;
@@ -25883,19 +25852,19 @@ var app = (function () {
 
     /* src/pages/Debrief.svelte generated by Svelte v3.18.1 */
 
-    const { console: console_1$1 } = globals;
-    const file$a = "src/pages/Debrief.svelte";
+    const { console: console_1 } = globals;
+    const file$9 = "src/pages/Debrief.svelte";
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[28] = list[i];
+    	child_ctx[30] = list[i];
     	return child_ctx;
     }
 
-    // (165:12) {#each raceOptions as raceOption}
+    // (173:20) {#each raceOptions as raceOption}
     function create_each_block$1(ctx) {
     	let option;
-    	let t_value = /*raceOption*/ ctx[28] + "";
+    	let t_value = /*raceOption*/ ctx[30] + "";
     	let t;
     	let option_value_value;
 
@@ -25903,9 +25872,9 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*raceOption*/ ctx[28];
+    			option.__value = option_value_value = /*raceOption*/ ctx[30];
     			option.value = option.__value;
-    			add_location(option, file$a, 165, 14, 3880);
+    			add_location(option, file$9, 173, 20, 4793);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -25921,133 +25890,137 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(165:12) {#each raceOptions as raceOption}",
+    		source: "(173:20) {#each raceOptions as raceOption}",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$a(ctx) {
+    function create_fragment$9(ctx) {
     	let div10;
-    	let form;
     	let div9;
+    	let form;
     	let h1;
     	let t1;
     	let em;
     	let t3;
+    	let input0;
+    	let t4;
+    	let input1;
+    	let t5;
     	let label0;
     	let br0;
     	let u0;
-    	let t5;
-    	let div0;
-    	let input0;
-    	let t6;
-    	let br1;
     	let t7;
+    	let div0;
+    	let input2;
+    	let t8;
+    	let br1;
+    	let t9;
     	let label4;
     	let u1;
-    	let t9;
+    	let t11;
     	let div1;
     	let label1;
-    	let input1;
-    	let input1_value_value;
-    	let t10;
-    	let t11;
-    	let label2;
-    	let input2;
-    	let input2_value_value;
-    	let t12;
-    	let t13;
-    	let label3;
     	let input3;
     	let input3_value_value;
-    	let t14;
-    	let t15;
-    	let br2;
-    	let t16;
-    	let label7;
-    	let u2;
-    	let t18;
-    	let div2;
-    	let label5;
+    	let t12;
+    	let t13;
+    	let label2;
     	let input4;
     	let input4_value_value;
-    	let t19;
-    	let t20;
-    	let label6;
+    	let t14;
+    	let t15;
+    	let label3;
     	let input5;
     	let input5_value_value;
-    	let t21;
-    	let t22;
-    	let br3;
-    	let t23;
-    	let label10;
-    	let u3;
-    	let t25;
-    	let div3;
-    	let label8;
+    	let t16;
+    	let t17;
+    	let br2;
+    	let t18;
+    	let label7;
+    	let u2;
+    	let t20;
+    	let div2;
+    	let label5;
     	let input6;
     	let input6_value_value;
-    	let t26;
-    	let t27;
-    	let label9;
+    	let t21;
+    	let t22;
+    	let label6;
     	let input7;
     	let input7_value_value;
+    	let t23;
+    	let t24;
+    	let br3;
+    	let t25;
+    	let label10;
+    	let u3;
+    	let t27;
+    	let div3;
+    	let label8;
+    	let input8;
+    	let input8_value_value;
     	let t28;
     	let t29;
-    	let br4;
+    	let label9;
+    	let input9;
+    	let input9_value_value;
     	let t30;
+    	let t31;
+    	let br4;
+    	let t32;
     	let label11;
     	let u4;
-    	let t32;
+    	let t34;
     	let div4;
     	let select;
-    	let t33;
-    	let p0;
     	let t35;
+    	let p0;
+    	let t37;
     	let label12;
     	let u5;
-    	let t37;
-    	let div5;
-    	let input8;
-    	let t38;
-    	let br5;
     	let t39;
+    	let div5;
+    	let input10;
+    	let t40;
+    	let br5;
+    	let t41;
     	let label13;
     	let u6;
-    	let t41;
-    	let div6;
-    	let input9;
-    	let t42;
-    	let br6;
     	let t43;
+    	let div6;
+    	let input11;
+    	let t44;
+    	let br6;
+    	let t45;
     	let label14;
     	let u7;
-    	let t45;
+    	let t47;
     	let div7;
     	let textarea;
-    	let t46;
-    	let p1;
-    	let t47;
-    	let a;
     	let t48;
+    	let p1;
     	let t49;
-    	let br7;
+    	let a;
     	let t50;
-    	let strong;
+    	let t51;
+    	let br7;
     	let t52;
-    	let t53;
+    	let strong;
     	let t54;
-    	let br8;
     	let t55;
-    	let div8;
     	let t56;
-    	let br9;
+    	let br8;
     	let t57;
+    	let div8;
+    	let t58;
+    	let br9;
+    	let t59;
     	let button;
     	let dispose;
-    	let each_value = /*raceOptions*/ ctx[11];
+    	let each_value = /*raceOptions*/ ctx[13];
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -26057,77 +26030,81 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			div10 = element("div");
-    			form = element("form");
     			div9 = element("div");
+    			form = element("form");
     			h1 = element("h1");
     			h1.textContent = "Thank You For Participating!";
     			t1 = space();
     			em = element("em");
     			em.textContent = "All questions are optional";
     			t3 = space();
+    			input0 = element("input");
+    			t4 = space();
+    			input1 = element("input");
+    			t5 = space();
     			label0 = element("label");
     			br0 = element("br");
     			u0 = element("u");
     			u0.textContent = "Age";
-    			t5 = space();
-    			div0 = element("div");
-    			input0 = element("input");
-    			t6 = space();
-    			br1 = element("br");
     			t7 = space();
+    			div0 = element("div");
+    			input2 = element("input");
+    			t8 = space();
+    			br1 = element("br");
+    			t9 = space();
     			label4 = element("label");
     			u1 = element("u");
     			u1.textContent = "Gender";
-    			t9 = space();
+    			t11 = space();
     			div1 = element("div");
     			label1 = element("label");
-    			input1 = element("input");
-    			t10 = text("\n            Male");
-    			t11 = space();
-    			label2 = element("label");
-    			input2 = element("input");
-    			t12 = text("\n            Female");
-    			t13 = space();
-    			label3 = element("label");
     			input3 = element("input");
-    			t14 = text("\n            Other");
+    			t12 = text("\n                    Male");
+    			t13 = space();
+    			label2 = element("label");
+    			input4 = element("input");
+    			t14 = text("\n                    Female");
     			t15 = space();
+    			label3 = element("label");
+    			input5 = element("input");
+    			t16 = text("\n                    Other");
+    			t17 = space();
     			br2 = element("br");
-    			t16 = space();
+    			t18 = space();
     			label7 = element("label");
     			u2 = element("u");
     			u2.textContent = "Handedness";
-    			t18 = space();
+    			t20 = space();
     			div2 = element("div");
     			label5 = element("label");
-    			input4 = element("input");
-    			t19 = text("\n            Left Handed");
-    			t20 = space();
-    			label6 = element("label");
-    			input5 = element("input");
-    			t21 = text("\n            Right Handed");
+    			input6 = element("input");
+    			t21 = text("\n                    Left Handed");
     			t22 = space();
+    			label6 = element("label");
+    			input7 = element("input");
+    			t23 = text("\n                    Right Handed");
+    			t24 = space();
     			br3 = element("br");
-    			t23 = space();
+    			t25 = space();
     			label10 = element("label");
     			u3 = element("u");
     			u3.textContent = "Ethnicity";
-    			t25 = space();
+    			t27 = space();
     			div3 = element("div");
     			label8 = element("label");
-    			input6 = element("input");
-    			t26 = text("\n            Hispanic");
-    			t27 = space();
-    			label9 = element("label");
-    			input7 = element("input");
-    			t28 = text("\n            Not Hispanic");
+    			input8 = element("input");
+    			t28 = text("\n                    Hispanic");
     			t29 = space();
+    			label9 = element("label");
+    			input9 = element("input");
+    			t30 = text("\n                    Not Hispanic");
+    			t31 = space();
     			br4 = element("br");
-    			t30 = space();
+    			t32 = space();
     			label11 = element("label");
     			u4 = element("u");
     			u4.textContent = "Race";
-    			t32 = space();
+    			t34 = space();
     			div4 = element("div");
     			select = element("select");
 
@@ -26135,266 +26112,282 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			t33 = space();
+    			t35 = space();
     			p0 = element("p");
     			p0.textContent = "Cmd/Ctrl+Click to select multiple";
-    			t35 = space();
+    			t37 = space();
     			label12 = element("label");
     			u5 = element("u");
     			u5.textContent = "Native Language";
-    			t37 = space();
-    			div5 = element("div");
-    			input8 = element("input");
-    			t38 = space();
-    			br5 = element("br");
     			t39 = space();
+    			div5 = element("div");
+    			input10 = element("input");
+    			t40 = space();
+    			br5 = element("br");
+    			t41 = space();
     			label13 = element("label");
     			u6 = element("u");
     			u6.textContent = "Birth Location";
-    			t41 = space();
-    			div6 = element("div");
-    			input9 = element("input");
-    			t42 = space();
-    			br6 = element("br");
     			t43 = space();
+    			div6 = element("div");
+    			input11 = element("input");
+    			t44 = space();
+    			br6 = element("br");
+    			t45 = space();
     			label14 = element("label");
     			u7 = element("u");
     			u7.textContent = "Feedback";
-    			t45 = space();
+    			t47 = space();
     			div7 = element("div");
     			textarea = element("textarea");
-    			t46 = space();
+    			t48 = space();
     			p1 = element("p");
-    			t47 = text("You can email ");
+    			t49 = text("You can email ");
     			a = element("a");
-    			t48 = text(/*labName*/ ctx[0]);
-    			t49 = text(" \n        with questions or concerns. ");
+    			t50 = text(/*labName*/ ctx[0]);
+    			t51 = text(" \n                with questions or concerns. ");
     			br7 = element("br");
-    			t50 = text("\n        If you would like to ");
+    			t52 = text("\n                If you would like to ");
     			strong = element("strong");
     			strong.textContent = "repeat this HIT with a new video";
-    			t52 = text(", please return to the Mechanical Turk worksite and \n        accept again. There are ");
-    			t53 = text(/*numOptions*/ ctx[1]);
-    			t54 = text(" videos available to watch. Thanks! ");
+    			t54 = text(", \n                please return to the Mechanical Turk worksite and \n                accept again. There are ");
+    			t55 = text(/*numOptions*/ ctx[1]);
+    			t56 = text(" videos left to watch. Thanks! ");
     			br8 = element("br");
-    			t55 = space();
-    			div8 = element("div");
-    			t56 = space();
-    			br9 = element("br");
     			t57 = space();
+    			div8 = element("div");
+    			t58 = space();
+    			br9 = element("br");
+    			t59 = space();
     			button = element("button");
     			button.textContent = "Submit HIT";
-    			add_location(h1, file$a, 105, 6, 2046);
-    			add_location(em, file$a, 106, 6, 2090);
-    			add_location(br0, file$a, 108, 27, 2158);
-    			add_location(u0, file$a, 108, 31, 2162);
-    			attr_dev(input0, "class", "input age-input svelte-pwmebn");
-    			attr_dev(input0, "type", "text");
-    			add_location(input0, file$a, 110, 10, 2213);
-    			attr_dev(div0, "class", "options svelte-pwmebn");
-    			add_location(div0, file$a, 109, 8, 2181);
-    			add_location(br1, file$a, 112, 8, 2298);
-    			attr_dev(label0, "class", "label svelte-pwmebn");
-    			add_location(label0, file$a, 108, 6, 2137);
-    			add_location(u1, file$a, 115, 27, 2346);
-    			attr_dev(input1, "type", "radio");
-    			input1.__value = input1_value_value = "male";
-    			input1.value = input1.__value;
-    			/*$$binding_groups*/ ctx[17][2].push(input1);
-    			add_location(input1, file$a, 118, 12, 2434);
-    			attr_dev(label1, "class", "radio");
-    			add_location(label1, file$a, 117, 10, 2400);
-    			attr_dev(input2, "type", "radio");
-    			input2.__value = input2_value_value = "female";
-    			input2.value = input2.__value;
-    			/*$$binding_groups*/ ctx[17][2].push(input2);
-    			add_location(input2, file$a, 122, 12, 2569);
-    			attr_dev(label2, "class", "radio");
-    			add_location(label2, file$a, 121, 10, 2535);
+    			add_location(h1, file$9, 110, 12, 2426);
+    			add_location(em, file$9, 111, 12, 2476);
+    			attr_dev(input0, "type", "hidden");
+    			attr_dev(input0, "name", "assignmentId");
+    			attr_dev(input0, "id", "assignmentId");
+    			input0.value = /*currID*/ ctx[12];
+    			add_location(input0, file$9, 113, 12, 2525);
+    			attr_dev(input1, "type", "hidden");
+    			attr_dev(input1, "name", "foo");
+    			input1.value = "1";
+    			add_location(input1, file$9, 114, 12, 2612);
+    			add_location(br0, file$9, 116, 33, 2701);
+    			add_location(u0, file$9, 116, 37, 2705);
+    			attr_dev(input2, "class", "input age-input svelte-cykmx7");
+    			attr_dev(input2, "type", "text");
+    			add_location(input2, file$9, 118, 16, 2770);
+    			attr_dev(div0, "class", "options svelte-cykmx7");
+    			add_location(div0, file$9, 117, 16, 2732);
+    			add_location(br1, file$9, 120, 16, 2871);
+    			attr_dev(label0, "class", "label svelte-cykmx7");
+    			add_location(label0, file$9, 116, 12, 2680);
+    			add_location(u1, file$9, 123, 33, 2931);
     			attr_dev(input3, "type", "radio");
-    			input3.__value = input3_value_value = "other";
+    			input3.__value = input3_value_value = "male";
     			input3.value = input3.__value;
-    			/*$$binding_groups*/ ctx[17][2].push(input3);
-    			add_location(input3, file$a, 126, 12, 2708);
-    			attr_dev(label3, "class", "radio");
-    			add_location(label3, file$a, 125, 10, 2674);
-    			add_location(br2, file$a, 129, 10, 2811);
-    			attr_dev(div1, "class", "options svelte-pwmebn");
-    			add_location(div1, file$a, 116, 8, 2368);
-    			attr_dev(label4, "class", "label svelte-pwmebn");
-    			add_location(label4, file$a, 115, 6, 2325);
-    			add_location(u2, file$a, 133, 27, 2875);
+    			/*$$binding_groups*/ ctx[19][2].push(input3);
+    			add_location(input3, file$9, 126, 20, 3041);
+    			attr_dev(label1, "class", "radio");
+    			add_location(label1, file$9, 125, 16, 2999);
     			attr_dev(input4, "type", "radio");
-    			input4.__value = input4_value_value = "left";
+    			input4.__value = input4_value_value = "female";
     			input4.value = input4.__value;
-    			/*$$binding_groups*/ ctx[17][1].push(input4);
-    			add_location(input4, file$a, 136, 12, 2967);
-    			attr_dev(label5, "class", "radio");
-    			add_location(label5, file$a, 135, 10, 2933);
+    			/*$$binding_groups*/ ctx[19][2].push(input4);
+    			add_location(input4, file$9, 130, 20, 3204);
+    			attr_dev(label2, "class", "radio");
+    			add_location(label2, file$9, 129, 16, 3162);
     			attr_dev(input5, "type", "radio");
-    			input5.__value = input5_value_value = "right";
+    			input5.__value = input5_value_value = "other";
     			input5.value = input5.__value;
-    			/*$$binding_groups*/ ctx[17][1].push(input5);
-    			add_location(input5, file$a, 140, 12, 3112);
-    			attr_dev(label6, "class", "radio");
-    			add_location(label6, file$a, 139, 10, 3078);
-    			add_location(br3, file$a, 143, 10, 3225);
-    			attr_dev(div2, "class", "options svelte-pwmebn");
-    			add_location(div2, file$a, 134, 8, 2901);
-    			attr_dev(label7, "class", "label svelte-pwmebn");
-    			add_location(label7, file$a, 133, 6, 2854);
-    			add_location(u3, file$a, 147, 27, 3290);
+    			/*$$binding_groups*/ ctx[19][2].push(input5);
+    			add_location(input5, file$9, 134, 20, 3371);
+    			attr_dev(label3, "class", "radio");
+    			add_location(label3, file$9, 133, 16, 3329);
+    			add_location(br2, file$9, 137, 16, 3494);
+    			attr_dev(div1, "class", "options svelte-cykmx7");
+    			add_location(div1, file$9, 124, 16, 2961);
+    			attr_dev(label4, "class", "label svelte-cykmx7");
+    			add_location(label4, file$9, 123, 12, 2910);
+    			add_location(u2, file$9, 141, 33, 3578);
     			attr_dev(input6, "type", "radio");
-    			input6.__value = input6_value_value = "hispanic";
+    			input6.__value = input6_value_value = "left";
     			input6.value = input6.__value;
-    			/*$$binding_groups*/ ctx[17][0].push(input6);
-    			add_location(input6, file$a, 150, 12, 3381);
-    			attr_dev(label8, "class", "radio");
-    			add_location(label8, file$a, 149, 10, 3347);
+    			/*$$binding_groups*/ ctx[19][1].push(input6);
+    			add_location(input6, file$9, 144, 20, 3692);
+    			attr_dev(label5, "class", "radio");
+    			add_location(label5, file$9, 143, 16, 3650);
     			attr_dev(input7, "type", "radio");
-    			input7.__value = input7_value_value = "not_hispanic";
+    			input7.__value = input7_value_value = "right";
     			input7.value = input7.__value;
-    			/*$$binding_groups*/ ctx[17][0].push(input7);
-    			add_location(input7, file$a, 154, 12, 3530);
+    			/*$$binding_groups*/ ctx[19][1].push(input7);
+    			add_location(input7, file$9, 148, 20, 3865);
+    			attr_dev(label6, "class", "radio");
+    			add_location(label6, file$9, 147, 16, 3823);
+    			add_location(br3, file$9, 151, 16, 3998);
+    			attr_dev(div2, "class", "options svelte-cykmx7");
+    			add_location(div2, file$9, 142, 16, 3612);
+    			attr_dev(label7, "class", "label svelte-cykmx7");
+    			add_location(label7, file$9, 141, 12, 3557);
+    			add_location(u3, file$9, 155, 33, 4081);
+    			attr_dev(input8, "type", "radio");
+    			input8.__value = input8_value_value = "hispanic";
+    			input8.value = input8.__value;
+    			/*$$binding_groups*/ ctx[19][0].push(input8);
+    			add_location(input8, file$9, 158, 20, 4194);
+    			attr_dev(label8, "class", "radio");
+    			add_location(label8, file$9, 157, 16, 4152);
+    			attr_dev(input9, "type", "radio");
+    			input9.__value = input9_value_value = "not_hispanic";
+    			input9.value = input9.__value;
+    			/*$$binding_groups*/ ctx[19][0].push(input9);
+    			add_location(input9, file$9, 162, 20, 4371);
     			attr_dev(label9, "class", "radio");
-    			add_location(label9, file$a, 153, 10, 3496);
-    			add_location(br4, file$a, 157, 10, 3653);
-    			attr_dev(div3, "class", "options svelte-pwmebn");
-    			add_location(div3, file$a, 148, 8, 3315);
-    			attr_dev(label10, "class", "label svelte-pwmebn");
-    			add_location(label10, file$a, 147, 6, 3269);
-    			add_location(u4, file$a, 161, 27, 3732);
+    			add_location(label9, file$9, 161, 16, 4329);
+    			add_location(br4, file$9, 165, 16, 4514);
+    			attr_dev(div3, "class", "options svelte-cykmx7");
+    			add_location(div3, file$9, 156, 16, 4114);
+    			attr_dev(label10, "class", "label svelte-cykmx7");
+    			add_location(label10, file$9, 155, 12, 4060);
+    			add_location(u4, file$9, 169, 33, 4617);
     			select.multiple = true;
-    			if (/*race*/ ctx[6] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[24].call(select));
-    			add_location(select, file$a, 163, 10, 3784);
-    			attr_dev(div4, "class", "options svelte-pwmebn");
-    			add_location(div4, file$a, 162, 8, 3752);
-    			attr_dev(label11, "class", "label svelte-pwmebn");
-    			add_location(label11, file$a, 161, 6, 3711);
-    			attr_dev(p0, "class", "help svelte-pwmebn");
-    			add_location(p0, file$a, 171, 6, 4026);
-    			add_location(u5, file$a, 173, 27, 4120);
-    			attr_dev(input8, "class", "input lang-input svelte-pwmebn");
-    			attr_dev(input8, "type", "text");
-    			add_location(input8, file$a, 175, 10, 4183);
-    			attr_dev(div5, "class", "options svelte-pwmebn");
-    			add_location(div5, file$a, 174, 8, 4151);
-    			add_location(br5, file$a, 177, 8, 4277);
-    			attr_dev(label12, "class", "label svelte-pwmebn");
-    			add_location(label12, file$a, 173, 6, 4099);
-    			add_location(u6, file$a, 180, 27, 4325);
-    			attr_dev(input9, "class", "input lang-input svelte-pwmebn");
-    			attr_dev(input9, "type", "text");
-    			attr_dev(input9, "placeholder", "City, State, Country");
-    			add_location(input9, file$a, 182, 10, 4387);
-    			attr_dev(div6, "class", "options svelte-pwmebn");
-    			add_location(div6, file$a, 181, 8, 4355);
-    			add_location(br6, file$a, 188, 8, 4559);
-    			attr_dev(label13, "class", "label svelte-pwmebn");
-    			add_location(label13, file$a, 180, 6, 4304);
-    			add_location(u7, file$a, 191, 27, 4620);
-    			attr_dev(textarea, "class", "textarea textarea-feedback svelte-pwmebn");
+    			if (/*race*/ ctx[7] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[26].call(select));
+    			add_location(select, file$9, 171, 16, 4683);
+    			attr_dev(div4, "class", "options svelte-cykmx7");
+    			add_location(div4, file$9, 170, 16, 4645);
+    			attr_dev(label11, "class", "label svelte-cykmx7");
+    			add_location(label11, file$9, 169, 12, 4596);
+    			attr_dev(p0, "class", "help svelte-cykmx7");
+    			add_location(p0, file$9, 179, 12, 4973);
+    			add_location(u5, file$9, 181, 33, 5081);
+    			attr_dev(input10, "class", "input lang-input svelte-cykmx7");
+    			attr_dev(input10, "type", "text");
+    			add_location(input10, file$9, 183, 16, 5158);
+    			attr_dev(div5, "class", "options svelte-cykmx7");
+    			add_location(div5, file$9, 182, 16, 5120);
+    			add_location(br5, file$9, 185, 16, 5268);
+    			attr_dev(label12, "class", "label svelte-cykmx7");
+    			add_location(label12, file$9, 181, 12, 5060);
+    			add_location(u6, file$9, 188, 33, 5328);
+    			attr_dev(input11, "class", "input lang-input svelte-cykmx7");
+    			attr_dev(input11, "type", "text");
+    			attr_dev(input11, "placeholder", "City, State, Country");
+    			add_location(input11, file$9, 190, 16, 5404);
+    			attr_dev(div6, "class", "options svelte-cykmx7");
+    			add_location(div6, file$9, 189, 16, 5366);
+    			add_location(br6, file$9, 196, 16, 5624);
+    			attr_dev(label13, "class", "label svelte-cykmx7");
+    			add_location(label13, file$9, 188, 12, 5307);
+    			add_location(u7, file$9, 199, 33, 5705);
+    			attr_dev(textarea, "class", "textarea textarea-feedback svelte-cykmx7");
     			attr_dev(textarea, "placeholder", "Thoughts or suggestions about this HIT");
-    			add_location(textarea, file$a, 193, 10, 4676);
-    			attr_dev(div7, "class", "options svelte-pwmebn");
-    			add_location(div7, file$a, 192, 8, 4644);
-    			attr_dev(label14, "class", "label svelte-pwmebn");
-    			add_location(label14, file$a, 191, 6, 4599);
-    			attr_dev(a, "href", /*emailAddress*/ ctx[10]);
-    			attr_dev(a, "class", "svelte-pwmebn");
-    			add_location(a, file$a, 201, 22, 4914);
-    			add_location(br7, file$a, 202, 36, 4988);
-    			add_location(strong, file$a, 203, 29, 5022);
-    			add_location(br8, file$a, 204, 80, 5204);
-    			add_location(p1, file$a, 200, 6, 4888);
+    			add_location(textarea, file$9, 201, 16, 5775);
+    			attr_dev(div7, "class", "options svelte-cykmx7");
+    			add_location(div7, file$9, 200, 16, 5737);
+    			attr_dev(label14, "class", "label svelte-cykmx7");
+    			add_location(label14, file$9, 199, 12, 5684);
+    			attr_dev(a, "href", /*emailAddress*/ ctx[11]);
+    			attr_dev(a, "class", "svelte-cykmx7");
+    			add_location(a, file$9, 209, 30, 6074);
+    			add_location(br7, file$9, 210, 44, 6156);
+    			add_location(strong, file$9, 211, 37, 6198);
+    			add_location(br8, file$9, 213, 83, 6400);
+    			add_location(p1, file$9, 208, 12, 6040);
     			attr_dev(div8, "class", "field-label");
-    			add_location(div8, file$a, 207, 6, 5241);
-    			add_location(br9, file$a, 210, 6, 5327);
-    			attr_dev(button, "class", "button is-success is-large svelte-pwmebn");
-    			add_location(button, file$a, 211, 6, 5338);
-    			attr_dev(div9, "class", "form-box svelte-pwmebn");
-    			add_location(div9, file$a, 104, 4, 2017);
-    			add_location(form, file$a, 103, 2, 1968);
-    			attr_dev(div10, "class", "container svelte-pwmebn");
-    			add_location(div10, file$a, 102, 0, 1942);
+    			add_location(div8, file$9, 216, 12, 6455);
+    			add_location(br9, file$9, 219, 12, 6561);
+    			attr_dev(button, "class", "button is-success is-large svelte-cykmx7");
+    			add_location(button, file$9, 220, 12, 6578);
+    			attr_dev(form, "name", "mturk");
+    			attr_dev(form, "action", /*postURL*/ ctx[2]);
+    			attr_dev(form, "method", "POST");
+    			add_location(form, file$9, 109, 8, 2363);
+    			attr_dev(div9, "class", "form-box svelte-cykmx7");
+    			add_location(div9, file$9, 108, 4, 2332);
+    			attr_dev(div10, "class", "container svelte-cykmx7");
+    			add_location(div10, file$9, 107, 0, 2304);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div10, anchor);
-    			append_dev(div10, form);
-    			append_dev(form, div9);
-    			append_dev(div9, h1);
-    			append_dev(div9, t1);
-    			append_dev(div9, em);
-    			append_dev(div9, t3);
-    			append_dev(div9, label0);
+    			append_dev(div10, div9);
+    			append_dev(div9, form);
+    			append_dev(form, h1);
+    			append_dev(form, t1);
+    			append_dev(form, em);
+    			append_dev(form, t3);
+    			append_dev(form, input0);
+    			append_dev(form, t4);
+    			append_dev(form, input1);
+    			append_dev(form, t5);
+    			append_dev(form, label0);
     			append_dev(label0, br0);
     			append_dev(label0, u0);
-    			append_dev(label0, t5);
+    			append_dev(label0, t7);
     			append_dev(label0, div0);
-    			append_dev(div0, input0);
-    			set_input_value(input0, /*age*/ ctx[2]);
-    			append_dev(label0, t6);
+    			append_dev(div0, input2);
+    			set_input_value(input2, /*age*/ ctx[3]);
+    			append_dev(label0, t8);
     			append_dev(label0, br1);
-    			append_dev(div9, t7);
-    			append_dev(div9, label4);
+    			append_dev(form, t9);
+    			append_dev(form, label4);
     			append_dev(label4, u1);
-    			append_dev(label4, t9);
+    			append_dev(label4, t11);
     			append_dev(label4, div1);
     			append_dev(div1, label1);
-    			append_dev(label1, input1);
-    			input1.checked = input1.__value === /*sex*/ ctx[4];
-    			append_dev(label1, t10);
-    			append_dev(div1, t11);
-    			append_dev(div1, label2);
-    			append_dev(label2, input2);
-    			input2.checked = input2.__value === /*sex*/ ctx[4];
-    			append_dev(label2, t12);
+    			append_dev(label1, input3);
+    			input3.checked = input3.__value === /*sex*/ ctx[5];
+    			append_dev(label1, t12);
     			append_dev(div1, t13);
-    			append_dev(div1, label3);
-    			append_dev(label3, input3);
-    			input3.checked = input3.__value === /*sex*/ ctx[4];
-    			append_dev(label3, t14);
+    			append_dev(div1, label2);
+    			append_dev(label2, input4);
+    			input4.checked = input4.__value === /*sex*/ ctx[5];
+    			append_dev(label2, t14);
     			append_dev(div1, t15);
+    			append_dev(div1, label3);
+    			append_dev(label3, input5);
+    			input5.checked = input5.__value === /*sex*/ ctx[5];
+    			append_dev(label3, t16);
+    			append_dev(div1, t17);
     			append_dev(div1, br2);
-    			append_dev(div9, t16);
-    			append_dev(div9, label7);
+    			append_dev(form, t18);
+    			append_dev(form, label7);
     			append_dev(label7, u2);
-    			append_dev(label7, t18);
+    			append_dev(label7, t20);
     			append_dev(label7, div2);
     			append_dev(div2, label5);
-    			append_dev(label5, input4);
-    			input4.checked = input4.__value === /*handed*/ ctx[9];
-    			append_dev(label5, t19);
-    			append_dev(div2, t20);
-    			append_dev(div2, label6);
-    			append_dev(label6, input5);
-    			input5.checked = input5.__value === /*handed*/ ctx[9];
-    			append_dev(label6, t21);
+    			append_dev(label5, input6);
+    			input6.checked = input6.__value === /*handed*/ ctx[10];
+    			append_dev(label5, t21);
     			append_dev(div2, t22);
+    			append_dev(div2, label6);
+    			append_dev(label6, input7);
+    			input7.checked = input7.__value === /*handed*/ ctx[10];
+    			append_dev(label6, t23);
+    			append_dev(div2, t24);
     			append_dev(div2, br3);
-    			append_dev(div9, t23);
-    			append_dev(div9, label10);
+    			append_dev(form, t25);
+    			append_dev(form, label10);
     			append_dev(label10, u3);
-    			append_dev(label10, t25);
+    			append_dev(label10, t27);
     			append_dev(label10, div3);
     			append_dev(div3, label8);
-    			append_dev(label8, input6);
-    			input6.checked = input6.__value === /*ethnicity*/ ctx[5];
-    			append_dev(label8, t26);
-    			append_dev(div3, t27);
-    			append_dev(div3, label9);
-    			append_dev(label9, input7);
-    			input7.checked = input7.__value === /*ethnicity*/ ctx[5];
-    			append_dev(label9, t28);
+    			append_dev(label8, input8);
+    			input8.checked = input8.__value === /*ethnicity*/ ctx[6];
+    			append_dev(label8, t28);
     			append_dev(div3, t29);
+    			append_dev(div3, label9);
+    			append_dev(label9, input9);
+    			input9.checked = input9.__value === /*ethnicity*/ ctx[6];
+    			append_dev(label9, t30);
+    			append_dev(div3, t31);
     			append_dev(div3, br4);
-    			append_dev(div9, t30);
-    			append_dev(div9, label11);
+    			append_dev(form, t32);
+    			append_dev(form, label11);
     			append_dev(label11, u4);
-    			append_dev(label11, t32);
+    			append_dev(label11, t34);
     			append_dev(label11, div4);
     			append_dev(div4, select);
 
@@ -26402,105 +26395,105 @@ var app = (function () {
     				each_blocks[i].m(select, null);
     			}
 
-    			select_options(select, /*race*/ ctx[6]);
-    			append_dev(div9, t33);
-    			append_dev(div9, p0);
-    			append_dev(div9, t35);
-    			append_dev(div9, label12);
+    			select_options(select, /*race*/ ctx[7]);
+    			append_dev(form, t35);
+    			append_dev(form, p0);
+    			append_dev(form, t37);
+    			append_dev(form, label12);
     			append_dev(label12, u5);
-    			append_dev(label12, t37);
+    			append_dev(label12, t39);
     			append_dev(label12, div5);
-    			append_dev(div5, input8);
-    			set_input_value(input8, /*nativeLang*/ ctx[7]);
-    			append_dev(label12, t38);
+    			append_dev(div5, input10);
+    			set_input_value(input10, /*nativeLang*/ ctx[8]);
+    			append_dev(label12, t40);
     			append_dev(label12, br5);
-    			append_dev(div9, t39);
-    			append_dev(div9, label13);
+    			append_dev(form, t41);
+    			append_dev(form, label13);
     			append_dev(label13, u6);
-    			append_dev(label13, t41);
+    			append_dev(label13, t43);
     			append_dev(label13, div6);
-    			append_dev(div6, input9);
-    			set_input_value(input9, /*birth*/ ctx[8]);
-    			append_dev(label13, t42);
+    			append_dev(div6, input11);
+    			set_input_value(input11, /*birth*/ ctx[9]);
+    			append_dev(label13, t44);
     			append_dev(label13, br6);
-    			append_dev(div9, t43);
-    			append_dev(div9, label14);
+    			append_dev(form, t45);
+    			append_dev(form, label14);
     			append_dev(label14, u7);
-    			append_dev(label14, t45);
+    			append_dev(label14, t47);
     			append_dev(label14, div7);
     			append_dev(div7, textarea);
-    			set_input_value(textarea, /*feedback*/ ctx[3]);
-    			append_dev(div9, t46);
-    			append_dev(div9, p1);
-    			append_dev(p1, t47);
-    			append_dev(p1, a);
-    			append_dev(a, t48);
+    			set_input_value(textarea, /*feedback*/ ctx[4]);
+    			append_dev(form, t48);
+    			append_dev(form, p1);
     			append_dev(p1, t49);
+    			append_dev(p1, a);
+    			append_dev(a, t50);
+    			append_dev(p1, t51);
     			append_dev(p1, br7);
-    			append_dev(p1, t50);
-    			append_dev(p1, strong);
     			append_dev(p1, t52);
-    			append_dev(p1, t53);
+    			append_dev(p1, strong);
     			append_dev(p1, t54);
+    			append_dev(p1, t55);
+    			append_dev(p1, t56);
     			append_dev(p1, br8);
-    			append_dev(div9, t55);
-    			append_dev(div9, div8);
-    			append_dev(div9, t56);
-    			append_dev(div9, br9);
-    			append_dev(div9, t57);
-    			append_dev(div9, button);
+    			append_dev(form, t57);
+    			append_dev(form, div8);
+    			append_dev(form, t58);
+    			append_dev(form, br9);
+    			append_dev(form, t59);
+    			append_dev(form, button);
 
     			dispose = [
-    				listen_dev(input0, "input", /*input0_input_handler*/ ctx[15]),
-    				listen_dev(input1, "change", /*input1_change_handler*/ ctx[16]),
-    				listen_dev(input2, "change", /*input2_change_handler*/ ctx[18]),
-    				listen_dev(input3, "change", /*input3_change_handler*/ ctx[19]),
+    				listen_dev(input2, "input", /*input2_input_handler*/ ctx[17]),
+    				listen_dev(input3, "change", /*input3_change_handler*/ ctx[18]),
     				listen_dev(input4, "change", /*input4_change_handler*/ ctx[20]),
     				listen_dev(input5, "change", /*input5_change_handler*/ ctx[21]),
     				listen_dev(input6, "change", /*input6_change_handler*/ ctx[22]),
     				listen_dev(input7, "change", /*input7_change_handler*/ ctx[23]),
-    				listen_dev(select, "change", /*select_change_handler*/ ctx[24]),
-    				listen_dev(input8, "input", /*input8_input_handler*/ ctx[25]),
-    				listen_dev(input9, "input", /*input9_input_handler*/ ctx[26]),
-    				listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[27]),
-    				listen_dev(form, "submit", prevent_default(/*submitHIT*/ ctx[12]), false, true, false)
+    				listen_dev(input8, "change", /*input8_change_handler*/ ctx[24]),
+    				listen_dev(input9, "change", /*input9_change_handler*/ ctx[25]),
+    				listen_dev(select, "change", /*select_change_handler*/ ctx[26]),
+    				listen_dev(input10, "input", /*input10_input_handler*/ ctx[27]),
+    				listen_dev(input11, "input", /*input11_input_handler*/ ctx[28]),
+    				listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[29]),
+    				listen_dev(button, "click", /*submitHIT*/ ctx[14], false, false, false)
     			];
     		},
-    		p: function update(ctx, [dirty]) {
-    			if (dirty & /*age*/ 4 && input0.value !== /*age*/ ctx[2]) {
-    				set_input_value(input0, /*age*/ ctx[2]);
+    		p: function update(ctx, dirty) {
+    			if (dirty[0] & /*age*/ 8 && input2.value !== /*age*/ ctx[3]) {
+    				set_input_value(input2, /*age*/ ctx[3]);
     			}
 
-    			if (dirty & /*sex*/ 16) {
-    				input1.checked = input1.__value === /*sex*/ ctx[4];
+    			if (dirty[0] & /*sex*/ 32) {
+    				input3.checked = input3.__value === /*sex*/ ctx[5];
     			}
 
-    			if (dirty & /*sex*/ 16) {
-    				input2.checked = input2.__value === /*sex*/ ctx[4];
+    			if (dirty[0] & /*sex*/ 32) {
+    				input4.checked = input4.__value === /*sex*/ ctx[5];
     			}
 
-    			if (dirty & /*sex*/ 16) {
-    				input3.checked = input3.__value === /*sex*/ ctx[4];
+    			if (dirty[0] & /*sex*/ 32) {
+    				input5.checked = input5.__value === /*sex*/ ctx[5];
     			}
 
-    			if (dirty & /*handed*/ 512) {
-    				input4.checked = input4.__value === /*handed*/ ctx[9];
+    			if (dirty[0] & /*handed*/ 1024) {
+    				input6.checked = input6.__value === /*handed*/ ctx[10];
     			}
 
-    			if (dirty & /*handed*/ 512) {
-    				input5.checked = input5.__value === /*handed*/ ctx[9];
+    			if (dirty[0] & /*handed*/ 1024) {
+    				input7.checked = input7.__value === /*handed*/ ctx[10];
     			}
 
-    			if (dirty & /*ethnicity*/ 32) {
-    				input6.checked = input6.__value === /*ethnicity*/ ctx[5];
+    			if (dirty[0] & /*ethnicity*/ 64) {
+    				input8.checked = input8.__value === /*ethnicity*/ ctx[6];
     			}
 
-    			if (dirty & /*ethnicity*/ 32) {
-    				input7.checked = input7.__value === /*ethnicity*/ ctx[5];
+    			if (dirty[0] & /*ethnicity*/ 64) {
+    				input9.checked = input9.__value === /*ethnicity*/ ctx[6];
     			}
 
-    			if (dirty & /*raceOptions*/ 2048) {
-    				each_value = /*raceOptions*/ ctx[11];
+    			if (dirty[0] & /*raceOptions*/ 8192) {
+    				each_value = /*raceOptions*/ ctx[13];
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
@@ -26522,36 +26515,40 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*race*/ 64) {
-    				select_options(select, /*race*/ ctx[6]);
+    			if (dirty[0] & /*race*/ 128) {
+    				select_options(select, /*race*/ ctx[7]);
     			}
 
-    			if (dirty & /*nativeLang*/ 128 && input8.value !== /*nativeLang*/ ctx[7]) {
-    				set_input_value(input8, /*nativeLang*/ ctx[7]);
+    			if (dirty[0] & /*nativeLang*/ 256 && input10.value !== /*nativeLang*/ ctx[8]) {
+    				set_input_value(input10, /*nativeLang*/ ctx[8]);
     			}
 
-    			if (dirty & /*birth*/ 256 && input9.value !== /*birth*/ ctx[8]) {
-    				set_input_value(input9, /*birth*/ ctx[8]);
+    			if (dirty[0] & /*birth*/ 512 && input11.value !== /*birth*/ ctx[9]) {
+    				set_input_value(input11, /*birth*/ ctx[9]);
     			}
 
-    			if (dirty & /*feedback*/ 8) {
-    				set_input_value(textarea, /*feedback*/ ctx[3]);
+    			if (dirty[0] & /*feedback*/ 16) {
+    				set_input_value(textarea, /*feedback*/ ctx[4]);
     			}
 
-    			if (dirty & /*labName*/ 1) set_data_dev(t48, /*labName*/ ctx[0]);
-    			if (dirty & /*numOptions*/ 2) set_data_dev(t53, /*numOptions*/ ctx[1]);
+    			if (dirty[0] & /*labName*/ 1) set_data_dev(t50, /*labName*/ ctx[0]);
+    			if (dirty[0] & /*numOptions*/ 2) set_data_dev(t55, /*numOptions*/ ctx[1]);
+
+    			if (dirty[0] & /*postURL*/ 4) {
+    				attr_dev(form, "action", /*postURL*/ ctx[2]);
+    			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div10);
-    			/*$$binding_groups*/ ctx[17][2].splice(/*$$binding_groups*/ ctx[17][2].indexOf(input1), 1);
-    			/*$$binding_groups*/ ctx[17][2].splice(/*$$binding_groups*/ ctx[17][2].indexOf(input2), 1);
-    			/*$$binding_groups*/ ctx[17][2].splice(/*$$binding_groups*/ ctx[17][2].indexOf(input3), 1);
-    			/*$$binding_groups*/ ctx[17][1].splice(/*$$binding_groups*/ ctx[17][1].indexOf(input4), 1);
-    			/*$$binding_groups*/ ctx[17][1].splice(/*$$binding_groups*/ ctx[17][1].indexOf(input5), 1);
-    			/*$$binding_groups*/ ctx[17][0].splice(/*$$binding_groups*/ ctx[17][0].indexOf(input6), 1);
-    			/*$$binding_groups*/ ctx[17][0].splice(/*$$binding_groups*/ ctx[17][0].indexOf(input7), 1);
+    			/*$$binding_groups*/ ctx[19][2].splice(/*$$binding_groups*/ ctx[19][2].indexOf(input3), 1);
+    			/*$$binding_groups*/ ctx[19][2].splice(/*$$binding_groups*/ ctx[19][2].indexOf(input4), 1);
+    			/*$$binding_groups*/ ctx[19][2].splice(/*$$binding_groups*/ ctx[19][2].indexOf(input5), 1);
+    			/*$$binding_groups*/ ctx[19][1].splice(/*$$binding_groups*/ ctx[19][1].indexOf(input6), 1);
+    			/*$$binding_groups*/ ctx[19][1].splice(/*$$binding_groups*/ ctx[19][1].indexOf(input7), 1);
+    			/*$$binding_groups*/ ctx[19][0].splice(/*$$binding_groups*/ ctx[19][0].indexOf(input8), 1);
+    			/*$$binding_groups*/ ctx[19][0].splice(/*$$binding_groups*/ ctx[19][0].indexOf(input9), 1);
     			destroy_each(each_blocks, detaching);
     			run_all(dispose);
     		}
@@ -26559,7 +26556,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$a.name,
+    		id: create_fragment$9.name,
     		type: "component",
     		source: "",
     		ctx
@@ -26568,12 +26565,19 @@ var app = (function () {
     	return block;
     }
 
-    function instance$a($$self, $$props, $$invalidate) {
+    function instance$9($$self, $$props, $$invalidate) {
     	let { subPath } = $$props;
     	let { email } = $$props;
     	let { labName } = $$props;
     	let { numOptions } = $$props;
     	let emailAddress = "mailto:" + email;
+    	let currID = params.assignmentId;
+    	let postURL;
+
+    	{
+    		postURL = "https://workersandbox.mturk.com/mturk/externalSubmit";
+    	}
+
     	let age = "";
     	let feedback = "";
     	let sex = "";
@@ -26606,11 +26610,6 @@ var app = (function () {
     				feedback,
     				HIT_complete: serverTime
     			});
-
-    			alert("Thank you for participating! You may exit this HIT.");
-    			console.log("exit survey added successfully");
-    			window.top.postMessage("finished", "*");
-    			console.log("back to Svelte!");
     		} catch(error) {
     			console.error(error);
     		}
@@ -26619,75 +26618,75 @@ var app = (function () {
     	const writable_props = ["subPath", "email", "labName", "numOptions"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$1.warn(`<Debrief> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<Debrief> was created with unknown prop '${key}'`);
     	});
 
     	const $$binding_groups = [[], [], []];
 
-    	function input0_input_handler() {
+    	function input2_input_handler() {
     		age = this.value;
-    		$$invalidate(2, age);
-    	}
-
-    	function input1_change_handler() {
-    		sex = this.__value;
-    		$$invalidate(4, sex);
-    	}
-
-    	function input2_change_handler() {
-    		sex = this.__value;
-    		$$invalidate(4, sex);
+    		$$invalidate(3, age);
     	}
 
     	function input3_change_handler() {
     		sex = this.__value;
-    		$$invalidate(4, sex);
+    		$$invalidate(5, sex);
     	}
 
     	function input4_change_handler() {
-    		handed = this.__value;
-    		$$invalidate(9, handed);
+    		sex = this.__value;
+    		$$invalidate(5, sex);
     	}
 
     	function input5_change_handler() {
-    		handed = this.__value;
-    		$$invalidate(9, handed);
+    		sex = this.__value;
+    		$$invalidate(5, sex);
     	}
 
     	function input6_change_handler() {
-    		ethnicity = this.__value;
-    		$$invalidate(5, ethnicity);
+    		handed = this.__value;
+    		$$invalidate(10, handed);
     	}
 
     	function input7_change_handler() {
+    		handed = this.__value;
+    		$$invalidate(10, handed);
+    	}
+
+    	function input8_change_handler() {
     		ethnicity = this.__value;
-    		$$invalidate(5, ethnicity);
+    		$$invalidate(6, ethnicity);
+    	}
+
+    	function input9_change_handler() {
+    		ethnicity = this.__value;
+    		$$invalidate(6, ethnicity);
     	}
 
     	function select_change_handler() {
     		race = select_multiple_value(this);
-    		$$invalidate(6, race);
-    		$$invalidate(11, raceOptions);
+    		$$invalidate(7, race);
+    		$$invalidate(13, raceOptions);
     	}
 
-    	function input8_input_handler() {
+    	function input10_input_handler() {
     		nativeLang = this.value;
-    		$$invalidate(7, nativeLang);
+    		$$invalidate(8, nativeLang);
     	}
 
-    	function input9_input_handler() {
+    	function input11_input_handler() {
     		birth = this.value;
-    		$$invalidate(8, birth);
+    		$$invalidate(9, birth);
     	}
 
     	function textarea_input_handler() {
     		feedback = this.value;
-    		$$invalidate(3, feedback);
+    		$$invalidate(4, feedback);
     	}
 
     	$$self.$set = $$props => {
-    		if ("subPath" in $$props) $$invalidate(13, subPath = $$props.subPath);
-    		if ("email" in $$props) $$invalidate(14, email = $$props.email);
+    		if ("subPath" in $$props) $$invalidate(15, subPath = $$props.subPath);
+    		if ("email" in $$props) $$invalidate(16, email = $$props.email);
     		if ("labName" in $$props) $$invalidate(0, labName = $$props.labName);
     		if ("numOptions" in $$props) $$invalidate(1, numOptions = $$props.numOptions);
     	};
@@ -26699,6 +26698,8 @@ var app = (function () {
     			labName,
     			numOptions,
     			emailAddress,
+    			currID,
+    			postURL,
     			age,
     			feedback,
     			sex,
@@ -26711,24 +26712,27 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ("subPath" in $$props) $$invalidate(13, subPath = $$props.subPath);
-    		if ("email" in $$props) $$invalidate(14, email = $$props.email);
+    		if ("subPath" in $$props) $$invalidate(15, subPath = $$props.subPath);
+    		if ("email" in $$props) $$invalidate(16, email = $$props.email);
     		if ("labName" in $$props) $$invalidate(0, labName = $$props.labName);
     		if ("numOptions" in $$props) $$invalidate(1, numOptions = $$props.numOptions);
-    		if ("emailAddress" in $$props) $$invalidate(10, emailAddress = $$props.emailAddress);
-    		if ("age" in $$props) $$invalidate(2, age = $$props.age);
-    		if ("feedback" in $$props) $$invalidate(3, feedback = $$props.feedback);
-    		if ("sex" in $$props) $$invalidate(4, sex = $$props.sex);
-    		if ("ethnicity" in $$props) $$invalidate(5, ethnicity = $$props.ethnicity);
-    		if ("race" in $$props) $$invalidate(6, race = $$props.race);
-    		if ("nativeLang" in $$props) $$invalidate(7, nativeLang = $$props.nativeLang);
-    		if ("birth" in $$props) $$invalidate(8, birth = $$props.birth);
-    		if ("handed" in $$props) $$invalidate(9, handed = $$props.handed);
+    		if ("emailAddress" in $$props) $$invalidate(11, emailAddress = $$props.emailAddress);
+    		if ("currID" in $$props) $$invalidate(12, currID = $$props.currID);
+    		if ("postURL" in $$props) $$invalidate(2, postURL = $$props.postURL);
+    		if ("age" in $$props) $$invalidate(3, age = $$props.age);
+    		if ("feedback" in $$props) $$invalidate(4, feedback = $$props.feedback);
+    		if ("sex" in $$props) $$invalidate(5, sex = $$props.sex);
+    		if ("ethnicity" in $$props) $$invalidate(6, ethnicity = $$props.ethnicity);
+    		if ("race" in $$props) $$invalidate(7, race = $$props.race);
+    		if ("nativeLang" in $$props) $$invalidate(8, nativeLang = $$props.nativeLang);
+    		if ("birth" in $$props) $$invalidate(9, birth = $$props.birth);
+    		if ("handed" in $$props) $$invalidate(10, handed = $$props.handed);
     	};
 
     	return [
     		labName,
     		numOptions,
+    		postURL,
     		age,
     		feedback,
     		sex,
@@ -26738,22 +26742,23 @@ var app = (function () {
     		birth,
     		handed,
     		emailAddress,
+    		currID,
     		raceOptions,
     		submitHIT,
     		subPath,
     		email,
-    		input0_input_handler,
-    		input1_change_handler,
-    		$$binding_groups,
-    		input2_change_handler,
+    		input2_input_handler,
     		input3_change_handler,
+    		$$binding_groups,
     		input4_change_handler,
     		input5_change_handler,
     		input6_change_handler,
     		input7_change_handler,
+    		input8_change_handler,
+    		input9_change_handler,
     		select_change_handler,
-    		input8_input_handler,
-    		input9_input_handler,
+    		input10_input_handler,
+    		input11_input_handler,
     		textarea_input_handler
     	];
     }
@@ -26762,37 +26767,45 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$a, create_fragment$a, safe_not_equal, {
-    			subPath: 13,
-    			email: 14,
-    			labName: 0,
-    			numOptions: 1
-    		});
+    		init(
+    			this,
+    			options,
+    			instance$9,
+    			create_fragment$9,
+    			safe_not_equal,
+    			{
+    				subPath: 15,
+    				email: 16,
+    				labName: 0,
+    				numOptions: 1
+    			},
+    			[-1, -1]
+    		);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Debrief",
     			options,
-    			id: create_fragment$a.name
+    			id: create_fragment$9.name
     		});
 
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*subPath*/ ctx[13] === undefined && !("subPath" in props)) {
-    			console_1$1.warn("<Debrief> was created without expected prop 'subPath'");
+    		if (/*subPath*/ ctx[15] === undefined && !("subPath" in props)) {
+    			console_1.warn("<Debrief> was created without expected prop 'subPath'");
     		}
 
-    		if (/*email*/ ctx[14] === undefined && !("email" in props)) {
-    			console_1$1.warn("<Debrief> was created without expected prop 'email'");
+    		if (/*email*/ ctx[16] === undefined && !("email" in props)) {
+    			console_1.warn("<Debrief> was created without expected prop 'email'");
     		}
 
     		if (/*labName*/ ctx[0] === undefined && !("labName" in props)) {
-    			console_1$1.warn("<Debrief> was created without expected prop 'labName'");
+    			console_1.warn("<Debrief> was created without expected prop 'labName'");
     		}
 
     		if (/*numOptions*/ ctx[1] === undefined && !("numOptions" in props)) {
-    			console_1$1.warn("<Debrief> was created without expected prop 'numOptions'");
+    			console_1.warn("<Debrief> was created without expected prop 'numOptions'");
     		}
     	}
 
@@ -26831,9 +26844,9 @@ var app = (function () {
 
     /* src/pages/Complete.svelte generated by Svelte v3.18.1 */
 
-    const file$b = "src/pages/Complete.svelte";
+    const file$a = "src/pages/Complete.svelte";
 
-    function create_fragment$b(ctx) {
+    function create_fragment$a(ctx) {
     	let div;
     	let h1;
     	let t1;
@@ -26847,10 +26860,10 @@ var app = (function () {
     			t1 = text("\n    You have watched all possible movies. ");
     			strong = element("strong");
     			strong.textContent = "You may exit this HIT.";
-    			add_location(h1, file$b, 11, 4, 183);
-    			add_location(strong, file$b, 12, 42, 268);
+    			add_location(h1, file$a, 11, 4, 183);
+    			add_location(strong, file$a, 12, 42, 268);
     			attr_dev(div, "class", "container svelte-3iv1ej");
-    			add_location(div, file$b, 10, 0, 155);
+    			add_location(div, file$a, 10, 0, 155);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -26871,7 +26884,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$b.name,
+    		id: create_fragment$a.name,
     		type: "component",
     		source: "",
     		ctx
@@ -26883,11 +26896,121 @@ var app = (function () {
     class Complete extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, null, create_fragment$b, safe_not_equal, {});
+    		init(this, options, null, create_fragment$a, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Complete",
+    			options,
+    			id: create_fragment$a.name
+    		});
+    	}
+    }
+
+    /* src/components/Loading.svelte generated by Svelte v3.18.1 */
+
+    const file$b = "src/components/Loading.svelte";
+
+    function create_fragment$b(ctx) {
+    	let div2;
+    	let div0;
+    	let t;
+    	let div1;
+    	let h1;
+    	let current;
+    	const default_slot_template = /*$$slots*/ ctx[1].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[0], null);
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			div0 = element("div");
+    			t = space();
+    			div1 = element("div");
+    			h1 = element("h1");
+    			if (default_slot) default_slot.c();
+    			attr_dev(div0, "class", "loader is-loading svelte-10ue5nm");
+    			add_location(div0, file$b, 27, 2, 467);
+    			attr_dev(h1, "class", "is-size-3");
+    			add_location(h1, file$b, 29, 4, 534);
+    			attr_dev(div1, "class", "loading-text svelte-10ue5nm");
+    			add_location(div1, file$b, 28, 2, 503);
+    			attr_dev(div2, "class", "loader-wrapper svelte-10ue5nm");
+    			add_location(div2, file$b, 26, 0, 436);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+    			append_dev(div2, t);
+    			append_dev(div2, div1);
+    			append_dev(div1, h1);
+
+    			if (default_slot) {
+    				default_slot.m(h1, null);
+    			}
+
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (default_slot && default_slot.p && dirty & /*$$scope*/ 1) {
+    				default_slot.p(get_slot_context(default_slot_template, ctx, /*$$scope*/ ctx[0], null), get_slot_changes(default_slot_template, /*$$scope*/ ctx[0], dirty, null));
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div2);
+    			if (default_slot) default_slot.d(detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$b.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$a($$self, $$props, $$invalidate) {
+    	let { $$slots = {}, $$scope } = $$props;
+
+    	$$self.$set = $$props => {
+    		if ("$$scope" in $$props) $$invalidate(0, $$scope = $$props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => {
+    		return {};
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		
+    	};
+
+    	return [$$scope, $$slots];
+    }
+
+    class Loading extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$a, create_fragment$b, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Loading",
     			options,
     			id: create_fragment$b.name
     		});
@@ -26897,7 +27020,7 @@ var app = (function () {
     /* src/App.svelte generated by Svelte v3.18.1 */
     const file$c = "src/App.svelte";
 
-    // (276:39) 
+    // (275:39) 
     function create_if_block_10(ctx) {
     	let current;
     	const complete = new Complete({ $$inline: true });
@@ -26929,14 +27052,14 @@ var app = (function () {
     		block,
     		id: create_if_block_10.name,
     		type: "if",
-    		source: "(276:39) ",
+    		source: "(275:39) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (269:38) 
+    // (268:38) 
     function create_if_block_9(ctx) {
     	let current;
 
@@ -26945,7 +27068,7 @@ var app = (function () {
     				subPath: /*subjectPath*/ ctx[2],
     				email,
     				labName,
-    				numOptions
+    				numOptions: /*numOptions*/ ctx[5]
     			},
     			$$inline: true
     		});
@@ -26961,6 +27084,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const debrief_changes = {};
     			if (dirty[0] & /*subjectPath*/ 4) debrief_changes.subPath = /*subjectPath*/ ctx[2];
+    			if (dirty[0] & /*numOptions*/ 32) debrief_changes.numOptions = /*numOptions*/ ctx[5];
     			debrief.$set(debrief_changes);
     		},
     		i: function intro(local) {
@@ -26981,14 +27105,14 @@ var app = (function () {
     		block,
     		id: create_if_block_9.name,
     		type: "if",
-    		source: "(269:38) ",
+    		source: "(268:38) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (261:35) 
+    // (260:35) 
     function create_if_block_8(ctx) {
     	let current;
 
@@ -26996,13 +27120,13 @@ var app = (function () {
     			props: {
     				src: /*currVidSrc*/ ctx[0],
     				ratingType: /*currRating*/ ctx[1],
-    				time: /*time*/ ctx[5],
+    				time: /*time*/ ctx[6],
     				pathway: /*ratingDocPathway*/ ctx[3]
     			},
     			$$inline: true
     		});
 
-    	task.$on("finished", /*finished_handler_7*/ ctx[30]);
+    	task.$on("finished", /*finished_handler_7*/ ctx[33]);
 
     	const block = {
     		c: function create() {
@@ -27037,19 +27161,19 @@ var app = (function () {
     		block,
     		id: create_if_block_8.name,
     		type: "if",
-    		source: "(261:35) ",
+    		source: "(260:35) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (259:44) 
+    // (258:44) 
     function create_if_block_7(ctx) {
     	let current;
     	const instructions2 = new Instructions2({ $$inline: true });
-    	instructions2.$on("back", /*back_handler_1*/ ctx[28]);
-    	instructions2.$on("finished", /*finished_handler_6*/ ctx[29]);
+    	instructions2.$on("back", /*back_handler_1*/ ctx[31]);
+    	instructions2.$on("finished", /*finished_handler_6*/ ctx[32]);
 
     	const block = {
     		c: function create() {
@@ -27078,27 +27202,27 @@ var app = (function () {
     		block,
     		id: create_if_block_7.name,
     		type: "if",
-    		source: "(259:44) ",
+    		source: "(258:44) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (257:35) 
+    // (256:35) 
     function create_if_block_6(ctx) {
     	let current;
 
     	const demo = new Demo({
     			props: {
-    				time: /*time*/ ctx[5],
+    				time: /*time*/ ctx[6],
     				ratingType: /*currRating*/ ctx[1]
     			},
     			$$inline: true
     		});
 
-    	demo.$on("back", /*back_handler*/ ctx[26]);
-    	demo.$on("finished", /*finished_handler_5*/ ctx[27]);
+    	demo.$on("back", /*back_handler*/ ctx[29]);
+    	demo.$on("finished", /*finished_handler_5*/ ctx[30]);
 
     	const block = {
     		c: function create() {
@@ -27131,26 +27255,26 @@ var app = (function () {
     		block,
     		id: create_if_block_6.name,
     		type: "if",
-    		source: "(257:35) ",
+    		source: "(256:35) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (255:44) 
+    // (254:44) 
     function create_if_block_5(ctx) {
     	let current;
 
     	const instructions1 = new Instructions1({
     			props: {
     				ratingType: /*currRating*/ ctx[1],
-    				numOptions
+    				numOptions: /*numOptions*/ ctx[5]
     			},
     			$$inline: true
     		});
 
-    	instructions1.$on("finished", /*finished_handler_4*/ ctx[25]);
+    	instructions1.$on("finished", /*finished_handler_4*/ ctx[28]);
 
     	const block = {
     		c: function create() {
@@ -27163,6 +27287,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const instructions1_changes = {};
     			if (dirty[0] & /*currRating*/ 2) instructions1_changes.ratingType = /*currRating*/ ctx[1];
+    			if (dirty[0] & /*numOptions*/ 32) instructions1_changes.numOptions = /*numOptions*/ ctx[5];
     			instructions1.$set(instructions1_changes);
     		},
     		i: function intro(local) {
@@ -27183,19 +27308,19 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(255:44) ",
+    		source: "(254:44) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (253:44) 
+    // (252:44) 
     function create_if_block_4(ctx) {
     	let current;
     	const botcheck = new Botcheck({ $$inline: true });
-    	botcheck.$on("finished", /*finished_handler_3*/ ctx[23]);
-    	botcheck.$on("failed", /*failed_handler_1*/ ctx[24]);
+    	botcheck.$on("finished", /*finished_handler_3*/ ctx[26]);
+    	botcheck.$on("failed", /*failed_handler_1*/ ctx[27]);
 
     	const block = {
     		c: function create() {
@@ -27224,19 +27349,19 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(253:44) ",
+    		source: "(252:44) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (251:48) 
+    // (250:48) 
     function create_if_block_3(ctx) {
     	let current;
     	const botcheck = new Botcheck({ $$inline: true });
-    	botcheck.$on("finished", /*finished_handler_2*/ ctx[21]);
-    	botcheck.$on("failed", /*failed_handler*/ ctx[22]);
+    	botcheck.$on("finished", /*finished_handler_2*/ ctx[24]);
+    	botcheck.$on("failed", /*failed_handler*/ ctx[25]);
 
     	const block = {
     		c: function create() {
@@ -27265,19 +27390,19 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(251:48) ",
+    		source: "(250:48) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (249:38) 
+    // (248:38) 
     function create_if_block_2$1(ctx) {
     	let current;
     	const consent = new Consent({ $$inline: true });
-    	consent.$on("finished", /*finished_handler_1*/ ctx[19]);
-    	consent.$on("returned", /*returned_handler*/ ctx[20]);
+    	consent.$on("finished", /*finished_handler_1*/ ctx[22]);
+    	consent.$on("returned", /*returned_handler*/ ctx[23]);
 
     	const block = {
     		c: function create() {
@@ -27306,18 +27431,18 @@ var app = (function () {
     		block,
     		id: create_if_block_2$1.name,
     		type: "if",
-    		source: "(249:38) ",
+    		source: "(248:38) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (247:36) 
+    // (246:36) 
     function create_if_block_1$1(ctx) {
     	let current;
     	const intro = new Intro({ $$inline: true });
-    	intro.$on("finished", /*finished_handler*/ ctx[18]);
+    	intro.$on("finished", /*finished_handler*/ ctx[21]);
 
     	const block = {
     		c: function create() {
@@ -27346,14 +27471,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$1.name,
     		type: "if",
-    		source: "(247:36) ",
+    		source: "(246:36) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (243:1) {#if !currentState}
+    // (244:1) {#if !currentState}
     function create_if_block$5(ctx) {
     	let current;
 
@@ -27376,7 +27501,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const loading_changes = {};
 
-    			if (dirty[1] & /*$$scope*/ 1) {
+    			if (dirty[1] & /*$$scope*/ 8) {
     				loading_changes.$$scope = { dirty, ctx };
     			}
 
@@ -27400,14 +27525,14 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(243:1) {#if !currentState}",
+    		source: "(244:1) {#if !currentState}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (244:2) <Loading>
+    // (245:8) <Loading>
     function create_default_slot$2(ctx) {
     	let t;
 
@@ -27427,7 +27552,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(244:2) <Loading>",
+    		source: "(245:8) <Loading>",
     		ctx
     	});
 
@@ -27480,7 +27605,7 @@ var app = (function () {
     			div = element("div");
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "svelte-1xrdbbv");
-    			add_location(div, file$c, 241, 0, 7598);
+    			add_location(div, file$c, 242, 0, 9582);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -27557,14 +27682,6 @@ var app = (function () {
     	return block;
     }
 
-    const labName = "COSAN Lab";
-    const email = "cosanlab@gmail.com";
-
-    // switch comment to shift to NES
-    // const awsSrc = "http://d1wi1elwplqs4a.cloudfront.net";
-    const awsSrc = "http://d2jhe455vxf69u.cloudfront.net";
-
-    // function used to remove previously watched videos from array
     function removeItemOnce(arr, value) {
     	var index = arr.indexOf(value);
 
@@ -27580,8 +27697,10 @@ var app = (function () {
     	const ratingsDoc = db.doc(ratingsPath);
     	const subjectGroupPath = `${experiment}/subjects/${userGroup}`;
     	const subjectGroupCollection = db.collection(subjectGroupPath);
+    	const stimuliPath = `${experiment}/stimuli`;
+    	const stimuliDoc = db.doc(stimuliPath);
 
-    	// declare and set necessary variables
+    	// declare and set other necessary variables
     	let currVid;
 
     	let currVidSrc;
@@ -27589,19 +27708,21 @@ var app = (function () {
     	let subjectPath;
     	let ratingDocPathway;
     	let currentState;
-    	let time = 0;
-    	let allMovies = movieNames;
     	let consentStatus;
+    	let alreadyWatched = [];
+    	let moviesRemaining = [];
+    	let numOptions;
+    	let time = 0;
 
-    	// used to validate update
-    	let testWord = "mturk build";
+    	// use to validate build type in JS console
+    	console.log(buildVer);
 
-    	console.log("Test word: ", testWord);
-
+    	// *****************************
+    	// main function
+    	// *****************************
     	// Before we render anything see if we have a db entry for this subject based upon the URL parameters. If not 
     	// create an entry with a new random stimulus order and put them into the instructions state. 
     	// If we do, load their trial order and current experiment state
-    	// TODO: move logic for MTurk ad here, by checking value of params.assignmentId (Max Farrens: ??? what is this)
     	onMount(async () => {
     		// right when DOM is created
     		try {
@@ -27610,7 +27731,7 @@ var app = (function () {
     					// if no user
     					try {
     						// grab the worker and assignment ID and attempt login
-    						await auth.signInWithEmailAndPassword(`${params.workerId}@experiment.com`, params.assignmentId);
+    						await auth.signInWithEmailAndPassword(`${params.workerId}@experiment.com`, params.workerId);
 
     						console.log("user found...signing in with credentials");
     					} catch(error) {
@@ -27618,7 +27739,7 @@ var app = (function () {
     							console.log("no user found...creating new credentials"); // then look for document
 
     							// if login fails, create new user
-    							await auth.createUserWithEmailAndPassword(`${params.workerId}@experiment.com`, params.assignmentId);
+    							await auth.createUserWithEmailAndPassword(`${params.workerId}@experiment.com`, params.workerId);
     						} else {
     							console.log("not working");
     							console.error(error);
@@ -27641,36 +27762,46 @@ var app = (function () {
     								// updates most recent login time
     								subjectRef.update({ mostRecentTime: serverTime });
 
-    								// check to see which movies subject has already viewd
-    								let currPath = `${ratingsPath}/${params.workerId}`;
-
-    								db.collection(currPath).get().then(function (snapshot) {
-    									// removes already completed movies from option set
-    									snapshot.forEach(function (doc) {
-    										allMovies = removeItemOnce(allMovies, doc.id.split("-")[0]);
-    									});
-
-    									// if any movie-rating pairings left, load and start
-    									if (allMovies.length > 0) {
-    										// choose random movie and rating type
-    										let movieIndex = Math.floor(Math.random() * allMovies.length);
-
-    										let ratingIndex = Math.floor(Math.random() * ratingTypes.length);
-    										currVid = allMovies[movieIndex];
-    										$$invalidate(1, currRating = ratingTypes[ratingIndex]);
-    										let vidPlusRating = `${currVid}-${currRating}`;
-    										console.log(vidPlusRating);
-    										$$invalidate(3, ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`);
-
-    										// create URL for AWS Cloudfront video sourcing 
-    										// currVidSrc = `${awsSrc}/${currVid}-480p.mp4`;
-    										$$invalidate(0, currVidSrc = `${awsSrc}/${currVid}.mp4`);
-
-    										updateState("intro");
-    									} else {
-    										console.log("no options left!");
-    										updateState("complete");
+    								// grab stimuli doc and add all movies to list
+    								stimuliDoc.get().then(function (stimuliTable) {
+    									for (var field in stimuliTable.data()) {
+    										moviesRemaining.push(field);
     									}
+
+    									// check to see which movies subject has already viewd
+    									let currPath = `${ratingsPath}/${params.workerId}`;
+
+    									db.collection(currPath).get().then(function (ratingList) {
+    										// removes already completed movies from option set
+    										ratingList.forEach(function (doc) {
+    											moviesRemaining = removeItemOnce(moviesRemaining, doc.id.split("-")[0]);
+    										}); // alreadyWatched.push(doc.id.split("-")[0]);
+
+    										// see how many movies are left
+    										$$invalidate(5, numOptions = moviesRemaining.length);
+
+    										console.log("moviesRemaining: ", moviesRemaining);
+
+    										// if any movie-rating pairings left, load and start
+    										if (numOptions > 0) {
+    											// choose random movie and rating type
+    											let movieIndex = Math.floor(Math.random() * moviesRemaining.length);
+
+    											let ratingIndex = Math.floor(Math.random() * ratingTypes.length);
+    											currVid = moviesRemaining[movieIndex];
+    											$$invalidate(1, currRating = ratingTypes[ratingIndex]);
+    											let vidPlusRating = `${currVid}-${currRating}`;
+    											$$invalidate(3, ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`);
+
+    											// grab URL for video sourcing 
+    											$$invalidate(0, currVidSrc = stimuliTable.data()[currVid]);
+
+    											updateState("intro");
+    										} else {
+    											console.log("no options left!");
+    											updateState("complete");
+    										}
+    									});
     								});
     							} else {
     								// creates new doc
@@ -27688,19 +27819,27 @@ var app = (function () {
     									consentStatus: "incomplete"
     								});
 
-    								let movieIndex = Math.floor(Math.random() * allMovies.length);
-    								let ratingIndex = Math.floor(Math.random() * ratingTypes.length);
-    								currVid = allMovies[movieIndex];
-    								$$invalidate(1, currRating = ratingTypes[ratingIndex]);
-    								let vidPlusRating = `${currVid}-${currRating}`;
-    								console.log(vidPlusRating);
-    								$$invalidate(3, ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`);
+    								// grab stimuli doc and add all movies to list
+    								stimuliDoc.get().then(function (stimuliTable) {
+    									for (var field in stimuliTable.data()) {
+    										moviesRemaining.push(field);
+    									}
 
-    								// create URL for AWS Cloudfront video sourcing 
-    								// currVidSrc = `${awsSrc}/${currVid}-480p.mp4`;
-    								$$invalidate(0, currVidSrc = `${awsSrc}/${currVid}.mp4`);
+    									// see how many options remain, and grab random movie
+    									$$invalidate(5, numOptions = moviesRemaining.length);
 
-    								updateState("intro");
+    									let movieIndex = Math.floor(Math.random() * moviesRemaining.length);
+    									let ratingIndex = Math.floor(Math.random() * ratingTypes.length);
+    									currVid = moviesRemaining[movieIndex];
+    									$$invalidate(1, currRating = ratingTypes[ratingIndex]);
+    									let vidPlusRating = `${currVid}-${currRating}`;
+    									$$invalidate(3, ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`);
+
+    									// create URL for video sourcing 
+    									$$invalidate(0, currVidSrc = stimuliTable.data()[currVid]);
+
+    									updateState("intro");
+    								});
     							}
     						});
     					} catch(error) {
@@ -27716,7 +27855,7 @@ var app = (function () {
     	// *****************************
     	// handler functions
     	// *****************************
-    	// This function updates the current state of the user to 
+    	// this function updates the current state of the user to 
     	// dynamically render different parts of the experiment (i.e. instructions, quiz, etc)
     	const updateState = async newState => {
     		// Change to the new state within Svelte
@@ -27730,6 +27869,7 @@ var app = (function () {
     		}
     	};
 
+    	// registers user as a bot
     	const failedBot = async () => {
     		try {
     			await db.doc(`${experiment}/subjects/${userGroup}/${params.workerId}`).update({ botStatus: "bot" });
@@ -27739,6 +27879,7 @@ var app = (function () {
     		}
     	};
 
+    	// registers rejected consent form
     	const failedConsent = async () => {
     		try {
     			await db.doc(`${experiment}/subjects/${userGroup}/${params.workerId}`).update({ consentStatus: "failed" });
@@ -27748,6 +27889,7 @@ var app = (function () {
     		}
     	};
 
+    	// registers accepted consent form
     	const agreedConsent = async () => {
     		try {
     			await db.doc(`${experiment}/subjects/${userGroup}/${params.workerId}`).update({ consentStatus: "signed" });
@@ -27784,10 +27926,11 @@ var app = (function () {
     		if ("subjectPath" in $$props) $$invalidate(2, subjectPath = $$props.subjectPath);
     		if ("ratingDocPathway" in $$props) $$invalidate(3, ratingDocPathway = $$props.ratingDocPathway);
     		if ("currentState" in $$props) $$invalidate(4, currentState = $$props.currentState);
-    		if ("time" in $$props) $$invalidate(5, time = $$props.time);
-    		if ("allMovies" in $$props) allMovies = $$props.allMovies;
     		if ("consentStatus" in $$props) consentStatus = $$props.consentStatus;
-    		if ("testWord" in $$props) testWord = $$props.testWord;
+    		if ("alreadyWatched" in $$props) alreadyWatched = $$props.alreadyWatched;
+    		if ("moviesRemaining" in $$props) moviesRemaining = $$props.moviesRemaining;
+    		if ("numOptions" in $$props) $$invalidate(5, numOptions = $$props.numOptions);
+    		if ("time" in $$props) $$invalidate(6, time = $$props.time);
     	};
 
     	return [
@@ -27796,19 +27939,22 @@ var app = (function () {
     		subjectPath,
     		ratingDocPathway,
     		currentState,
+    		numOptions,
     		time,
     		updateState,
     		failedBot,
     		failedConsent,
     		agreedConsent,
     		currVid,
-    		allMovies,
+    		moviesRemaining,
     		ratingsPath,
     		ratingsDoc,
     		subjectGroupPath,
     		subjectGroupCollection,
+    		stimuliPath,
+    		stimuliDoc,
     		consentStatus,
-    		testWord,
+    		alreadyWatched,
     		finished_handler,
     		finished_handler_1,
     		returned_handler,

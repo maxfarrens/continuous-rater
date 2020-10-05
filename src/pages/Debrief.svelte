@@ -211,7 +211,7 @@
                 with questions or concerns. <br>
                 If you would like to <strong>repeat this HIT with a new video</strong>, 
                 please return to the Mechanical Turk worksite and 
-                accept again. There are {numOptions} videos available to watch. Thanks! <br>
+                accept again. There are {numOptions} videos left to watch. Thanks! <br>
             </p>
                     
             <div class="field-label">

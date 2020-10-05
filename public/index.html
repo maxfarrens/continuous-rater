@@ -12,24 +12,28 @@
 
 	<!-- the following component handles MTurk authentication -->
     <script type="text/javascript">
-        // this probably needs to leave...
-        import { buildVer } from '../src/utils.js';
 		function init() { // points 'attention' to url bar
 		    function unescapeURL(s) {
 			    return decodeURIComponent(s.replace(/\+/g, '%20'));
 		    }
-            var params = {};
-            var url;
-            var m;
+            var ad = [
+            "<strong>This task involves rating your emotions while watching a video.</strong>",
+            "The task should take less than half the time provided. However, please begin \
+            working immediately so that you are sure to finish in time.",
+            "<em>Note: this study may contain media with strong emotional and explicit content, \
+                some of which may be disturbing and some of which may not be safe for work. \
+                You are free to withdraw from this task at any time. This task is NOT meant for \
+                mobile devices.</em>", 
+            "<strong>Please click 'Accept HIT' above to begin the task.</strong>",
+            "If you do not advance automatically to the next page, please refresh this HIT or \
+            email us with concerns.",
+            "<br>"
+            ];
 
-            if (buildVer == 'demo') {
-                url = "https://demo.app/?assignmentId=TEST&hitId=TEST&workerId=TEST";
-                m = url.match(/[\\?&]([^=]+)=([^&#]*)/g);
-            } else {
-                url = window.location.href;
-		        m = window.location.href.match(/[\\?&]([^=]+)=([^&#]*)/g);
-            }
-		
+            var params = {};
+            var url = window.location.href;
+            var m = window.location.href.match(/[\\?&]([^=]+)=([^&#]*)/g);
+
             if (m) {
                 var i = 0;
                 while (i < m.length) {
@@ -38,19 +42,18 @@
                     i += 1;
                 }
             }
-		  // coming from somewhere other than MTurk
-            if (!params.workerId && !params.assignmentId && !params.hitId) {
-                var div = document.createElement('div');
-                var content = document.createTextNode('Not authorized');
-                div.appendChild(content);
-                document.body.appendChild(div);
-                console.log('non mturk referral');
 
-		    } else if (params.assignmentId === 'ASSIGNMENT_ID_NOT_AVAILABLE') {
+		    if (params.assignmentId === 'ASSIGNMENT_ID_NOT_AVAILABLE') {
                 var div = document.createElement('div');
-                var content = document.createTextNode('Mturk ad');
-                div.appendChild(content);
+                div.id = 'ad';
+                var p;
+                for (var text of ad) {
+                    p = document.createElement('p');
+                    p.innerHTML = text;
+                    div.appendChild(p);
+                }
                 document.body.appendChild(div);
+                document.getElementById('ad').style.textAlign = 'center';
                 console.log('mturk preview');
 
 			// this part is for successful authentication
@@ -58,6 +61,17 @@
                 var app = document.createElement('script');
                 app.setAttribute('src', 'build/bundle.js');
                 document.body.appendChild(app);
+                // if not coming from mturk, add demo disclaimer
+                if (!params.workerId && !params.assignmentId && !params.hitId) {
+                    var div = document.createElement('div');
+                    div.id = 'disclaimer'
+                    var content = document.createTextNode('demo version, not from mturk');
+                    div.appendChild(content);
+                    document.body.appendChild(div);
+                    document.getElementById('disclaimer').style.textAlign = 'center';
+                    document.getElementById('disclaimer').style.fontStyle = 'italic';
+                    console.log('non mturk referral');
+                }
                 console.log('mturk accept');
 		    }
 		}

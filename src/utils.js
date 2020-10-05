@@ -24,16 +24,13 @@ export const experiment = 'Demo'; // name of experiment (should match collection
 
 // HIT variables
 export const buildVer = 'demo' // should be 'demo', 'sandbox' or 'build' based on intended use
-export const totalHITTime = '2'; // total time provided for HIT (in minutes)
-export const estHITTime = '2'; // estimated time to complete HIT (in minutes)
 export const HITPay = '2'; // pay for HIT completion (format as X.XX)
 export const userGroup = 'Group 1'; // name of collection of participants for current HIT
+export const estHITTime = '2'; // estimated time to complete HIT (in minutes)
+export const totalHITTime = estHITTime * 2; // total time provided for HIT (in minutes)
 
-// stimuli variables
-export const movieNames = []; // each movie is the exact spelling of file name on your server         
-export const ratingTypes = []; // array of rating types   
-export const awsSrc = ''; // url for server containing stimuli
-export const numOptions = movieNames.length; // number of movies
+// stimuli variables      
+export const ratingTypes = ['amused', 'angry', 'sad']; // array of rating types   
 
 // this configures path to proper firebase
 // PUT YOUR FIREBASE CONFIG HERE
@@ -67,7 +64,7 @@ export const getURLParams = () => {
     const params = {};
 
     if (buildVer == 'demo') {
-        url = "https://demo.app/?assignmentId=TEST&hitId=TEST&workerId=TEST";
+        url = "https://demo.app/?assignmentId=TEST_ASSIGN&hitId=TEST_HIT&workerId=TEST_WORKER";
         m = url.match(/[\\?&]([^=]+)=([^&#]*)/g);
     } else {
         url = window.location.href;

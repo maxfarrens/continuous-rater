@@ -5,11 +5,10 @@
 -->
 
 <script>
-    import { db, auth, serverTime, params, movieNames, ratingTypes, buildVer,
-            numOptions, experiment, userGroup, labName, email, awsSrc } from './utils.js';
+    import { db, auth, serverTime, params, ratingTypes, buildVer,
+            experiment, userGroup, labName, email} from './utils.js';
     
     import { onMount } from 'svelte';
-	import Ad from './pages/Ad.svelte';
 	import Intro from './pages/Intro.svelte';
 	import Botcheck from './pages/Botcheck.svelte';
 	import Consent from './pages/Consent.svelte';
@@ -25,8 +24,10 @@
 	const ratingsPath = `${experiment}/ratings`;
 	const ratingsDoc = db.doc(ratingsPath);
 	const subjectGroupPath = `${experiment}/subjects/${userGroup}`;
-	const subjectGroupCollection = db.collection(subjectGroupPath);
-	
+    const subjectGroupCollection = db.collection(subjectGroupPath);
+    const stimuliPath = `${experiment}/stimuli`;
+    const stimuliDoc = db.doc(stimuliPath);
+
 	// declare and set other necessary variables
 	let currVid;
 	let currVidSrc;
@@ -34,10 +35,12 @@
 	let subjectPath;
 	let ratingDocPathway;
 	let currentState;
-	let allMovies = movieNames;
-	let consentStatus;
-	let time = 0;
-
+    let consentStatus;
+    let alreadyWatched = [];
+    let moviesRemaining = [];
+    let numOptions;
+    let time = 0;
+    
     // use to validate build type in JS console
 	console.log(buildVer);
 	
@@ -85,34 +88,41 @@
 								// updates most recent login time
 								subjectRef.update({
 									mostRecentTime: serverTime
-								});
-								
-								// check to see which movies subject has already viewd
-								let currPath = `${ratingsPath}/${params.workerId}`;
-								db.collection(currPath).get().then(function(snapshot) {
-									// removes already completed movies from option set
-									snapshot.forEach(function(doc) {
-										allMovies = removeItemOnce(allMovies, doc.id.split("-")[0]);
-									});
-
-									// if any movie-rating pairings left, load and start
-									if (allMovies.length > 0) {
+                                });
+                                // grab stimuli doc and add all movies to list
+                                stimuliDoc.get().then(function(stimuliTable) {
+                                    for (var field in stimuliTable.data()) {
+                                        moviesRemaining.push(field);         
+                                    }
+                                    // check to see which movies subject has already viewd
+                                    let currPath = `${ratingsPath}/${params.workerId}`;
+                                    db.collection(currPath).get().then(function(ratingList) {
+                                        // removes already completed movies from option set
+                                        ratingList.forEach(function(doc) {
+                                            moviesRemaining = removeItemOnce(moviesRemaining, doc.id.split("-")[0]);
+                                            // alreadyWatched.push(doc.id.split("-")[0]);
+                                        });
+                                        // see how many movies are left
+                                        numOptions = moviesRemaining.length;
+                                        console.log('moviesRemaining: ', moviesRemaining);
+                                        // if any movie-rating pairings left, load and start
+									    if (numOptions > 0) {
 										// choose random movie and rating type
-										let movieIndex = Math.floor(Math.random()*allMovies.length);
-										let ratingIndex = Math.floor(Math.random()*ratingTypes.length);
-										currVid = allMovies[movieIndex];
-										currRating = ratingTypes[ratingIndex];
-										let vidPlusRating = `${currVid}-${currRating}`;
-										ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
-
-										// create URL for video sourcing 
-										currVidSrc = `${awsSrc}/${currVid}.mp4`;
-										updateState('intro');
+                                            let movieIndex = Math.floor(Math.random()*moviesRemaining.length);
+                                            let ratingIndex = Math.floor(Math.random()*ratingTypes.length);
+                                            currVid = moviesRemaining[movieIndex];
+                                            currRating = ratingTypes[ratingIndex];
+                                            let vidPlusRating = `${currVid}-${currRating}`;
+                                            ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
+                                            // grab URL for video sourcing 
+                                            currVidSrc = stimuliTable.data()[currVid];
+                                            updateState('intro');
 										
-									} else {
-										console.log("no options left!");
-										updateState('complete');
-									}
+                                        } else {
+                                            console.log("no options left!");
+                                            updateState('complete');
+                                        }
+                                    });
 								});
 
 							} else { // creates new doc
@@ -126,18 +136,24 @@
 									userId: currUser.uid,
 									startTime: serverTime,
 									consentStatus: 'incomplete'
-								});
-
-								let movieIndex = Math.floor(Math.random()*allMovies.length);
-								let ratingIndex = Math.floor(Math.random()*ratingTypes.length);
-								currVid = allMovies[movieIndex];
-								currRating = ratingTypes[ratingIndex];
-								let vidPlusRating = `${currVid}-${currRating}`;
-								ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
-							
-								// create URL for video sourcing 
-								currVidSrc = `${awsSrc}/${currVid}.mp4`;
-								updateState('intro');
+                                });
+                                // grab stimuli doc and add all movies to list
+                                stimuliDoc.get().then(function(stimuliTable) {    
+                                    for (var field in stimuliTable.data()) {
+                                        moviesRemaining.push(field);
+                                    }
+                                    // see how many options remain, and grab random movie
+                                    numOptions = moviesRemaining.length;
+                                    let movieIndex = Math.floor(Math.random()*moviesRemaining.length);
+                                    let ratingIndex = Math.floor(Math.random()*ratingTypes.length);
+                                    currVid = moviesRemaining[movieIndex];
+                                    currRating = ratingTypes[ratingIndex];
+                                    let vidPlusRating = `${currVid}-${currRating}`;
+                                    ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
+                                    // create URL for video sourcing 
+                                    currVidSrc = stimuliTable.data()[currVid];
+                                    updateState('intro');
+                                });	
 							}
 						});	
 					} catch (error) {
@@ -226,12 +242,7 @@
 
 <div>
 	{#if !currentState}
-        <!-- NEED TO CHANGE THIS LOGIC OVER TO INDEX.HTML -->
-        {#if buildVer != 'demo'}
-		    <Ad on:finished={() => updateState('intro')}></Ad>
-        {:else}
-            <Loading>Loading...</Loading>
-        {/if}
+        <Loading>Loading...</Loading>
 	{:else if currentState === 'intro'}
 		<Intro on:finished={() => updateState('consent')}></Intro>
 	{:else if currentState === 'consent'}
