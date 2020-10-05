@@ -10,11 +10,10 @@
 	<link rel='stylesheet' href='/global.css'>
 	<link rel='stylesheet' href='/build/bundle.css'>
 
-	<script defer src='/build/bundle.js'></script>
-
 	<!-- the following component handles MTurk authentication -->
     <script type="text/javascript">
-        import { buildVer } from './utils.js';
+        // this probably needs to leave...
+        import { buildVer } from '../src/utils.js';
 		function init() { // points 'attention' to url bar
 		    function unescapeURL(s) {
 			    return decodeURIComponent(s.replace(/\+/g, '%20'));
@@ -57,7 +56,7 @@
 			// this part is for successful authentication
 		    } else {
                 var app = document.createElement('script');
-                app.setAttribute('src', 'bundle.js');
+                app.setAttribute('src', 'build/bundle.js');
                 document.body.appendChild(app);
                 console.log('mturk accept');
 		    }

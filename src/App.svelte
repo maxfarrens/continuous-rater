@@ -38,9 +38,8 @@
 	let consentStatus;
 	let time = 0;
 
-	// use to validate build type in JS console
-	let buildTitle = "Moth mturk build";
-	console.log(buildTitle);
+    // use to validate build type in JS console
+	console.log(buildVer);
 	
 	// *****************************
 	// main function
@@ -57,7 +56,7 @@
 					try { // grab the worker and assignment ID and attempt login
 						await auth.signInWithEmailAndPassword(
 							`${params.workerId}@experiment.com`,
-							params.assignmentId
+							params.workerId
 						);
 						console.log('user found...signing in with credentials');
 						// then look for document
@@ -67,7 +66,7 @@
 							// if login fails, create new user
 							await auth.createUserWithEmailAndPassword(
 								`${params.workerId}@experiment.com`,
-								params.assignmentId
+								params.workerId
 							);
 						} else {
 							console.log("not working");
@@ -106,7 +105,7 @@
 										let vidPlusRating = `${currVid}-${currRating}`;
 										ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
 
-										// create URL for AWS Cloudfront video sourcing 
+										// create URL for video sourcing 
 										currVidSrc = `${awsSrc}/${currVid}.mp4`;
 										updateState('intro');
 										
@@ -136,7 +135,7 @@
 								let vidPlusRating = `${currVid}-${currRating}`;
 								ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
 							
-								// create URL for AWS Cloudfront video sourcing 
+								// create URL for video sourcing 
 								currVidSrc = `${awsSrc}/${currVid}.mp4`;
 								updateState('intro');
 							}
@@ -227,6 +226,7 @@
 
 <div>
 	{#if !currentState}
+        <!-- NEED TO CHANGE THIS LOGIC OVER TO INDEX.HTML -->
         {#if buildVer != 'demo'}
 		    <Ad on:finished={() => updateState('intro')}></Ad>
         {:else}
