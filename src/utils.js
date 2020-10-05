@@ -23,7 +23,7 @@ export const studyTasks = 'beep boops'; // brief summary of HIT task for consent
 export const experiment = 'Demo'; // name of experiment (should match collection name in firebase)
 
 // HIT variables
-export const buildVer = 'sandbox' // should be 'demo', 'sandbox' or 'build' based on intended use
+export const buildVer = 'demo' // should be 'demo', 'sandbox' or 'build' based on intended use
 export const HITPay = '2'; // pay for HIT completion (format as X.XX)
 export const userGroup = 'Group 1'; // name of collection of participants for current HIT
 export const estHITTime = '2'; // estimated time to complete HIT (in minutes)

@@ -47,18 +47,18 @@
 	// *****************************
 	// main function
     // *****************************
-    
-    if (buildVer = 'demo') {
-        params.assignmentId = 'TEST_ASSIGNMENT';
-        params.hitId = 'TEST_HIT';
-        params.assignmentId = 'TEST_WORKER';
-    }
 
 	// Before we render anything see if we have a db entry for this subject based upon the URL parameters. If not 
 	// create an entry with a new random stimulus order and put them into the instructions state. 
     // If we do, load their trial order and current experiment state
 	
-	onMount(async () => { // right when DOM is created
+    onMount(async () => { // right when DOM is created
+        // allows backend to work without connection to mturk
+        if (buildVer === 'demo') {
+            params.assignmentId = 'TEST_ASSIGNMENT';
+            params.hitId = 'TEST_HIT';
+            params.workerId = 'TEST_WORKER';
+        }   
 		try {
 			auth.onAuthStateChanged(async (user) => {
 				if (!user) { // if no user
