@@ -8,18 +8,18 @@ continuous-rater is <strong>an app that allows participants to continuously rate
 ## getting started
 1. Clone the repository locally. Go to your command line and enter:
 
-	```bash
-git clone https://github.com/maxfarrens/continuous-rater.git
-```
+	```
+	git clone https://github.com/maxfarrens/continuous-rater.git
+	```
 2. Install the dependencies
 
-	```bash
-cd continuous-rater
-npm install
-```
+	```
+	cd continuous-rater
+	npm install
+	```
 3. Start [Rollup](https://rollupjs.org/guide/en/)
 
-	```bash
+	```
 	npm run dev
 	```
 4. Navigate to [localhost:5000](localhost:5000). You should see a developer version of your app running. Initially, it should just display a white screen with text that says *demo version, not from mturk*. In order to make the app functional, you need to set up the Firebase backend and edit `src/utils.js`. Read on!
