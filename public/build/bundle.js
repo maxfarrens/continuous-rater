@@ -2376,7 +2376,7 @@ var app = (function () {
     exports.validateCallback = validateCallback;
     exports.validateContextObject = validateContextObject;
     exports.validateNamespace = validateNamespace;
-    //# sourceMappingURL=index.cjs.js.map
+
     });
 
     unwrapExports(index_cjs);
@@ -2739,7 +2739,7 @@ var app = (function () {
     exports.Component = Component;
     exports.ComponentContainer = ComponentContainer;
     exports.Provider = Provider;
-    //# sourceMappingURL=index.cjs.js.map
+
     });
 
     unwrapExports(index_cjs$1);
@@ -3024,7 +3024,7 @@ var app = (function () {
     exports.Logger = Logger;
     exports.setLogLevel = setLogLevel;
     exports.setUserLogHandler = setUserLogHandler;
-    //# sourceMappingURL=index.cjs.js.map
+
     });
 
     unwrapExports(index_cjs$2);
@@ -3706,7 +3706,7 @@ var app = (function () {
 
     exports.default = firebase$1;
     exports.firebase = firebase$1;
-    //# sourceMappingURL=index.cjs.js.map
+
     });
 
     unwrapExports(index_cjs$3);
@@ -3833,7 +3833,7 @@ var app = (function () {
     */
     Ed.prototype.createWebChannel=Ed.prototype.a;Y.prototype.send=Y.prototype.Ua;Y.prototype.open=Y.prototype.Ta;Y.prototype.close=Y.prototype.close;Rb.NO_ERROR=0;Rb.TIMEOUT=8;Rb.HTTP_ERROR=6;Sb.COMPLETE="complete";Vb.EventType=F;F.OPEN="a";F.CLOSE="b";F.ERROR="c";F.MESSAGE="d";A.prototype.listen=A.prototype.ya;X.prototype.listenOnce=X.prototype.za;X.prototype.getLastError=X.prototype.Va;X.prototype.getLastErrorCode=X.prototype.xa;X.prototype.getStatus=X.prototype.T;X.prototype.getResponseJson=X.prototype.Sa;
     X.prototype.getResponseText=X.prototype.aa;X.prototype.send=X.prototype.ca;module.exports={createWebChannelTransport:function(){return new Ed},ErrorCode:Rb,EventType:Sb,WebChannel:Vb,XhrIo:X};}).call(typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {});
-    //# sourceMappingURL=index.js.map
+
     });
     var dist_1 = dist.createWebChannelTransport;
     var dist_2 = dist.ErrorCode;
@@ -18900,7 +18900,7 @@ var app = (function () {
             return btoa(t);
         }, t;
     }())), go(n), exports.__PRIVATE_registerFirestore = go;
-    //# sourceMappingURL=index.cjs.js.map
+
     });
 
     unwrapExports(index_cjs$5);
@@ -20935,7 +20935,7 @@ var app = (function () {
     registerInstallations(firebase);
 
     exports.registerInstallations = registerInstallations;
-    //# sourceMappingURL=index.cjs.js.map
+
     });
 
     unwrapExports(index_cjs$6);
@@ -22440,7 +22440,7 @@ var app = (function () {
     registerPerformance(firebase);
 
     exports.registerPerformance = registerPerformance;
-    //# sourceMappingURL=index.cjs.js.map
+
     });
 
     unwrapExports(index_cjs$7);
@@ -23041,7 +23041,7 @@ var app = (function () {
     exports.registerAnalytics = registerAnalytics;
     exports.resetGlobalVars = resetGlobalVars;
     exports.settings = settings;
-    //# sourceMappingURL=index.cjs.js.map
+
     });
 
     unwrapExports(index_cjs$8);
