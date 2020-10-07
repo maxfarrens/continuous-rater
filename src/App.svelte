@@ -95,44 +95,8 @@
 								subjectRef.update({
 									mostRecentTime: serverTime
                                 });
-                                // grab stimuli doc and add all movies to list
-                                stimuliDoc.get().then(function(stimuliTable) {
-                                    for (var field in stimuliTable.data()) {
-                                        moviesRemaining.push(field);         
-                                    }
-                                    // check to see which movies subject has already viewd
-                                    let currPath = `${ratingsPath}/${params.workerId}`;
-                                    db.collection(currPath).get().then(function(ratingList) {
-                                        // removes already completed movies from option set
-                                        ratingList.forEach(function(doc) {
-                                            moviesRemaining = removeItemOnce(moviesRemaining, doc.id.split("-")[0]);
-                                            // alreadyWatched.push(doc.id.split("-")[0]);
-                                        });
-                                        // see how many movies are left
-                                        numOptions = moviesRemaining.length;
-                                        console.log('moviesRemaining: ', moviesRemaining);
-                                        // if any movie-rating pairings left, load and start
-									    if (numOptions > 0) {
-										// choose random movie and rating type
-                                            let movieIndex = Math.floor(Math.random()*moviesRemaining.length);
-                                            let ratingIndex = Math.floor(Math.random()*ratingTypes.length);
-                                            currVid = moviesRemaining[movieIndex];
-                                            currRating = ratingTypes[ratingIndex];
-                                            let vidPlusRating = `${currVid}-${currRating}`;
-                                            ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
-                                            // grab URL for video sourcing 
-                                            currVidSrc = stimuliTable.data()[currVid];
-                                            updateState('intro');
-										
-                                        } else {
-                                            console.log("no options left!");
-                                            updateState('complete');
-                                        }
-                                    });
-								});
-
-							} else { // creates new doc
-								subjectGroupCollection.doc(params.workerId).set({name: 'unknown'});
+                            } else {
+                                subjectGroupCollection.doc(params.workerId).set({name: 'unknown'});
 								console.log('no previous documents found...creating new...');
 								subjectPath = `${subjectGroupPath}/${params.workerId}`;
 								subjectRef.set({
@@ -143,24 +107,41 @@
 									startTime: serverTime,
 									consentStatus: 'incomplete'
                                 });
-                                // grab stimuli doc and add all movies to list
-                                stimuliDoc.get().then(function(stimuliTable) {    
-                                    for (var field in stimuliTable.data()) {
-                                        moviesRemaining.push(field);
-                                    }
-                                    // see how many options remain, and grab random movie
+                            }
+                            // grab stimuli doc and add all movies to list
+                            stimuliDoc.get().then(function(stimuliTable) {
+                                for (var field in stimuliTable.data()) {
+                                    moviesRemaining.push(field);         
+                                }
+                                // check to see which movies subject has already viewd
+                                let currPath = `${ratingsPath}/${params.workerId}`;
+                                db.collection(currPath).get().then(function(ratingList) {
+                                    // removes already completed movies from option set
+                                    ratingList.forEach(function(doc) {
+                                        moviesRemaining = removeItemOnce(moviesRemaining, doc.id.split("-")[0]);
+                                    });
+                                    // see how many movies are left
                                     numOptions = moviesRemaining.length;
-                                    let movieIndex = Math.floor(Math.random()*moviesRemaining.length);
-                                    let ratingIndex = Math.floor(Math.random()*ratingTypes.length);
-                                    currVid = moviesRemaining[movieIndex];
-                                    currRating = ratingTypes[ratingIndex];
-                                    let vidPlusRating = `${currVid}-${currRating}`;
-                                    ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
-                                    // create URL for video sourcing 
-                                    currVidSrc = stimuliTable.data()[currVid];
-                                    updateState('intro');
-                                });	
-							}
+                                    console.log('moviesRemaining: ', moviesRemaining);
+                                    // if any movie-rating pairings left, load and start
+                                    if (numOptions > 0) {
+                                    // choose random movie and rating type
+                                        let movieIndex = Math.floor(Math.random()*moviesRemaining.length);
+                                        let ratingIndex = Math.floor(Math.random()*ratingTypes.length);
+                                        currVid = moviesRemaining[movieIndex];
+                                        currRating = ratingTypes[ratingIndex];
+                                        let vidPlusRating = `${currVid}-${currRating}`;
+                                        ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
+                                        // grab URL for video sourcing 
+                                        currVidSrc = stimuliTable.data()[currVid];
+                                        updateState('intro');
+										
+                                    } else {
+                                        console.log("no options left!");
+                                        updateState('complete');
+                                    }
+                                });
+                            });
 						});	
 					} catch (error) {
 						console.error(error);
