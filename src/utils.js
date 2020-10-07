@@ -15,9 +15,9 @@ import "firebase/analytics";
 // ************************************************
 
 // lab variables
-export const labName = ''; // name of lab running HIT experiment 
-export const email = ''; // email for mturk
 export const studyLocation = ''; // location of lab running mturk study
+export const labName = ''; // name of lab running HIT experiment 
+export const email = ''; // lab email for mturk
 export const studyAim = ''; // aim of mturk study 
 export const studyTasks = ''; // brief summary of HIT task for consent form
 export const experiment = ''; // name of experiment (should match collection name in firebase)
@@ -34,7 +34,7 @@ export const ratingTypes = ['', '', '']; // array of rating types
 
 // this configures path to proper firebase
 // PUT YOUR FIREBASE CONFIG HERE
-let firebaseConfig = {
+const firebaseConfig = {
     apiKey: "",
     authDomain: "",
     databaseURL: "",
