@@ -89,13 +89,13 @@
 						const subjectRef = subjectGroupCollection.doc(params.workerId);
 						subjectPath = `${subjectGroupPath}/${params.workerId}`;
 						subjectRef.get().then(function(doc) {
-							if (doc.exists) {
+							if (doc.exists) { // load old document
 								console.log('previous document found...loading state...');
 								// updates most recent login time
 								subjectRef.update({
 									mostRecentTime: serverTime
                                 });
-                            } else {
+                            } else { // create a new document
                                 subjectGroupCollection.doc(params.workerId).set({name: 'unknown'});
 								console.log('no previous documents found...creating new...');
 								subjectPath = `${subjectGroupPath}/${params.workerId}`;
@@ -113,7 +113,7 @@
                                 for (var field in stimuliTable.data()) {
                                     moviesRemaining.push(field);         
                                 }
-                                // check to see which movies subject has already viewd
+                                // check to see which movies subject has already viewed (if any)
                                 let currPath = `${ratingsPath}/${params.workerId}`;
                                 db.collection(currPath).get().then(function(ratingList) {
                                     // removes already completed movies from option set
