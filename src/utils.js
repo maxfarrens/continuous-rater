@@ -23,7 +23,7 @@ export const studyTasks = ''; // brief summary of HIT task for consent form
 export const experiment = ''; // name of experiment (should match collection name in firebase)
 
 // HIT variables
-export const buildVer = '' // should be 'demo', 'sandbox' or 'build' based on intended use
+export const buildVer = '' // should be 'demo' or 'mturk' based on intended use
 export const HITPay = ''; // pay for HIT completion (format as X.XX)
 export const userGroup = ''; // name of collection of participants for current HIT
 export const estHITTime = ''; // estimated time to complete HIT (in minutes)
