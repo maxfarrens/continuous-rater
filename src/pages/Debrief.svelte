@@ -11,13 +11,7 @@
     export let numOptions;
     let emailAddress = "mailto:" + email;
     let currID = params.assignmentId;
-    let postURL;
-
-    if (buildVer == 'build') {
-        postURL = "https://www.mturk.com/mturk/externalSubmit";
-    } else {
-        postURL = "https://workersandbox.mturk.com/mturk/externalSubmit";
-    }
+    let postURL = params.turkSubmitTo + '/mturk/externalSubmit';
     
     let age = '';
     let feedback = '';
@@ -112,7 +106,7 @@
             <em>All questions are optional</em>
 
             <input type="hidden" name="assignmentId" id="assignmentId" value={currID}>
-            <input type="hidden" name="foo" value="1">
+            <input type="hidden" name="hidden_val_DONT_REMOVE" value="1">
             
             <label class="label"><br><u>Age</u>
                 <div class="options">
