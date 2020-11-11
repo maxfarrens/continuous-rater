@@ -26,7 +26,7 @@
   .icon:hover {
     cursor: pointer;
   }
-  p {
+  span {
     display: inline;
   }
 </style>

@@ -266,7 +266,7 @@
 <style>
 	div {
 		height: 100vh;
-	}
+	} 
 </style>
 
 
@@ -307,4 +307,5 @@
 	{/if}	
 </div>
 <Footer on:resetTestWorker={resetTestWorker}></Footer>
+
 

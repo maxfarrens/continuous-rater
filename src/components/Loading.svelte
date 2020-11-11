@@ -27,7 +27,7 @@
 <div class="loader-wrapper">
   <div class="loader is-loading" />
   <div class="loading-text">
-    <h1 class="is-size-3">
+    <h1>
       <slot />
     </h1>
   </div>

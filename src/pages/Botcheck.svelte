@@ -49,11 +49,12 @@
 
 <style>
 	.container {
-		text-align: center;
+		margin: 0 auto !important; 
+        text-align: center;
 		align-items: center;
 		width: 50%;
-		margin: 0 auto !important; 
-	}
+    }
+		
 
 	.bot-box {
 		padding: 2%;
