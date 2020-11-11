@@ -16,7 +16,6 @@
     text-align: center;
     padding: 0.5rem;
     border-radius: 0.25rem;
-    /* background-color: lightcoral; */
   }
   .dev {
     background-color: rgba(209, 128, 128, 0.589);
