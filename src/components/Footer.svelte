@@ -18,10 +18,10 @@
     border-radius: 0.25rem;
   }
   .dev {
-    background-color: rgba(209, 128, 128, 0.589);
+    background-color: lightcoral;
   }
   .mturk {
-    background-color: rgba(173, 216, 230, 0.63);
+    background-color: lightblue;
   }
   .icon:hover {
     cursor: pointer;
@@ -40,7 +40,9 @@
         </div>
     {:else}
         <div class="banner mturk">
-            <p>If you have questions about this HIT please <a href={emailAddress}>email us</a></p>
+            <span>
+                If you have questions about this HIT please <a href={emailAddress}>email us</a>
+            </span>
         </div>
     {/if}
 </div>

@@ -27051,7 +27051,7 @@ var app = (function () {
     // (41:4) {:else}
     function create_else_block$3(ctx) {
     	let div;
-    	let p;
+    	let span;
     	let t0;
     	let a;
     	let t1;
@@ -27059,22 +27059,21 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			div = element("div");
-    			p = element("p");
+    			span = element("span");
     			t0 = text("If you have questions about this HIT please ");
     			a = element("a");
     			t1 = text("email us");
     			attr_dev(a, "href", /*emailAddress*/ ctx[1]);
-    			add_location(a, file$c, 42, 59, 900);
-    			attr_dev(p, "class", "svelte-135l1nn");
-    			add_location(p, file$c, 42, 12, 853);
-    			attr_dev(div, "class", "banner mturk svelte-135l1nn");
-    			add_location(div, file$c, 41, 8, 814);
+    			add_location(a, file$c, 43, 60, 888);
+    			add_location(span, file$c, 42, 12, 821);
+    			attr_dev(div, "class", "banner mturk svelte-oakxyt");
+    			add_location(div, file$c, 41, 8, 782);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			append_dev(div, p);
-    			append_dev(p, t0);
-    			append_dev(p, a);
+    			append_dev(div, span);
+    			append_dev(span, t0);
+    			append_dev(span, a);
     			append_dev(a, t1);
     		},
     		p: noop,
@@ -27105,10 +27104,10 @@ var app = (function () {
     			div = element("div");
     			span = element("span");
     			span.textContent = "Dev mode (click to reset test subject)";
-    			attr_dev(span, "class", "icon svelte-135l1nn");
-    			add_location(span, file$c, 36, 12, 639);
-    			attr_dev(div, "class", "banner dev svelte-135l1nn");
-    			add_location(div, file$c, 35, 8, 602);
+    			attr_dev(span, "class", "icon svelte-oakxyt");
+    			add_location(span, file$c, 36, 12, 607);
+    			attr_dev(div, "class", "banner dev svelte-oakxyt");
+    			add_location(div, file$c, 35, 8, 570);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -27148,7 +27147,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			if_block.c();
-    			add_location(div, file$c, 33, 2, 573);
+    			add_location(div, file$c, 33, 2, 541);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
