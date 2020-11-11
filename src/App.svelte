@@ -40,9 +40,10 @@
     let moviesRemaining = [];
     let numOptions;
     let time = 0;
+    let initExperiment = false;
     
     // use to validate build type in JS console
-	console.log(buildVer);
+	console.log(dev);
 	
 	// *****************************
 	// main function
@@ -51,100 +52,114 @@
 	// Before we render anything see if we have a db entry for this subject based upon the URL parameters. If not 
 	// create an entry with a new random stimulus order and put them into the instructions state. 
     // If we do, load their trial order and current experiment state
+
+    if (params.assignmentId === 'ASSIGNMENT_ID_NOT_AVAILABLE') {
+        currentState = 'mturk-preview';
+    } else if (
+        params.workerId &&
+        params.assignmentId !== 'ASSIGNMENT_ID_NOT_AVAILABLE' &&
+        params.hitId
+    ) {
+        initExperiment = true;
+    } else {
+        currentState = 'non-mturk';
+    }
 	
     onMount(async () => { // right when DOM is created
-		try {
-			auth.onAuthStateChanged(async (user) => {
-				if (!user) { // if no user
-					try { // grab the worker and assignment ID and attempt login
-						await auth.signInWithEmailAndPassword(
-							`${params.workerId}@experiment.com`,
-							params.workerId
-						);
-						console.log('user found...signing in with credentials');
-						// then look for document
-					} catch (error) {
-						if (error.code === 'auth/user-not-found') {
-							console.log('no user found...creating new credentials');
-							// if login fails, create new user
-							await auth.createUserWithEmailAndPassword(
-								`${params.workerId}@experiment.com`,
-								params.workerId
-							);
-						} else {
-							console.log("not working");
-							console.error(error);
-						}
-					}
-				} else {
-					console.log('user authenticated...');
-					let currUser = auth.currentUser;
-					try { // if user already signed in, grab relevant document
-						const subjectRef = subjectGroupCollection.doc(params.workerId);
-						subjectPath = `${subjectGroupPath}/${params.workerId}`;
-						subjectRef.get().then(function(doc) {
-							if (doc.exists) { // load old document
-								console.log('previous document found...loading state...');
-								// updates most recent login time
-								subjectRef.update({
-									mostRecentTime: serverTime
-                                });
-                            } else { // create a new document
-                                subjectGroupCollection.doc(params.workerId).set({name: 'unknown'});
-								console.log('no previous documents found...creating new...');
-								subjectPath = `${subjectGroupPath}/${params.workerId}`;
-								subjectRef.set({
-									workerId: params.workerId,
-									assignmentId: params.assignmentId,
-									hitId: params.hitId,
-									userId: currUser.uid,
-									startTime: serverTime,
-									consentStatus: 'incomplete'
-                                });
+        if (initExperiment) {
+            try {
+                auth.onAuthStateChanged(async (user) => {
+                    if (!user) { // if no user
+                        try { // grab the worker and assignment ID and attempt login
+                            await auth.signInWithEmailAndPassword(
+                                `${params.workerId}@experiment.com`,
+                                params.workerId
+                            );
+                            console.log('user found...signing in with credentials');
+                            // then look for document
+                        } catch (error) {
+                            if (error.code === 'auth/user-not-found') {
+                                console.log('no user found...creating new credentials');
+                                // if login fails, create new user
+                                await auth.createUserWithEmailAndPassword(
+                                    `${params.workerId}@experiment.com`,
+                                    params.workerId
+                                );
+                            } else {
+                                console.log("not working");
+                                console.error(error);
                             }
-                            // grab stimuli doc and add all movies to list
-                            stimuliDoc.get().then(function(stimuliTable) {
-                                for (var field in stimuliTable.data()) {
-                                    moviesRemaining.push(field);         
-                                }
-                                // check to see which movies subject has already viewed (if any)
-                                let currPath = `${ratingsPath}/${params.workerId}`;
-                                db.collection(currPath).get().then(function(ratingList) {
-                                    // removes already completed movies from option set
-                                    ratingList.forEach(function(doc) {
-                                        moviesRemaining = removeItemOnce(moviesRemaining, doc.id.split("-")[0]);
+                        }
+                    } else {
+                        console.log('user authenticated...');
+                        let currUser = auth.currentUser;
+                        try { // if user already signed in, grab relevant document
+                            const subjectRef = subjectGroupCollection.doc(params.workerId);
+                            subjectPath = `${subjectGroupPath}/${params.workerId}`;
+                            subjectRef.get().then(function(doc) {
+                                if (doc.exists) { // load old document
+                                    console.log('previous document found...loading state...');
+                                    // updates most recent login time
+                                    subjectRef.update({
+                                        mostRecentTime: serverTime
                                     });
-                                    // see how many movies are left
-                                    numOptions = moviesRemaining.length;
-                                    console.log('moviesRemaining: ', moviesRemaining);
-                                    // if any movie-rating pairings left, load and start
-                                    if (numOptions > 0) {
-                                    // choose random movie and rating type
-                                        let movieIndex = Math.floor(Math.random()*moviesRemaining.length);
-                                        let ratingIndex = Math.floor(Math.random()*ratingTypes.length);
-                                        currVid = moviesRemaining[movieIndex];
-                                        currRating = ratingTypes[ratingIndex];
-                                        let vidPlusRating = `${currVid}-${currRating}`;
-                                        ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
-                                        // grab URL for video sourcing 
-                                        currVidSrc = stimuliTable.data()[currVid];
-                                        updateState('intro');
-										
-                                    } else {
-                                        console.log("no options left!");
-                                        updateState('complete');
+                                } else { // create a new document
+                                    subjectGroupCollection.doc(params.workerId).set({name: 'unknown'});
+                                    console.log('no previous documents found...creating new...');
+                                    subjectPath = `${subjectGroupPath}/${params.workerId}`;
+                                    subjectRef.set({
+                                        workerId: params.workerId,
+                                        assignmentId: params.assignmentId,
+                                        hitId: params.hitId,
+                                        userId: currUser.uid,
+                                        startTime: serverTime,
+                                        consentStatus: 'incomplete'
+                                    });
+                                }
+                                // grab stimuli doc and add all movies to list
+                                stimuliDoc.get().then(function(stimuliTable) {
+                                    for (var field in stimuliTable.data()) {
+                                        moviesRemaining.push(field);         
                                     }
+                                    // check to see which movies subject has already viewed (if any)
+                                    let currPath = `${ratingsPath}/${params.workerId}`;
+                                    db.collection(currPath).get().then(function(ratingList) {
+                                        // removes already completed movies from option set
+                                        ratingList.forEach(function(doc) {
+                                            moviesRemaining = removeItemOnce(moviesRemaining, doc.id.split("-")[0]);
+                                        });
+                                        // see how many movies are left
+                                        numOptions = moviesRemaining.length;
+                                        console.log('moviesRemaining: ', moviesRemaining);
+                                        // if any movie-rating pairings left, load and start
+                                        if (numOptions > 0) {
+                                        // choose random movie and rating type
+                                            let movieIndex = Math.floor(Math.random()*moviesRemaining.length);
+                                            let ratingIndex = Math.floor(Math.random()*ratingTypes.length);
+                                            currVid = moviesRemaining[movieIndex];
+                                            currRating = ratingTypes[ratingIndex];
+                                            let vidPlusRating = `${currVid}-${currRating}`;
+                                            ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
+                                            // grab URL for video sourcing 
+                                            currVidSrc = stimuliTable.data()[currVid];
+                                            updateState('intro');
+                                            
+                                        } else {
+                                            console.log("no options left!");
+                                            updateState('complete');
+                                        }
+                                    });
                                 });
-                            });
-						});	
-					} catch (error) {
-						console.error(error);
-					}
-				}
-			});
-		} catch (error) {
-			console.error(error);
-		}
+                            });	
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
 	});
 
 	// *****************************

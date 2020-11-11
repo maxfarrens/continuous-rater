@@ -1,92 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width,initial-scale=1'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width,initial-scale=1'>
 
-	<title>Svelte app</title>
+        <title>Svelte app</title>
 
-	<link rel='icon' type='image/png' href='/favicon.png'>
-	<link rel='stylesheet' href='/global.css'>
-    <link rel='stylesheet' href='/build/bundle.css'>
-    
-    
-    <script defer src="build/bundle.js"></script>
-  </head>
-
-  <body></body>
+        <link rel='icon' type='image/png' href='/favicon.png'>
+        <link rel='stylesheet' href='/global.css'>
+        <link rel='stylesheet' href='/build/bundle.css'>
+        
+        
+        <script defer src="build/bundle.js"></script>
+    </head>
+    <body></body>
 </html>
-
-
-	<!-- the following component handles MTurk authentication -->
-    <!-- <script type="text/javascript">
-		function init() { // points 'attention' to url bar
-		    function unescapeURL(s) {
-			    return decodeURIComponent(s.replace(/\+/g, '%20'));
-		    }
-            var ad = [
-            "<strong>This task involves rating your emotions while watching a video.</strong>",
-            "The task should take less than half the time provided. However, please begin \
-            working immediately so that you are sure to finish in time.",
-            "<em>Note: this study may contain media with strong emotional and explicit content, \
-                some of which may be disturbing and some of which may not be safe for work. \
-                You are free to withdraw from this task at any time. This task is NOT meant for \
-                mobile devices.</em>", 
-            "<strong>Please click 'Accept HIT' above to begin the task.</strong>",
-            "If you do not advance automatically to the next page, please refresh this HIT or \
-            email us with concerns.",
-            "<br>"
-            ];
-
-            var params = {};
-            var url = window.location.href;
-            var m = window.location.href.match(/[\\?&]([^=]+)=([^&#]*)/g);
-
-            if (m) {
-                var i = 0;
-                while (i < m.length) {
-                    var a = m[i].match(/.([^=]+)=(.*)/);
-                    params[unescapeURL(a[1])] = unescapeURL(a[2]);
-                    i += 1;
-                }
-            }
-
-		    if (params.assignmentId === 'ASSIGNMENT_ID_NOT_AVAILABLE') {
-                var div = document.createElement('div');
-                div.id = 'ad';
-                var p;
-                for (var text of ad) {
-                    p = document.createElement('p');
-                    p.innerHTML = text;
-                    div.appendChild(p);
-                }
-                document.body.appendChild(div);
-                document.getElementById('ad').style.textAlign = 'center';
-                console.log('mturk preview');
-
-			// this part is for successful authentication
-		    } else {
-                var app = document.createElement('script');
-                app.setAttribute('src', 'build/bundle.js');
-                document.body.appendChild(app);
-                // if not coming from mturk, add demo disclaimer
-                if (!params.workerId && !params.assignmentId && !params.hitId) {
-                    var div = document.createElement('div');
-                    div.id = 'disclaimer'
-                    var content = document.createTextNode('demo version, not from mturk');
-                    div.appendChild(content);
-                    document.body.appendChild(div);
-                    document.getElementById('disclaimer').style.textAlign = 'center';
-                    document.getElementById('disclaimer').style.fontStyle = 'italic';
-                    console.log('non mturk referral');
-                }
-                console.log('mturk accept');
-		    }
-		}
-	  </script>
-</head>
-
-<body onLoad="init()">
-</body> -->
-
-<!-- </html> -->
