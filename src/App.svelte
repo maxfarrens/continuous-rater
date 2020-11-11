@@ -14,11 +14,12 @@
 	import Consent from './pages/Consent.svelte';
 	import Instructions1 from './pages/Instructions1.svelte';
 	import Instructions2 from './pages/Instructions2.svelte';
-	import Demo from './pages/Demo.svelte';
+    import Demo from './pages/Demo.svelte';
 	import Task from './pages/Task.svelte';
 	import Debrief from './pages/Debrief.svelte';
     import Complete from './pages/Complete.svelte';
     import Loading from './components/Loading.svelte';
+    import Footer from './components/Footer.svelte';
 
 	// path details
 	const ratingsPath = `${experiment}/ratings`;
@@ -43,7 +44,40 @@
     let initExperiment = false;
     
     // use to validate build type in JS console
-	console.log(dev);
+    console.log(dev);
+
+    const resetTestWorker = async () => {
+        // Change to the new state within Svelte
+        if (params.workerId === 'test-worker') {
+            currentState = 'intro';
+            let subjectRef = subjectGroupCollection.doc(params.workerId);
+            subjectRef.get().then(function(doc) {
+                try {
+                    let currPath = `${ratingsPath}/${params.workerId}`;
+                    db.collection(currPath).get().then(function(ratingList) {
+                        // deletes all previous ratings
+                        ratingList.forEach(function(doc) {
+                            console.log('deleting: ', doc.id);
+                            db.collection(currPath).doc(doc.id).delete()   
+                        });      
+                        // updates subject log
+                        subjectRef.update({
+                            startTime: serverTime,
+                            consentStatus: 'incomplete'
+                        });
+                        console.log('reset test-worker');
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+            });
+        } else {
+            console.log(`Reset user requested but workerId is ${params.workerId}`);
+        }
+    };
+    
+    
+    
 	
 	// *****************************
 	// main function
@@ -94,8 +128,8 @@
                         console.log('user authenticated...');
                         let currUser = auth.currentUser;
                         try { // if user already signed in, grab relevant document
-                            const subjectRef = subjectGroupCollection.doc(params.workerId);
-                            subjectPath = `${subjectGroupPath}/${params.workerId}`;
+                            let subjectRef = subjectGroupCollection.doc(params.workerId);
+                            subjectPath = `${subjectGroupPath}/${params.workerId}`; // setting for use in HTML below
                             subjectRef.get().then(function(doc) {
                                 if (doc.exists) { // load old document
                                     console.log('previous document found...loading state...');
@@ -106,7 +140,7 @@
                                 } else { // create a new document
                                     subjectGroupCollection.doc(params.workerId).set({name: 'unknown'});
                                     console.log('no previous documents found...creating new...');
-                                    subjectPath = `${subjectGroupPath}/${params.workerId}`;
+                                    subjectPath = `${subjectGroupPath}/${params.workerId}`; // setting for use in HTML below
                                     subjectRef.set({
                                         workerId: params.workerId,
                                         assignmentId: params.assignmentId,
@@ -272,4 +306,5 @@
 		<Complete></Complete>
 	{/if}	
 </div>
+<Footer on:resetTestWorker={resetTestWorker}></Footer>
 

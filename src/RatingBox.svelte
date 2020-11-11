@@ -17,6 +17,7 @@
     let stepAccel = 1.1;
     let opacity = 0;
     let docRef;
+    let prevKeyCode;
     
     // grabs reference for rating doc or creates it
     if (ratingBoxUse != 'demo page') {
