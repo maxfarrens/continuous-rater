@@ -86,8 +86,6 @@
 		<div class="keys">
 			<p><strong>Up arrow key:</strong> move rating bar up</p>
 			<p><strong>Down arrow key:</strong> move rating bar down</p>
-			<p><strong>W key:</strong> jump rating to most {ratingType}</p>
-			<p><strong>S key:</strong> jump rating to least {ratingType}</p>
 			<p>Hold either arrow key to accelerate in that direction. Release key to reset acceleration</p>
 		</div>
 		<br>

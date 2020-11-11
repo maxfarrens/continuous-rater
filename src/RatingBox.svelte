@@ -63,28 +63,6 @@
                     docRef.update({[dictTime]: dictVal});
                 }
             }
-
-            else if (e.keyCode === 87) { // w key
-                rating = 100; 
-                stepSize = ogStepSize;
-
-                if (ratingBoxUse != 'demo page') {
-                    let dictTime = Math.round(time);
-                    let dictVal = rating;
-                    docRef.update({[dictTime]: dictVal});
-                }
-            }
-
-            else if (e.keyCode === 83) { // down arrow
-                rating = 0; 
-                stepSize = ogStepSize;
-
-                if (ratingBoxUse != 'demo page') {
-                    let dictTime = Math.round(time);
-                    let dictVal = rating;
-                    docRef.update({[dictTime]: dictVal});
-                }
-            }
         }
     };
 
