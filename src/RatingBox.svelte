@@ -43,6 +43,10 @@
     const handleKeyPress = (e)  => {
         if (!paused) {
             if (e.keyCode === 38) { // up arrow
+                if (!(prevKeyCode === 38)) {
+                        stepSize = ogStepSize;
+                    }
+                prevKeyCode = 38;
                 rating = Math.min(rating + stepSize, 100);
                 stepSize *= stepAccel;
                 
@@ -54,6 +58,10 @@
             }
 
             else if (e.keyCode === 40) { // down arrow
+                if (!(prevKeyCode === 40)) {
+                        stepSize = ogStepSize;
+                    }
+                prevKeyCode = 40;
                 rating = Math.max(rating - stepSize, 0); 
                 stepSize *= stepAccel;
 
