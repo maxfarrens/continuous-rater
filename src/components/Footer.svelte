@@ -14,6 +14,13 @@
     text-align: center;
     padding: 0.5rem;
     border-radius: 0.25rem;
+    /* background-color: lightcoral; */
+  }
+  .dev {
+    background-color: lightcoral;
+  }
+  .mturk {
+    background-color: lightblue;
   }
   .icon:hover {
     cursor: pointer;
@@ -23,16 +30,16 @@
   }
 </style>
 
-<div
-  class="has-text-white banner"
-  class:has-background-danger={$dev}
-  class:has-background-grey-light={!$dev}>
-  {#if $dev}
-    <button on:click={() => dispatch('resetTestWorker')}>Development mode</button>
-    <!-- <span class="icon" on:click={() => dispatch('resetTestWorker')}> -->
-      <!-- <i class="fas fa-redo-alt" /> -->
-    <!-- </span> -->
-  {:else}
-    <p>If if you have questions about this HIT please <a href="mailto:computational.social.affective.neuroscience.lab@dartmouth.edu">email us</a>  </p>
-  {/if}
+  <div>
+    {#if $dev}
+        <div class="banner dev">
+            <span class="icon" on:click={() => dispatch('resetTestWorker')}>
+                Dev mode (click to reset test)
+            </span>
+        </div>
+    {:else}
+        <div class="banner mturk">
+            <p>If you have questions about this HIT please <a href="mailto:computational.social.affective.neuroscience.lab@dartmouth.edu">email us</a></p>
+        </div>
+    {/if}
 </div>
