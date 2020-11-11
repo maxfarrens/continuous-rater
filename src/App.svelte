@@ -5,7 +5,7 @@
 -->
 
 <script>
-    import { db, auth, serverTime, params, ratingTypes, buildVer,
+    import { db, auth, serverTime, params, ratingTypes, dev,
             experiment, userGroup, labName, email} from './utils.js';
     
     import { onMount } from 'svelte';
@@ -53,12 +53,6 @@
     // If we do, load their trial order and current experiment state
 	
     onMount(async () => { // right when DOM is created
-        // allows backend to work without connection to mturk
-        if (buildVer === 'demo') {
-            params.assignmentId = 'TEST_ASSIGNMENT';
-            params.hitId = 'TEST_HIT';
-            params.workerId = 'TEST_WORKER';
-        }   
 		try {
 			auth.onAuthStateChanged(async (user) => {
 				if (!user) { // if no user

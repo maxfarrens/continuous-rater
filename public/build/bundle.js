@@ -2376,7 +2376,7 @@ var app = (function () {
     exports.validateCallback = validateCallback;
     exports.validateContextObject = validateContextObject;
     exports.validateNamespace = validateNamespace;
-
+    //# sourceMappingURL=index.cjs.js.map
     });
 
     unwrapExports(index_cjs);
@@ -2739,7 +2739,7 @@ var app = (function () {
     exports.Component = Component;
     exports.ComponentContainer = ComponentContainer;
     exports.Provider = Provider;
-
+    //# sourceMappingURL=index.cjs.js.map
     });
 
     unwrapExports(index_cjs$1);
@@ -3024,7 +3024,7 @@ var app = (function () {
     exports.Logger = Logger;
     exports.setLogLevel = setLogLevel;
     exports.setUserLogHandler = setUserLogHandler;
-
+    //# sourceMappingURL=index.cjs.js.map
     });
 
     unwrapExports(index_cjs$2);
@@ -3706,7 +3706,7 @@ var app = (function () {
 
     exports.default = firebase$1;
     exports.firebase = firebase$1;
-
+    //# sourceMappingURL=index.cjs.js.map
     });
 
     unwrapExports(index_cjs$3);
@@ -3833,7 +3833,7 @@ var app = (function () {
     */
     Ed.prototype.createWebChannel=Ed.prototype.a;Y.prototype.send=Y.prototype.Ua;Y.prototype.open=Y.prototype.Ta;Y.prototype.close=Y.prototype.close;Rb.NO_ERROR=0;Rb.TIMEOUT=8;Rb.HTTP_ERROR=6;Sb.COMPLETE="complete";Vb.EventType=F;F.OPEN="a";F.CLOSE="b";F.ERROR="c";F.MESSAGE="d";A.prototype.listen=A.prototype.ya;X.prototype.listenOnce=X.prototype.za;X.prototype.getLastError=X.prototype.Va;X.prototype.getLastErrorCode=X.prototype.xa;X.prototype.getStatus=X.prototype.T;X.prototype.getResponseJson=X.prototype.Sa;
     X.prototype.getResponseText=X.prototype.aa;X.prototype.send=X.prototype.ca;module.exports={createWebChannelTransport:function(){return new Ed},ErrorCode:Rb,EventType:Sb,WebChannel:Vb,XhrIo:X};}).call(typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {});
-
+    //# sourceMappingURL=index.js.map
     });
     var dist_1 = dist.createWebChannelTransport;
     var dist_2 = dist.ErrorCode;
@@ -18900,7 +18900,7 @@ var app = (function () {
             return btoa(t);
         }, t;
     }())), go(n), exports.__PRIVATE_registerFirestore = go;
-
+    //# sourceMappingURL=index.cjs.js.map
     });
 
     unwrapExports(index_cjs$5);
@@ -20935,7 +20935,7 @@ var app = (function () {
     registerInstallations(firebase);
 
     exports.registerInstallations = registerInstallations;
-
+    //# sourceMappingURL=index.cjs.js.map
     });
 
     unwrapExports(index_cjs$6);
@@ -22440,7 +22440,7 @@ var app = (function () {
     registerPerformance(firebase);
 
     exports.registerPerformance = registerPerformance;
-
+    //# sourceMappingURL=index.cjs.js.map
     });
 
     unwrapExports(index_cjs$7);
@@ -23041,7 +23041,7 @@ var app = (function () {
     exports.registerAnalytics = registerAnalytics;
     exports.resetGlobalVars = resetGlobalVars;
     exports.settings = settings;
-
+    //# sourceMappingURL=index.cjs.js.map
     });
 
     unwrapExports(index_cjs$8);
@@ -23052,20 +23052,25 @@ var app = (function () {
     var index_cjs_5$1 = index_cjs$8.settings;
 
     // ************************************************
+    // ************************************************
+    // ************************************************
+    // ************************************************
     // USER VARIABLES (FILL STUFF IN BELOW THIS LINE)
+    // ************************************************
+    // ************************************************
+    // ************************************************
     // ************************************************
 
     // lab variables
-    const labName = ''; // name of lab running HIT experiment 
-    const email = ''; // email for mturk
     const studyLocation = ''; // location of lab running mturk study
+    const labName = ''; // name of lab running HIT experiment 
+    const email = ''; // lab email for mturk
     const studyAim = ''; // aim of mturk study 
     const studyTasks = ''; // brief summary of HIT task for consent form
     const experiment = ''; // name of experiment (should match collection name in firebase)
 
     // HIT variables
-    const buildVer = ''; // should be 'demo', 'sandbox' or 'build' based on intended use
-    const HITPay = ''; // pay for HIT completion (format as X.XX)
+    const HITPay = ''; // pay for HIT completion (format as X.XX with no dollar sign)
     const userGroup = ''; // name of collection of participants for current HIT
     const estHITTime = ''; // estimated time to complete HIT (in minutes)
     const totalHITTime = estHITTime * 2; // total time provided for HIT (in minutes)
@@ -23074,8 +23079,8 @@ var app = (function () {
     const ratingTypes = ['', '', '']; // array of rating types   
 
     // this configures path to proper firebase
-    // PUT YOUR FIREBASE CONFIG HERE
-    let firebaseConfig = {
+    // COPY AND PASTE YOUR FIREBASE CONFIG HERE
+    const firebaseConfig = {
         apiKey: "",
         authDomain: "",
         databaseURL: "",
@@ -23085,10 +23090,6 @@ var app = (function () {
         appId: "",
         measurementId: ""
     };
-
-    // ************************************************
-    // STOP. DON'T CHANGE ANYTHING BELOW THIS LINE
-    // ************************************************
 
     // firebase info (export for use elsewhere in app)
     index_cjs$4.initializeApp(firebaseConfig);
@@ -23108,6 +23109,18 @@ var app = (function () {
                 const a = m[i].match(/.([^=]+)=(.*)/);
                 params[unescapeURL(a[1])] = unescapeURL(a[2]);
                 i += 1;
+            }
+        }
+        if (!params.workerId && !params.assignmentId && !params.hitId) {
+            // eslint-disable-next-line no-undef
+            {
+                console.log(
+                    'App running in dev mode so HIT submission will not work!\nTo test in the sandbox make sure to deploy the app.'
+                );
+                params.workerId = 'test-worker';
+                params.assignmentId = 'test-assignment';
+                params.hitId = 'test-hit';
+                params.turkSubmitTo = 'test-submit';
             }
         }
         return params;
@@ -24330,7 +24343,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (169:12) {#if i < n - 1}
+    // (155:12) {#if i < n - 1}
     function create_if_block$4(ctx) {
     	let circle;
     	let circle_cx_value;
@@ -24348,13 +24361,13 @@ var app = (function () {
     			attr_dev(circle, "cx", circle_cx_value = /*i*/ ctx[21] / /*n*/ ctx[4] * /*width*/ ctx[2]);
     			attr_dev(circle, "cy", circle_cy_value = /*y*/ ctx[19] / 100 * /*height*/ ctx[3]);
     			attr_dev(circle, "r", "1");
-    			add_location(circle, file$5, 169, 16, 4660);
+    			add_location(circle, file$5, 155, 16, 4237);
     			attr_dev(line, "x1", line_x__value = /*i*/ ctx[21] / /*n*/ ctx[4] * /*width*/ ctx[2]);
     			attr_dev(line, "y1", line_y__value = /*y*/ ctx[19] / 100 * /*height*/ ctx[3]);
     			attr_dev(line, "x2", line_x__value_1 = (/*i*/ ctx[21] + 1) / /*n*/ ctx[4] * /*width*/ ctx[2]);
     			attr_dev(line, "y2", line_y__value_1 = /*numbers*/ ctx[1][/*i*/ ctx[21] + 1] / 100 * /*height*/ ctx[3]);
     			attr_dev(line, "class", "svelte-19sx4fd");
-    			add_location(line, file$5, 174, 16, 4817);
+    			add_location(line, file$5, 160, 16, 4394);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, circle, anchor);
@@ -24383,14 +24396,14 @@ var app = (function () {
     		block,
     		id: create_if_block$4.name,
     		type: "if",
-    		source: "(169:12) {#if i < n - 1}",
+    		source: "(155:12) {#if i < n - 1}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (168:8) {#each numbers as y, i}
+    // (154:8) {#each numbers as y, i}
     function create_each_block(ctx) {
     	let if_block_anchor;
     	let if_block = /*i*/ ctx[21] < /*n*/ ctx[4] - 1 && create_if_block$4(ctx);
@@ -24417,7 +24430,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(168:8) {#each numbers as y, i}",
+    		source: "(154:8) {#each numbers as y, i}",
     		ctx
     	});
 
@@ -24469,27 +24482,27 @@ var app = (function () {
     			t4 = text("Least ");
     			t5 = text(/*ratingType*/ ctx[0]);
     			attr_dev(div0, "class", "first-anchor svelte-19sx4fd");
-    			add_location(div0, file$5, 159, 4, 4299);
+    			add_location(div0, file$5, 145, 4, 3876);
     			attr_dev(line, "class", "reference svelte-19sx4fd");
     			attr_dev(line, "x1", "0");
     			attr_dev(line, "y1", line_y__value = /*height*/ ctx[3] / 2);
     			attr_dev(line, "x2", /*width*/ ctx[2]);
     			attr_dev(line, "y2", line_y__value_1 = /*height*/ ctx[3] / 2);
-    			add_location(line, file$5, 161, 9, 4453);
+    			add_location(line, file$5, 147, 9, 4030);
     			attr_dev(circle, "cx", "0");
     			attr_dev(circle, "cy", circle_cy_value = /*numbers*/ ctx[1][0] / 100 * /*height*/ ctx[3]);
     			attr_dev(circle, "r", "5");
-    			add_location(circle, file$5, 182, 8, 5071);
+    			add_location(circle, file$5, 168, 8, 4648);
     			attr_dev(svg, "viewBox", svg_viewBox_value = "0 0 " + /*width*/ ctx[2] + " " + /*height*/ ctx[3]);
     			attr_dev(svg, "preserveAspectRatio", "none");
     			attr_dev(svg, "width", "100%");
     			attr_dev(svg, "height", "100%");
     			attr_dev(svg, "class", "svelte-19sx4fd");
-    			add_location(svg, file$5, 160, 4, 4353);
+    			add_location(svg, file$5, 146, 4, 3930);
     			attr_dev(div1, "class", "last-anchor svelte-19sx4fd");
-    			add_location(div1, file$5, 184, 4, 5142);
+    			add_location(div1, file$5, 170, 4, 4719);
     			attr_dev(article, "class", "rating-box svelte-19sx4fd");
-    			add_location(article, file$5, 158, 0, 4266);
+    			add_location(article, file$5, 144, 0, 3843);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24612,8 +24625,12 @@ var app = (function () {
     		if (!paused) {
     			if (e.keyCode === 38) {
     				// up arrow
-    				$$invalidate(7, rating = Math.min(rating + stepSize, 100));
+    				if (!(prevKeyCode === 38)) {
+    					stepSize = ogStepSize;
+    				}
 
+    				prevKeyCode = 38;
+    				$$invalidate(7, rating = Math.min(rating + stepSize, 100));
     				stepSize *= stepAccel;
 
     				if (ratingBoxUse != "demo page") {
@@ -24623,35 +24640,17 @@ var app = (function () {
     				}
     			} else if (e.keyCode === 40) {
     				// down arrow
-    				$$invalidate(7, rating = Math.max(rating - stepSize, 0));
+    				if (!(prevKeyCode === 40)) {
+    					stepSize = ogStepSize;
+    				}
 
+    				prevKeyCode = 40;
+    				$$invalidate(7, rating = Math.max(rating - stepSize, 0));
     				stepSize *= stepAccel;
 
     				if (ratingBoxUse != "demo page") {
     					let dictTime = Math.round(time);
     					let dictVal = Math.round(rating);
-    					docRef.update({ [dictTime]: dictVal });
-    				}
-    			} else if (e.keyCode === 87) {
-    				// w key
-    				$$invalidate(7, rating = 100);
-
-    				stepSize = ogStepSize;
-
-    				if (ratingBoxUse != "demo page") {
-    					let dictTime = Math.round(time);
-    					let dictVal = rating;
-    					docRef.update({ [dictTime]: dictVal });
-    				}
-    			} else if (e.keyCode === 83) {
-    				// down arrow
-    				$$invalidate(7, rating = 0);
-
-    				stepSize = ogStepSize;
-
-    				if (ratingBoxUse != "demo page") {
-    					let dictTime = Math.round(time);
-    					let dictVal = rating;
     					docRef.update({ [dictTime]: dictVal });
     				}
     			}
@@ -24876,21 +24875,11 @@ var app = (function () {
     	let t7;
     	let t8;
     	let p2;
-    	let strong2;
     	let t10;
-    	let t11;
-    	let t12;
-    	let p3;
-    	let strong3;
-    	let t14;
-    	let t15;
-    	let t16;
-    	let p4;
-    	let t18;
     	let br;
-    	let t19;
+    	let t11;
     	let button0;
-    	let t21;
+    	let t13;
     	let button1;
     	let current;
     	let dispose;
@@ -24938,25 +24927,13 @@ var app = (function () {
     			t7 = text(" move rating bar down");
     			t8 = space();
     			p2 = element("p");
-    			strong2 = element("strong");
-    			strong2.textContent = "W key:";
-    			t10 = text(" jump rating to most ");
-    			t11 = text(/*ratingType*/ ctx[1]);
-    			t12 = space();
-    			p3 = element("p");
-    			strong3 = element("strong");
-    			strong3.textContent = "S key:";
-    			t14 = text(" jump rating to least ");
-    			t15 = text(/*ratingType*/ ctx[1]);
-    			t16 = space();
-    			p4 = element("p");
-    			p4.textContent = "Hold either arrow key to accelerate in that direction. Release key to reset acceleration";
-    			t18 = space();
+    			p2.textContent = "Hold either arrow key to accelerate in that direction. Release key to reset acceleration";
+    			t10 = space();
     			br = element("br");
-    			t19 = space();
+    			t11 = space();
     			button0 = element("button");
     			button0.textContent = "Back";
-    			t21 = space();
+    			t13 = space();
     			button1 = element("button");
     			button1.textContent = "Next";
     			attr_dev(h1, "class", "svelte-15zfwy6");
@@ -24969,21 +24946,15 @@ var app = (function () {
     			add_location(strong1, file$6, 87, 6, 1734);
     			attr_dev(p1, "class", "svelte-15zfwy6");
     			add_location(p1, file$6, 87, 3, 1731);
-    			add_location(strong2, file$6, 88, 6, 1798);
     			attr_dev(p2, "class", "svelte-15zfwy6");
     			add_location(p2, file$6, 88, 3, 1795);
-    			add_location(strong3, file$6, 89, 6, 1865);
-    			attr_dev(p3, "class", "svelte-15zfwy6");
-    			add_location(p3, file$6, 89, 3, 1862);
-    			attr_dev(p4, "class", "svelte-15zfwy6");
-    			add_location(p4, file$6, 90, 3, 1930);
     			attr_dev(div1, "class", "keys svelte-15zfwy6");
     			add_location(div1, file$6, 85, 2, 1649);
-    			add_location(br, file$6, 92, 2, 2037);
+    			add_location(br, file$6, 90, 2, 1902);
     			attr_dev(button0, "class", "back svelte-15zfwy6");
-    			add_location(button0, file$6, 93, 2, 2044);
+    			add_location(button0, file$6, 91, 2, 1909);
     			attr_dev(button1, "class", "next svelte-15zfwy6");
-    			add_location(button1, file$6, 94, 2, 2103);
+    			add_location(button1, file$6, 92, 2, 1968);
     			attr_dev(div2, "class", "key-box svelte-15zfwy6");
     			add_location(div2, file$6, 84, 1, 1625);
     			add_location(div3, file$6, 72, 0, 1397);
@@ -25009,21 +24980,11 @@ var app = (function () {
     			append_dev(p1, t7);
     			append_dev(div1, t8);
     			append_dev(div1, p2);
-    			append_dev(p2, strong2);
-    			append_dev(p2, t10);
-    			append_dev(p2, t11);
-    			append_dev(div1, t12);
-    			append_dev(div1, p3);
-    			append_dev(p3, strong3);
-    			append_dev(p3, t14);
-    			append_dev(p3, t15);
-    			append_dev(div1, t16);
-    			append_dev(div1, p4);
-    			append_dev(div2, t18);
+    			append_dev(div2, t10);
     			append_dev(div2, br);
-    			append_dev(div2, t19);
+    			append_dev(div2, t11);
     			append_dev(div2, button0);
-    			append_dev(div2, t21);
+    			append_dev(div2, t13);
     			append_dev(div2, button1);
     			current = true;
 
@@ -25047,8 +25008,6 @@ var app = (function () {
     			}
 
     			ratingbox.$set(ratingbox_changes);
-    			if (!current || dirty & /*ratingType*/ 2) set_data_dev(t11, /*ratingType*/ ctx[1]);
-    			if (!current || dirty & /*ratingType*/ 2) set_data_dev(t15, /*ratingType*/ ctx[1]);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -25855,7 +25814,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (173:20) {#each raceOptions as raceOption}
+    // (167:20) {#each raceOptions as raceOption}
     function create_each_block$1(ctx) {
     	let option;
     	let t_value = /*raceOption*/ ctx[30] + "";
@@ -25868,7 +25827,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*raceOption*/ ctx[30];
     			option.value = option.__value;
-    			add_location(option, file$9, 173, 20, 4793);
+    			add_location(option, file$9, 167, 20, 4661);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -25884,7 +25843,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(173:20) {#each raceOptions as raceOption}",
+    		source: "(167:20) {#each raceOptions as raceOption}",
     		ctx
     	});
 
@@ -26155,151 +26114,151 @@ var app = (function () {
     			t59 = space();
     			button = element("button");
     			button.textContent = "Submit HIT";
-    			add_location(h1, file$9, 110, 12, 2426);
-    			add_location(em, file$9, 111, 12, 2476);
+    			add_location(h1, file$9, 104, 12, 2275);
+    			add_location(em, file$9, 105, 12, 2325);
     			attr_dev(input0, "type", "hidden");
     			attr_dev(input0, "name", "assignmentId");
     			attr_dev(input0, "id", "assignmentId");
-    			input0.value = /*currID*/ ctx[12];
-    			add_location(input0, file$9, 113, 12, 2525);
+    			input0.value = /*currID*/ ctx[11];
+    			add_location(input0, file$9, 107, 12, 2374);
     			attr_dev(input1, "type", "hidden");
-    			attr_dev(input1, "name", "foo");
+    			attr_dev(input1, "name", "hidden_val_DONT_REMOVE");
     			input1.value = "1";
-    			add_location(input1, file$9, 114, 12, 2612);
-    			add_location(br0, file$9, 116, 33, 2701);
-    			add_location(u0, file$9, 116, 37, 2705);
+    			add_location(input1, file$9, 108, 12, 2461);
+    			add_location(br0, file$9, 110, 33, 2569);
+    			add_location(u0, file$9, 110, 37, 2573);
     			attr_dev(input2, "class", "input age-input svelte-cykmx7");
     			attr_dev(input2, "type", "text");
-    			add_location(input2, file$9, 118, 16, 2770);
+    			add_location(input2, file$9, 112, 16, 2638);
     			attr_dev(div0, "class", "options svelte-cykmx7");
-    			add_location(div0, file$9, 117, 16, 2732);
-    			add_location(br1, file$9, 120, 16, 2871);
+    			add_location(div0, file$9, 111, 16, 2600);
+    			add_location(br1, file$9, 114, 16, 2739);
     			attr_dev(label0, "class", "label svelte-cykmx7");
-    			add_location(label0, file$9, 116, 12, 2680);
-    			add_location(u1, file$9, 123, 33, 2931);
+    			add_location(label0, file$9, 110, 12, 2548);
+    			add_location(u1, file$9, 117, 33, 2799);
     			attr_dev(input3, "type", "radio");
     			input3.__value = input3_value_value = "male";
     			input3.value = input3.__value;
     			/*$$binding_groups*/ ctx[19][2].push(input3);
-    			add_location(input3, file$9, 126, 20, 3041);
+    			add_location(input3, file$9, 120, 20, 2909);
     			attr_dev(label1, "class", "radio");
-    			add_location(label1, file$9, 125, 16, 2999);
+    			add_location(label1, file$9, 119, 16, 2867);
     			attr_dev(input4, "type", "radio");
     			input4.__value = input4_value_value = "female";
     			input4.value = input4.__value;
     			/*$$binding_groups*/ ctx[19][2].push(input4);
-    			add_location(input4, file$9, 130, 20, 3204);
+    			add_location(input4, file$9, 124, 20, 3072);
     			attr_dev(label2, "class", "radio");
-    			add_location(label2, file$9, 129, 16, 3162);
+    			add_location(label2, file$9, 123, 16, 3030);
     			attr_dev(input5, "type", "radio");
     			input5.__value = input5_value_value = "other";
     			input5.value = input5.__value;
     			/*$$binding_groups*/ ctx[19][2].push(input5);
-    			add_location(input5, file$9, 134, 20, 3371);
+    			add_location(input5, file$9, 128, 20, 3239);
     			attr_dev(label3, "class", "radio");
-    			add_location(label3, file$9, 133, 16, 3329);
-    			add_location(br2, file$9, 137, 16, 3494);
+    			add_location(label3, file$9, 127, 16, 3197);
+    			add_location(br2, file$9, 131, 16, 3362);
     			attr_dev(div1, "class", "options svelte-cykmx7");
-    			add_location(div1, file$9, 124, 16, 2961);
+    			add_location(div1, file$9, 118, 16, 2829);
     			attr_dev(label4, "class", "label svelte-cykmx7");
-    			add_location(label4, file$9, 123, 12, 2910);
-    			add_location(u2, file$9, 141, 33, 3578);
+    			add_location(label4, file$9, 117, 12, 2778);
+    			add_location(u2, file$9, 135, 33, 3446);
     			attr_dev(input6, "type", "radio");
     			input6.__value = input6_value_value = "left";
     			input6.value = input6.__value;
     			/*$$binding_groups*/ ctx[19][1].push(input6);
-    			add_location(input6, file$9, 144, 20, 3692);
+    			add_location(input6, file$9, 138, 20, 3560);
     			attr_dev(label5, "class", "radio");
-    			add_location(label5, file$9, 143, 16, 3650);
+    			add_location(label5, file$9, 137, 16, 3518);
     			attr_dev(input7, "type", "radio");
     			input7.__value = input7_value_value = "right";
     			input7.value = input7.__value;
     			/*$$binding_groups*/ ctx[19][1].push(input7);
-    			add_location(input7, file$9, 148, 20, 3865);
+    			add_location(input7, file$9, 142, 20, 3733);
     			attr_dev(label6, "class", "radio");
-    			add_location(label6, file$9, 147, 16, 3823);
-    			add_location(br3, file$9, 151, 16, 3998);
+    			add_location(label6, file$9, 141, 16, 3691);
+    			add_location(br3, file$9, 145, 16, 3866);
     			attr_dev(div2, "class", "options svelte-cykmx7");
-    			add_location(div2, file$9, 142, 16, 3612);
+    			add_location(div2, file$9, 136, 16, 3480);
     			attr_dev(label7, "class", "label svelte-cykmx7");
-    			add_location(label7, file$9, 141, 12, 3557);
-    			add_location(u3, file$9, 155, 33, 4081);
+    			add_location(label7, file$9, 135, 12, 3425);
+    			add_location(u3, file$9, 149, 33, 3949);
     			attr_dev(input8, "type", "radio");
     			input8.__value = input8_value_value = "hispanic";
     			input8.value = input8.__value;
     			/*$$binding_groups*/ ctx[19][0].push(input8);
-    			add_location(input8, file$9, 158, 20, 4194);
+    			add_location(input8, file$9, 152, 20, 4062);
     			attr_dev(label8, "class", "radio");
-    			add_location(label8, file$9, 157, 16, 4152);
+    			add_location(label8, file$9, 151, 16, 4020);
     			attr_dev(input9, "type", "radio");
     			input9.__value = input9_value_value = "not_hispanic";
     			input9.value = input9.__value;
     			/*$$binding_groups*/ ctx[19][0].push(input9);
-    			add_location(input9, file$9, 162, 20, 4371);
+    			add_location(input9, file$9, 156, 20, 4239);
     			attr_dev(label9, "class", "radio");
-    			add_location(label9, file$9, 161, 16, 4329);
-    			add_location(br4, file$9, 165, 16, 4514);
+    			add_location(label9, file$9, 155, 16, 4197);
+    			add_location(br4, file$9, 159, 16, 4382);
     			attr_dev(div3, "class", "options svelte-cykmx7");
-    			add_location(div3, file$9, 156, 16, 4114);
+    			add_location(div3, file$9, 150, 16, 3982);
     			attr_dev(label10, "class", "label svelte-cykmx7");
-    			add_location(label10, file$9, 155, 12, 4060);
-    			add_location(u4, file$9, 169, 33, 4617);
+    			add_location(label10, file$9, 149, 12, 3928);
+    			add_location(u4, file$9, 163, 33, 4485);
     			select.multiple = true;
-    			if (/*race*/ ctx[7] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[26].call(select));
-    			add_location(select, file$9, 171, 16, 4683);
+    			if (/*race*/ ctx[6] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[26].call(select));
+    			add_location(select, file$9, 165, 16, 4551);
     			attr_dev(div4, "class", "options svelte-cykmx7");
-    			add_location(div4, file$9, 170, 16, 4645);
+    			add_location(div4, file$9, 164, 16, 4513);
     			attr_dev(label11, "class", "label svelte-cykmx7");
-    			add_location(label11, file$9, 169, 12, 4596);
+    			add_location(label11, file$9, 163, 12, 4464);
     			attr_dev(p0, "class", "help svelte-cykmx7");
-    			add_location(p0, file$9, 179, 12, 4973);
-    			add_location(u5, file$9, 181, 33, 5081);
+    			add_location(p0, file$9, 173, 12, 4841);
+    			add_location(u5, file$9, 175, 33, 4949);
     			attr_dev(input10, "class", "input lang-input svelte-cykmx7");
     			attr_dev(input10, "type", "text");
-    			add_location(input10, file$9, 183, 16, 5158);
+    			add_location(input10, file$9, 177, 16, 5026);
     			attr_dev(div5, "class", "options svelte-cykmx7");
-    			add_location(div5, file$9, 182, 16, 5120);
-    			add_location(br5, file$9, 185, 16, 5268);
+    			add_location(div5, file$9, 176, 16, 4988);
+    			add_location(br5, file$9, 179, 16, 5136);
     			attr_dev(label12, "class", "label svelte-cykmx7");
-    			add_location(label12, file$9, 181, 12, 5060);
-    			add_location(u6, file$9, 188, 33, 5328);
+    			add_location(label12, file$9, 175, 12, 4928);
+    			add_location(u6, file$9, 182, 33, 5196);
     			attr_dev(input11, "class", "input lang-input svelte-cykmx7");
     			attr_dev(input11, "type", "text");
     			attr_dev(input11, "placeholder", "City, State, Country");
-    			add_location(input11, file$9, 190, 16, 5404);
+    			add_location(input11, file$9, 184, 16, 5272);
     			attr_dev(div6, "class", "options svelte-cykmx7");
-    			add_location(div6, file$9, 189, 16, 5366);
-    			add_location(br6, file$9, 196, 16, 5624);
+    			add_location(div6, file$9, 183, 16, 5234);
+    			add_location(br6, file$9, 190, 16, 5492);
     			attr_dev(label13, "class", "label svelte-cykmx7");
-    			add_location(label13, file$9, 188, 12, 5307);
-    			add_location(u7, file$9, 199, 33, 5705);
+    			add_location(label13, file$9, 182, 12, 5175);
+    			add_location(u7, file$9, 193, 33, 5573);
     			attr_dev(textarea, "class", "textarea textarea-feedback svelte-cykmx7");
     			attr_dev(textarea, "placeholder", "Thoughts or suggestions about this HIT");
-    			add_location(textarea, file$9, 201, 16, 5775);
+    			add_location(textarea, file$9, 195, 16, 5643);
     			attr_dev(div7, "class", "options svelte-cykmx7");
-    			add_location(div7, file$9, 200, 16, 5737);
+    			add_location(div7, file$9, 194, 16, 5605);
     			attr_dev(label14, "class", "label svelte-cykmx7");
-    			add_location(label14, file$9, 199, 12, 5684);
-    			attr_dev(a, "href", /*emailAddress*/ ctx[11]);
+    			add_location(label14, file$9, 193, 12, 5552);
+    			attr_dev(a, "href", /*emailAddress*/ ctx[10]);
     			attr_dev(a, "class", "svelte-cykmx7");
-    			add_location(a, file$9, 209, 30, 6074);
-    			add_location(br7, file$9, 210, 44, 6156);
-    			add_location(strong, file$9, 211, 37, 6198);
-    			add_location(br8, file$9, 213, 83, 6400);
-    			add_location(p1, file$9, 208, 12, 6040);
+    			add_location(a, file$9, 203, 30, 5942);
+    			add_location(br7, file$9, 204, 44, 6024);
+    			add_location(strong, file$9, 205, 37, 6066);
+    			add_location(br8, file$9, 207, 83, 6268);
+    			add_location(p1, file$9, 202, 12, 5908);
     			attr_dev(div8, "class", "field-label");
-    			add_location(div8, file$9, 216, 12, 6455);
-    			add_location(br9, file$9, 219, 12, 6561);
+    			add_location(div8, file$9, 210, 12, 6323);
+    			add_location(br9, file$9, 213, 12, 6429);
     			attr_dev(button, "class", "button is-success is-large svelte-cykmx7");
-    			add_location(button, file$9, 220, 12, 6578);
+    			add_location(button, file$9, 214, 12, 6446);
     			attr_dev(form, "name", "mturk");
-    			attr_dev(form, "action", /*postURL*/ ctx[2]);
+    			attr_dev(form, "action", /*postURL*/ ctx[12]);
     			attr_dev(form, "method", "POST");
-    			add_location(form, file$9, 109, 8, 2363);
+    			add_location(form, file$9, 103, 8, 2212);
     			attr_dev(div9, "class", "form-box svelte-cykmx7");
-    			add_location(div9, file$9, 108, 4, 2332);
+    			add_location(div9, file$9, 102, 4, 2181);
     			attr_dev(div10, "class", "container svelte-cykmx7");
-    			add_location(div10, file$9, 107, 0, 2304);
+    			add_location(div10, file$9, 101, 0, 2153);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -26322,7 +26281,7 @@ var app = (function () {
     			append_dev(label0, t7);
     			append_dev(label0, div0);
     			append_dev(div0, input2);
-    			set_input_value(input2, /*age*/ ctx[3]);
+    			set_input_value(input2, /*age*/ ctx[2]);
     			append_dev(label0, t8);
     			append_dev(label0, br1);
     			append_dev(form, t9);
@@ -26332,17 +26291,17 @@ var app = (function () {
     			append_dev(label4, div1);
     			append_dev(div1, label1);
     			append_dev(label1, input3);
-    			input3.checked = input3.__value === /*sex*/ ctx[5];
+    			input3.checked = input3.__value === /*sex*/ ctx[4];
     			append_dev(label1, t12);
     			append_dev(div1, t13);
     			append_dev(div1, label2);
     			append_dev(label2, input4);
-    			input4.checked = input4.__value === /*sex*/ ctx[5];
+    			input4.checked = input4.__value === /*sex*/ ctx[4];
     			append_dev(label2, t14);
     			append_dev(div1, t15);
     			append_dev(div1, label3);
     			append_dev(label3, input5);
-    			input5.checked = input5.__value === /*sex*/ ctx[5];
+    			input5.checked = input5.__value === /*sex*/ ctx[4];
     			append_dev(label3, t16);
     			append_dev(div1, t17);
     			append_dev(div1, br2);
@@ -26353,12 +26312,12 @@ var app = (function () {
     			append_dev(label7, div2);
     			append_dev(div2, label5);
     			append_dev(label5, input6);
-    			input6.checked = input6.__value === /*handed*/ ctx[10];
+    			input6.checked = input6.__value === /*handed*/ ctx[9];
     			append_dev(label5, t21);
     			append_dev(div2, t22);
     			append_dev(div2, label6);
     			append_dev(label6, input7);
-    			input7.checked = input7.__value === /*handed*/ ctx[10];
+    			input7.checked = input7.__value === /*handed*/ ctx[9];
     			append_dev(label6, t23);
     			append_dev(div2, t24);
     			append_dev(div2, br3);
@@ -26369,12 +26328,12 @@ var app = (function () {
     			append_dev(label10, div3);
     			append_dev(div3, label8);
     			append_dev(label8, input8);
-    			input8.checked = input8.__value === /*ethnicity*/ ctx[6];
+    			input8.checked = input8.__value === /*ethnicity*/ ctx[5];
     			append_dev(label8, t28);
     			append_dev(div3, t29);
     			append_dev(div3, label9);
     			append_dev(label9, input9);
-    			input9.checked = input9.__value === /*ethnicity*/ ctx[6];
+    			input9.checked = input9.__value === /*ethnicity*/ ctx[5];
     			append_dev(label9, t30);
     			append_dev(div3, t31);
     			append_dev(div3, br4);
@@ -26389,7 +26348,7 @@ var app = (function () {
     				each_blocks[i].m(select, null);
     			}
 
-    			select_options(select, /*race*/ ctx[7]);
+    			select_options(select, /*race*/ ctx[6]);
     			append_dev(form, t35);
     			append_dev(form, p0);
     			append_dev(form, t37);
@@ -26398,7 +26357,7 @@ var app = (function () {
     			append_dev(label12, t39);
     			append_dev(label12, div5);
     			append_dev(div5, input10);
-    			set_input_value(input10, /*nativeLang*/ ctx[8]);
+    			set_input_value(input10, /*nativeLang*/ ctx[7]);
     			append_dev(label12, t40);
     			append_dev(label12, br5);
     			append_dev(form, t41);
@@ -26407,7 +26366,7 @@ var app = (function () {
     			append_dev(label13, t43);
     			append_dev(label13, div6);
     			append_dev(div6, input11);
-    			set_input_value(input11, /*birth*/ ctx[9]);
+    			set_input_value(input11, /*birth*/ ctx[8]);
     			append_dev(label13, t44);
     			append_dev(label13, br6);
     			append_dev(form, t45);
@@ -26416,7 +26375,7 @@ var app = (function () {
     			append_dev(label14, t47);
     			append_dev(label14, div7);
     			append_dev(div7, textarea);
-    			set_input_value(textarea, /*feedback*/ ctx[4]);
+    			set_input_value(textarea, /*feedback*/ ctx[3]);
     			append_dev(form, t48);
     			append_dev(form, p1);
     			append_dev(p1, t49);
@@ -26454,36 +26413,36 @@ var app = (function () {
     			];
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*age*/ 8 && input2.value !== /*age*/ ctx[3]) {
-    				set_input_value(input2, /*age*/ ctx[3]);
+    			if (dirty[0] & /*age*/ 4 && input2.value !== /*age*/ ctx[2]) {
+    				set_input_value(input2, /*age*/ ctx[2]);
     			}
 
-    			if (dirty[0] & /*sex*/ 32) {
-    				input3.checked = input3.__value === /*sex*/ ctx[5];
+    			if (dirty[0] & /*sex*/ 16) {
+    				input3.checked = input3.__value === /*sex*/ ctx[4];
     			}
 
-    			if (dirty[0] & /*sex*/ 32) {
-    				input4.checked = input4.__value === /*sex*/ ctx[5];
+    			if (dirty[0] & /*sex*/ 16) {
+    				input4.checked = input4.__value === /*sex*/ ctx[4];
     			}
 
-    			if (dirty[0] & /*sex*/ 32) {
-    				input5.checked = input5.__value === /*sex*/ ctx[5];
+    			if (dirty[0] & /*sex*/ 16) {
+    				input5.checked = input5.__value === /*sex*/ ctx[4];
     			}
 
-    			if (dirty[0] & /*handed*/ 1024) {
-    				input6.checked = input6.__value === /*handed*/ ctx[10];
+    			if (dirty[0] & /*handed*/ 512) {
+    				input6.checked = input6.__value === /*handed*/ ctx[9];
     			}
 
-    			if (dirty[0] & /*handed*/ 1024) {
-    				input7.checked = input7.__value === /*handed*/ ctx[10];
+    			if (dirty[0] & /*handed*/ 512) {
+    				input7.checked = input7.__value === /*handed*/ ctx[9];
     			}
 
-    			if (dirty[0] & /*ethnicity*/ 64) {
-    				input8.checked = input8.__value === /*ethnicity*/ ctx[6];
+    			if (dirty[0] & /*ethnicity*/ 32) {
+    				input8.checked = input8.__value === /*ethnicity*/ ctx[5];
     			}
 
-    			if (dirty[0] & /*ethnicity*/ 64) {
-    				input9.checked = input9.__value === /*ethnicity*/ ctx[6];
+    			if (dirty[0] & /*ethnicity*/ 32) {
+    				input9.checked = input9.__value === /*ethnicity*/ ctx[5];
     			}
 
     			if (dirty[0] & /*raceOptions*/ 8192) {
@@ -26509,28 +26468,24 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty[0] & /*race*/ 128) {
-    				select_options(select, /*race*/ ctx[7]);
+    			if (dirty[0] & /*race*/ 64) {
+    				select_options(select, /*race*/ ctx[6]);
     			}
 
-    			if (dirty[0] & /*nativeLang*/ 256 && input10.value !== /*nativeLang*/ ctx[8]) {
-    				set_input_value(input10, /*nativeLang*/ ctx[8]);
+    			if (dirty[0] & /*nativeLang*/ 128 && input10.value !== /*nativeLang*/ ctx[7]) {
+    				set_input_value(input10, /*nativeLang*/ ctx[7]);
     			}
 
-    			if (dirty[0] & /*birth*/ 512 && input11.value !== /*birth*/ ctx[9]) {
-    				set_input_value(input11, /*birth*/ ctx[9]);
+    			if (dirty[0] & /*birth*/ 256 && input11.value !== /*birth*/ ctx[8]) {
+    				set_input_value(input11, /*birth*/ ctx[8]);
     			}
 
-    			if (dirty[0] & /*feedback*/ 16) {
-    				set_input_value(textarea, /*feedback*/ ctx[4]);
+    			if (dirty[0] & /*feedback*/ 8) {
+    				set_input_value(textarea, /*feedback*/ ctx[3]);
     			}
 
     			if (dirty[0] & /*labName*/ 1) set_data_dev(t50, /*labName*/ ctx[0]);
     			if (dirty[0] & /*numOptions*/ 2) set_data_dev(t55, /*numOptions*/ ctx[1]);
-
-    			if (dirty[0] & /*postURL*/ 4) {
-    				attr_dev(form, "action", /*postURL*/ ctx[2]);
-    			}
     		},
     		i: noop,
     		o: noop,
@@ -26566,12 +26521,7 @@ var app = (function () {
     	let { numOptions } = $$props;
     	let emailAddress = "mailto:" + email;
     	let currID = params.assignmentId;
-    	let postURL;
-
-    	{
-    		postURL = "https://workersandbox.mturk.com/mturk/externalSubmit";
-    	}
-
+    	let postURL = params.turkSubmitTo + "/mturk/externalSubmit";
     	let age = "";
     	let feedback = "";
     	let sex = "";
@@ -26619,63 +26569,63 @@ var app = (function () {
 
     	function input2_input_handler() {
     		age = this.value;
-    		$$invalidate(3, age);
+    		$$invalidate(2, age);
     	}
 
     	function input3_change_handler() {
     		sex = this.__value;
-    		$$invalidate(5, sex);
+    		$$invalidate(4, sex);
     	}
 
     	function input4_change_handler() {
     		sex = this.__value;
-    		$$invalidate(5, sex);
+    		$$invalidate(4, sex);
     	}
 
     	function input5_change_handler() {
     		sex = this.__value;
-    		$$invalidate(5, sex);
+    		$$invalidate(4, sex);
     	}
 
     	function input6_change_handler() {
     		handed = this.__value;
-    		$$invalidate(10, handed);
+    		$$invalidate(9, handed);
     	}
 
     	function input7_change_handler() {
     		handed = this.__value;
-    		$$invalidate(10, handed);
+    		$$invalidate(9, handed);
     	}
 
     	function input8_change_handler() {
     		ethnicity = this.__value;
-    		$$invalidate(6, ethnicity);
+    		$$invalidate(5, ethnicity);
     	}
 
     	function input9_change_handler() {
     		ethnicity = this.__value;
-    		$$invalidate(6, ethnicity);
+    		$$invalidate(5, ethnicity);
     	}
 
     	function select_change_handler() {
     		race = select_multiple_value(this);
-    		$$invalidate(7, race);
+    		$$invalidate(6, race);
     		$$invalidate(13, raceOptions);
     	}
 
     	function input10_input_handler() {
     		nativeLang = this.value;
-    		$$invalidate(8, nativeLang);
+    		$$invalidate(7, nativeLang);
     	}
 
     	function input11_input_handler() {
     		birth = this.value;
-    		$$invalidate(9, birth);
+    		$$invalidate(8, birth);
     	}
 
     	function textarea_input_handler() {
     		feedback = this.value;
-    		$$invalidate(4, feedback);
+    		$$invalidate(3, feedback);
     	}
 
     	$$self.$set = $$props => {
@@ -26710,23 +26660,22 @@ var app = (function () {
     		if ("email" in $$props) $$invalidate(16, email = $$props.email);
     		if ("labName" in $$props) $$invalidate(0, labName = $$props.labName);
     		if ("numOptions" in $$props) $$invalidate(1, numOptions = $$props.numOptions);
-    		if ("emailAddress" in $$props) $$invalidate(11, emailAddress = $$props.emailAddress);
-    		if ("currID" in $$props) $$invalidate(12, currID = $$props.currID);
-    		if ("postURL" in $$props) $$invalidate(2, postURL = $$props.postURL);
-    		if ("age" in $$props) $$invalidate(3, age = $$props.age);
-    		if ("feedback" in $$props) $$invalidate(4, feedback = $$props.feedback);
-    		if ("sex" in $$props) $$invalidate(5, sex = $$props.sex);
-    		if ("ethnicity" in $$props) $$invalidate(6, ethnicity = $$props.ethnicity);
-    		if ("race" in $$props) $$invalidate(7, race = $$props.race);
-    		if ("nativeLang" in $$props) $$invalidate(8, nativeLang = $$props.nativeLang);
-    		if ("birth" in $$props) $$invalidate(9, birth = $$props.birth);
-    		if ("handed" in $$props) $$invalidate(10, handed = $$props.handed);
+    		if ("emailAddress" in $$props) $$invalidate(10, emailAddress = $$props.emailAddress);
+    		if ("currID" in $$props) $$invalidate(11, currID = $$props.currID);
+    		if ("postURL" in $$props) $$invalidate(12, postURL = $$props.postURL);
+    		if ("age" in $$props) $$invalidate(2, age = $$props.age);
+    		if ("feedback" in $$props) $$invalidate(3, feedback = $$props.feedback);
+    		if ("sex" in $$props) $$invalidate(4, sex = $$props.sex);
+    		if ("ethnicity" in $$props) $$invalidate(5, ethnicity = $$props.ethnicity);
+    		if ("race" in $$props) $$invalidate(6, race = $$props.race);
+    		if ("nativeLang" in $$props) $$invalidate(7, nativeLang = $$props.nativeLang);
+    		if ("birth" in $$props) $$invalidate(8, birth = $$props.birth);
+    		if ("handed" in $$props) $$invalidate(9, handed = $$props.handed);
     	};
 
     	return [
     		labName,
     		numOptions,
-    		postURL,
     		age,
     		feedback,
     		sex,
@@ -26737,6 +26686,7 @@ var app = (function () {
     		handed,
     		emailAddress,
     		currID,
+    		postURL,
     		raceOptions,
     		submitHIT,
     		subPath,
@@ -27014,7 +26964,7 @@ var app = (function () {
     /* src/App.svelte generated by Svelte v3.18.1 */
     const file$c = "src/App.svelte";
 
-    // (281:39) 
+    // (256:39) 
     function create_if_block_10(ctx) {
     	let current;
     	const complete = new Complete({ $$inline: true });
@@ -27046,14 +26996,14 @@ var app = (function () {
     		block,
     		id: create_if_block_10.name,
     		type: "if",
-    		source: "(281:39) ",
+    		source: "(256:39) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (274:38) 
+    // (249:38) 
     function create_if_block_9(ctx) {
     	let current;
 
@@ -27099,14 +27049,14 @@ var app = (function () {
     		block,
     		id: create_if_block_9.name,
     		type: "if",
-    		source: "(274:38) ",
+    		source: "(249:38) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (266:35) 
+    // (241:35) 
     function create_if_block_8(ctx) {
     	let current;
 
@@ -27155,14 +27105,14 @@ var app = (function () {
     		block,
     		id: create_if_block_8.name,
     		type: "if",
-    		source: "(266:35) ",
+    		source: "(241:35) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (264:44) 
+    // (239:44) 
     function create_if_block_7(ctx) {
     	let current;
     	const instructions2 = new Instructions2({ $$inline: true });
@@ -27196,14 +27146,14 @@ var app = (function () {
     		block,
     		id: create_if_block_7.name,
     		type: "if",
-    		source: "(264:44) ",
+    		source: "(239:44) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (262:35) 
+    // (237:35) 
     function create_if_block_6(ctx) {
     	let current;
 
@@ -27249,14 +27199,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6.name,
     		type: "if",
-    		source: "(262:35) ",
+    		source: "(237:35) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (260:44) 
+    // (235:44) 
     function create_if_block_5(ctx) {
     	let current;
 
@@ -27302,14 +27252,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(260:44) ",
+    		source: "(235:44) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (258:44) 
+    // (233:44) 
     function create_if_block_4(ctx) {
     	let current;
     	const botcheck = new Botcheck({ $$inline: true });
@@ -27343,14 +27293,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(258:44) ",
+    		source: "(233:44) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (256:48) 
+    // (231:48) 
     function create_if_block_3(ctx) {
     	let current;
     	const botcheck = new Botcheck({ $$inline: true });
@@ -27384,14 +27334,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(256:48) ",
+    		source: "(231:48) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (254:38) 
+    // (229:38) 
     function create_if_block_2$1(ctx) {
     	let current;
     	const consent = new Consent({ $$inline: true });
@@ -27425,14 +27375,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2$1.name,
     		type: "if",
-    		source: "(254:38) ",
+    		source: "(229:38) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (252:36) 
+    // (227:36) 
     function create_if_block_1$1(ctx) {
     	let current;
     	const intro = new Intro({ $$inline: true });
@@ -27465,14 +27415,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$1.name,
     		type: "if",
-    		source: "(252:36) ",
+    		source: "(227:36) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (250:1) {#if !currentState}
+    // (225:1) {#if !currentState}
     function create_if_block$5(ctx) {
     	let current;
 
@@ -27519,14 +27469,14 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(250:1) {#if !currentState}",
+    		source: "(225:1) {#if !currentState}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (251:8) <Loading>
+    // (226:8) <Loading>
     function create_default_slot$2(ctx) {
     	let t;
 
@@ -27546,7 +27496,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(251:8) <Loading>",
+    		source: "(226:8) <Loading>",
     		ctx
     	});
 
@@ -27599,7 +27549,7 @@ var app = (function () {
     			div = element("div");
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "svelte-1xrdbbv");
-    			add_location(div, file$c, 248, 0, 9838);
+    			add_location(div, file$c, 223, 0, 8248);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -27718,7 +27668,7 @@ var app = (function () {
     	// create an entry with a new random stimulus order and put them into the instructions state. 
     	// If we do, load their trial order and current experiment state
     	onMount(async () => {
-
+    		// right when DOM is created
     		try {
     			auth.onAuthStateChanged(async user => {
     				if (!user) {
@@ -27751,54 +27701,13 @@ var app = (function () {
 
     						subjectRef.get().then(function (doc) {
     							if (doc.exists) {
+    								// load old document
     								console.log("previous document found...loading state...");
 
     								// updates most recent login time
     								subjectRef.update({ mostRecentTime: serverTime });
-
-    								// grab stimuli doc and add all movies to list
-    								stimuliDoc.get().then(function (stimuliTable) {
-    									for (var field in stimuliTable.data()) {
-    										moviesRemaining.push(field);
-    									}
-
-    									// check to see which movies subject has already viewd
-    									let currPath = `${ratingsPath}/${params.workerId}`;
-
-    									db.collection(currPath).get().then(function (ratingList) {
-    										// removes already completed movies from option set
-    										ratingList.forEach(function (doc) {
-    											moviesRemaining = removeItemOnce(moviesRemaining, doc.id.split("-")[0]);
-    										}); // alreadyWatched.push(doc.id.split("-")[0]);
-
-    										// see how many movies are left
-    										$$invalidate(5, numOptions = moviesRemaining.length);
-
-    										console.log("moviesRemaining: ", moviesRemaining);
-
-    										// if any movie-rating pairings left, load and start
-    										if (numOptions > 0) {
-    											// choose random movie and rating type
-    											let movieIndex = Math.floor(Math.random() * moviesRemaining.length);
-
-    											let ratingIndex = Math.floor(Math.random() * ratingTypes.length);
-    											currVid = moviesRemaining[movieIndex];
-    											$$invalidate(1, currRating = ratingTypes[ratingIndex]);
-    											let vidPlusRating = `${currVid}-${currRating}`;
-    											$$invalidate(3, ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`);
-
-    											// grab URL for video sourcing 
-    											$$invalidate(0, currVidSrc = stimuliTable.data()[currVid]);
-
-    											updateState("intro");
-    										} else {
-    											console.log("no options left!");
-    											updateState("complete");
-    										}
-    									});
-    								});
     							} else {
-    								// creates new doc
+    								// create a new document
     								subjectGroupCollection.doc(params.workerId).set({ name: "unknown" });
 
     								console.log("no previous documents found...creating new...");
@@ -27812,29 +27721,49 @@ var app = (function () {
     									startTime: serverTime,
     									consentStatus: "incomplete"
     								});
+    							}
 
-    								// grab stimuli doc and add all movies to list
-    								stimuliDoc.get().then(function (stimuliTable) {
-    									for (var field in stimuliTable.data()) {
-    										moviesRemaining.push(field);
-    									}
+    							// grab stimuli doc and add all movies to list
+    							stimuliDoc.get().then(function (stimuliTable) {
+    								for (var field in stimuliTable.data()) {
+    									moviesRemaining.push(field);
+    								}
 
-    									// see how many options remain, and grab random movie
+    								// check to see which movies subject has already viewed (if any)
+    								let currPath = `${ratingsPath}/${params.workerId}`;
+
+    								db.collection(currPath).get().then(function (ratingList) {
+    									// removes already completed movies from option set
+    									ratingList.forEach(function (doc) {
+    										moviesRemaining = removeItemOnce(moviesRemaining, doc.id.split("-")[0]);
+    									});
+
+    									// see how many movies are left
     									$$invalidate(5, numOptions = moviesRemaining.length);
 
-    									let movieIndex = Math.floor(Math.random() * moviesRemaining.length);
-    									let ratingIndex = Math.floor(Math.random() * ratingTypes.length);
-    									currVid = moviesRemaining[movieIndex];
-    									$$invalidate(1, currRating = ratingTypes[ratingIndex]);
-    									let vidPlusRating = `${currVid}-${currRating}`;
-    									$$invalidate(3, ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`);
+    									console.log("moviesRemaining: ", moviesRemaining);
 
-    									// create URL for video sourcing 
-    									$$invalidate(0, currVidSrc = stimuliTable.data()[currVid]);
+    									// if any movie-rating pairings left, load and start
+    									if (numOptions > 0) {
+    										// choose random movie and rating type
+    										let movieIndex = Math.floor(Math.random() * moviesRemaining.length);
 
-    									updateState("intro");
+    										let ratingIndex = Math.floor(Math.random() * ratingTypes.length);
+    										currVid = moviesRemaining[movieIndex];
+    										$$invalidate(1, currRating = ratingTypes[ratingIndex]);
+    										let vidPlusRating = `${currVid}-${currRating}`;
+    										$$invalidate(3, ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`);
+
+    										// grab URL for video sourcing 
+    										$$invalidate(0, currVidSrc = stimuliTable.data()[currVid]);
+
+    										updateState("intro");
+    									} else {
+    										console.log("no options left!");
+    										updateState("complete");
+    									}
     								});
-    							}
+    							});
     						});
     					} catch(error) {
     						console.error(error);

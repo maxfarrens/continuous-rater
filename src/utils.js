@@ -9,9 +9,16 @@ import "firebase/firestore";
 import "firebase/auth";
 import "firebase/performance";
 import "firebase/analytics";
+import { writable } from 'svelte/store';
 
 // ************************************************
+// ************************************************
+// ************************************************
+// ************************************************
 // USER VARIABLES (FILL STUFF IN BELOW THIS LINE)
+// ************************************************
+// ************************************************
+// ************************************************
 // ************************************************
 
 // lab variables
@@ -23,8 +30,7 @@ export const studyTasks = ''; // brief summary of HIT task for consent form
 export const experiment = ''; // name of experiment (should match collection name in firebase)
 
 // HIT variables
-export const buildVer = '' // should be 'demo' or 'mturk' based on intended use
-export const HITPay = ''; // pay for HIT completion (format as X.XX)
+export const HITPay = ''; // pay for HIT completion (format as X.XX with no dollar sign)
 export const userGroup = ''; // name of collection of participants for current HIT
 export const estHITTime = ''; // estimated time to complete HIT (in minutes)
 export const totalHITTime = estHITTime * 2; // total time provided for HIT (in minutes)
@@ -33,7 +39,7 @@ export const totalHITTime = estHITTime * 2; // total time provided for HIT (in m
 export const ratingTypes = ['', '', '']; // array of rating types   
 
 // this configures path to proper firebase
-// PUT YOUR FIREBASE CONFIG HERE
+// COPY AND PASTE YOUR FIREBASE CONFIG HERE
 const firebaseConfig = {
     apiKey: "",
     authDomain: "",
@@ -46,8 +52,18 @@ const firebaseConfig = {
 };
 
 // ************************************************
+// ************************************************
+// ************************************************
+// ************************************************
 // STOP. DON'T CHANGE ANYTHING BELOW THIS LINE
 // ************************************************
+// ************************************************
+// ************************************************
+// ************************************************
+
+// dev is referenced as a store elsewhere in the code, so cannot be a simple Boolean
+// eslint-disable-next-line no-undef
+export const dev = DEV_MODE ? writable(true) : writable(false);
 
 // firebase info (export for use elsewhere in app)
 firebase.initializeApp(firebaseConfig);
@@ -68,6 +84,18 @@ export const getURLParams = () => {
             const a = m[i].match(/.([^=]+)=(.*)/);
             params[unescapeURL(a[1])] = unescapeURL(a[2]);
             i += 1;
+        }
+    }
+    if (!params.workerId && !params.assignmentId && !params.hitId) {
+        // eslint-disable-next-line no-undef
+        if (DEV_MODE) {
+            console.log(
+                'App running in dev mode so HIT submission will not work!\nTo test in the sandbox make sure to deploy the app.'
+            );
+            params.workerId = 'test-worker';
+            params.assignmentId = 'test-assignment';
+            params.hitId = 'test-hit';
+            params.turkSubmitTo = 'test-submit';
         }
     }
     return params;

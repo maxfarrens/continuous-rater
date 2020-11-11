@@ -2,7 +2,7 @@
     there is a single button that saves responses to firebase and submits HIT  -->
 
 <script>
-    import { db, params, serverTime, buildVer } from '../utils.js';
+    import { db, params, serverTime } from '../utils.js';
 
     // populating necessary variables
     export let subPath;
