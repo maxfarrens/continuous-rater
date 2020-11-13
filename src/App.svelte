@@ -20,6 +20,7 @@
     import Complete from './pages/Complete.svelte';
     import Loading from './components/Loading.svelte';
     import Header from './components/Header.svelte';
+    import MTurkPreview from './pages/MTurkPreview.svelte';
 
 	// path details
 	const ratingsPath = `${experiment}/ratings`;
@@ -280,6 +281,8 @@
     </div>
 	{#if !currentState}
         <Loading>Loading...</Loading>
+    {:else if currentState === 'mturk-preview'}
+        <MturkPreview />
 	{:else if currentState === 'intro'}
 		<Intro on:finished={() => updateState('consent')}></Intro>
 	{:else if currentState === 'consent'}
