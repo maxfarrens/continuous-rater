@@ -9,19 +9,11 @@
 
 <style>
   .banner {
-    position: fixed;
-    left: 0;
-    bottom: 0;
     width: 100%;
     text-align: center;
     padding: 0.5rem;
     border-radius: 0.25rem;
-  }
-  .dev {
-    background-color: lightcoral;
-  }
-  .mturk {
-    background-color: lightblue;
+    background-color: lightgray;
   }
   .icon:hover {
     cursor: pointer;
@@ -35,7 +27,7 @@
     {#if $dev}
         <div class="banner dev">
             <span class="icon" on:click={() => dispatch('resetTestWorker')}>
-                Dev mode (click to reset test subject)
+                Dev mode (click here to reset test subject)
             </span>
         </div>
     {:else}

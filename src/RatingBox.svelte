@@ -98,7 +98,7 @@
 
 <style>
 	.rating-box {
-        width: 40%;
+        width: 60%;
         border: 1px solid #aaa;
         background-color: rgba(192, 192, 192, 0.384);
 		border-radius: 2px;

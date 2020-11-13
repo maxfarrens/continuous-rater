@@ -19,7 +19,7 @@
 	import Debrief from './pages/Debrief.svelte';
     import Complete from './pages/Complete.svelte';
     import Loading from './components/Loading.svelte';
-    import Footer from './components/Footer.svelte';
+    import Header from './components/Header.svelte';
 
 	// path details
 	const ratingsPath = `${experiment}/ratings`;
@@ -45,6 +45,7 @@
     
     // use to validate build type in JS console
     console.log(dev);
+    console.log('tester boiii');
 
     const resetTestWorker = async () => {
         // Change to the new state within Svelte
@@ -264,13 +265,19 @@
 
 
 <style>
-	div {
-		height: 100vh;
-	} 
+    .content {
+        position: relative;
+    }
+    .header {
+        left: 0;
+    }
 </style>
 
 
-<div>
+<div class="content">
+    <div class="header">
+        <Header on:resetTestWorker={resetTestWorker}></Header>
+    </div>
 	{#if !currentState}
         <Loading>Loading...</Loading>
 	{:else if currentState === 'intro'}
@@ -304,8 +311,9 @@
 		></Debrief>
 	{:else if currentState === 'complete'}
 		<Complete></Complete>
-	{/if}	
+	{/if}  	 
 </div>
-<Footer on:resetTestWorker={resetTestWorker}></Footer>
+
+
 
 

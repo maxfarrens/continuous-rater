@@ -24,7 +24,6 @@
         text-align: center;
         width: 50%;
     }
-
     .consent-box {
         text-align: left;
         padding: 2%;
@@ -33,15 +32,12 @@
         border-radius: 2px;
         box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);   
     }
-
     .intro {
         font-style: italic;
     }
-
     .yes {
         background-color: lightblue;
     }
-
     .no {
         background-color: lightcoral;
     }
