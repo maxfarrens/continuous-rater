@@ -282,7 +282,7 @@
 	{#if !currentState}
         <Loading>Loading...</Loading>
     {:else if currentState === 'mturk-preview'}
-        <MturkPreview />
+        <MTurkPreview />
 	{:else if currentState === 'intro'}
 		<Intro on:finished={() => updateState('consent')}></Intro>
 	{:else if currentState === 'consent'}
