@@ -51,7 +51,7 @@
     const resetTestWorker = async () => {
         // Change to the new state within Svelte
         if (params.workerId === 'test-worker') {
-            currentState = 'intro';
+            currentState = 'consent';
             let subjectRef = subjectGroupCollection.doc(params.workerId);
             subjectRef.get().then(function(doc) {
                 try {
@@ -178,7 +178,7 @@
                                             ratingDocPathway = `${ratingsPath}/${params.workerId}/${vidPlusRating}`;
                                             // grab URL for video sourcing 
                                             currVidSrc = stimuliTable.data()[currVid];
-                                            updateState('intro');
+                                            updateState('consent');
                                             
                                         } else {
                                             console.log("no options left!");

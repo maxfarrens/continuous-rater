@@ -27231,47 +27231,40 @@ var app = (function () {
     	let t1;
     	let div0;
     	let p0;
-    	let t7;
+    	let t5;
     	let p1;
     	let t11;
     	let p2;
-    	let t13;
-    	let br;
-    	let t14;
-    	let button;
-    	let dispose;
+    	let t15;
+    	let p3;
 
     	const block = {
     		c: function create() {
     			div1 = element("div");
     			h1 = element("h1");
-    			h1.textContent = "Thank you for accepting this HIT!";
+    			h1.textContent = "HIT Preview";
     			t1 = space();
     			div0 = element("div");
     			p0 = element("p");
-    			p0.textContent = `You are given ${totalHITTime} minutes to complete this HIT, but it should only take about ${estHITTime}.`;
-    			t7 = space();
+    			p0.textContent = `This HIT involves ${studyTasks}.`;
+    			t5 = space();
     			p1 = element("p");
-    			p1.textContent = `This HIT pays \$${HITPay}.`;
+    			p1.textContent = `You are given ${totalHITTime} minutes to complete this HIT, but it should only take about ${estHITTime}.`;
     			t11 = space();
     			p2 = element("p");
-    			p2.textContent = "By clicking the button below, you will be taken to the experiment, \n        including complete instructions and an informed consent agreement.";
-    			t13 = space();
-    			br = element("br");
-    			t14 = space();
-    			button = element("button");
-    			button.textContent = "Go To Experiment";
-    			add_location(h1, file$d, 35, 4, 765);
-    			add_location(p0, file$d, 37, 8, 843);
-    			add_location(p1, file$d, 38, 8, 961);
-    			add_location(p2, file$d, 39, 8, 1001);
-    			attr_dev(div0, "class", "text-box svelte-quolgx");
-    			add_location(div0, file$d, 36, 4, 812);
-    			add_location(br, file$d, 42, 4, 1166);
-    			attr_dev(button, "class", "svelte-quolgx");
-    			add_location(button, file$d, 43, 4, 1175);
-    			attr_dev(div1, "class", "container svelte-quolgx");
-    			add_location(div1, file$d, 34, 0, 737);
+    			p2.textContent = `This HIT pays \$${HITPay}.`;
+    			t15 = space();
+    			p3 = element("p");
+    			p3.textContent = "Please accept this HIT if you are interested!";
+    			add_location(h1, file$d, 25, 4, 554);
+    			add_location(p0, file$d, 27, 8, 610);
+    			add_location(p1, file$d, 28, 8, 657);
+    			add_location(p2, file$d, 29, 8, 775);
+    			add_location(p3, file$d, 30, 8, 815);
+    			attr_dev(div0, "class", "text-box svelte-sn4vaq");
+    			add_location(div0, file$d, 26, 4, 579);
+    			attr_dev(div1, "class", "container svelte-sn4vaq");
+    			add_location(div1, file$d, 24, 0, 526);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -27282,22 +27275,18 @@ var app = (function () {
     			append_dev(div1, t1);
     			append_dev(div1, div0);
     			append_dev(div0, p0);
-    			append_dev(div0, t7);
+    			append_dev(div0, t5);
     			append_dev(div0, p1);
     			append_dev(div0, t11);
     			append_dev(div0, p2);
-    			append_dev(div1, t13);
-    			append_dev(div1, br);
-    			append_dev(div1, t14);
-    			append_dev(div1, button);
-    			dispose = listen_dev(button, "click", /*handleClick*/ ctx[0], false, false, false);
+    			append_dev(div0, t15);
+    			append_dev(div0, p3);
     		},
     		p: noop,
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div1);
-    			dispose();
     		}
     	};
 
@@ -27312,30 +27301,10 @@ var app = (function () {
     	return block;
     }
 
-    function instance$c($$self) {
-    	const dispatch = createEventDispatcher();
-
-    	function handleClick() {
-    		dispatch("finished");
-    	}
-
-    	
-
-    	$$self.$capture_state = () => {
-    		return {};
-    	};
-
-    	$$self.$inject_state = $$props => {
-    		
-    	};
-
-    	return [handleClick];
-    }
-
     class MTurkPreview extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$c, create_fragment$d, safe_not_equal, {});
+    		init(this, options, null, create_fragment$d, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -27982,9 +27951,9 @@ var app = (function () {
     			t = space();
     			if (if_block) if_block.c();
     			attr_dev(div0, "class", "header svelte-1phsih7");
-    			add_location(div0, file$e, 278, 4, 11642);
+    			add_location(div0, file$e, 278, 4, 11646);
     			attr_dev(div1, "class", "content svelte-1phsih7");
-    			add_location(div1, file$e, 277, 0, 11616);
+    			add_location(div1, file$e, 277, 0, 11620);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -28077,7 +28046,7 @@ var app = (function () {
     	return arr;
     }
 
-    function instance$d($$self, $$props, $$invalidate) {
+    function instance$c($$self, $$props, $$invalidate) {
     	const ratingsPath = `${experiment}/ratings`;
     	const ratingsDoc = db.doc(ratingsPath);
     	const subjectGroupPath = `${experiment}/subjects/${userGroup}`;
@@ -28108,7 +28077,7 @@ var app = (function () {
     	const resetTestWorker = async () => {
     		// Change to the new state within Svelte
     		if (params.workerId === "test-worker") {
-    			$$invalidate(4, currentState = "intro");
+    			$$invalidate(4, currentState = "consent");
     			let subjectRef = subjectGroupCollection.doc(params.workerId);
 
     			subjectRef.get().then(function (doc) {
@@ -28244,7 +28213,7 @@ var app = (function () {
     											// grab URL for video sourcing 
     											$$invalidate(0, currVidSrc = stimuliTable.data()[currVid]);
 
-    											updateState("intro");
+    											updateState("consent");
     										} else {
     											console.log("no options left!");
     											updateState("complete");
@@ -28388,7 +28357,7 @@ var app = (function () {
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$d, create_fragment$e, safe_not_equal, {}, [-1, -1]);
+    		init(this, options, instance$c, create_fragment$e, safe_not_equal, {}, [-1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
