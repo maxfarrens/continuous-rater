@@ -114,7 +114,7 @@
 	}
 
 	.video_cont {
-		width: 60%;
+		width: 50%;
         align-items: center;  
 	}
 

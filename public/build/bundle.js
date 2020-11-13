@@ -24447,7 +24447,7 @@ var app = (function () {
     			attr_dev(line, "y1", line_y__value = /*y*/ ctx[20] / 100 * /*height*/ ctx[3]);
     			attr_dev(line, "x2", line_x__value_1 = (/*i*/ ctx[22] + 1) / /*n*/ ctx[4] * /*width*/ ctx[2]);
     			attr_dev(line, "y2", line_y__value_1 = /*numbers*/ ctx[1][/*i*/ ctx[22] + 1] / 100 * /*height*/ ctx[3]);
-    			attr_dev(line, "class", "svelte-1ahtif3");
+    			attr_dev(line, "class", "svelte-zou4hy");
     			add_location(line, file$5, 161, 16, 4415);
     		},
     		m: function mount(target, anchor) {
@@ -24562,9 +24562,9 @@ var app = (function () {
     			div1 = element("div");
     			t4 = text("Least ");
     			t5 = text(/*ratingType*/ ctx[0]);
-    			attr_dev(div0, "class", "first-anchor svelte-1ahtif3");
+    			attr_dev(div0, "class", "first-anchor svelte-zou4hy");
     			add_location(div0, file$5, 146, 4, 3897);
-    			attr_dev(line, "class", "reference svelte-1ahtif3");
+    			attr_dev(line, "class", "reference svelte-zou4hy");
     			attr_dev(line, "x1", "0");
     			attr_dev(line, "y1", line_y__value = /*height*/ ctx[3] / 2);
     			attr_dev(line, "x2", /*width*/ ctx[2]);
@@ -24578,11 +24578,11 @@ var app = (function () {
     			attr_dev(svg, "preserveAspectRatio", "none");
     			attr_dev(svg, "width", "100%");
     			attr_dev(svg, "height", "100%");
-    			attr_dev(svg, "class", "svelte-1ahtif3");
+    			attr_dev(svg, "class", "svelte-zou4hy");
     			add_location(svg, file$5, 147, 4, 3951);
-    			attr_dev(div1, "class", "last-anchor svelte-1ahtif3");
+    			attr_dev(div1, "class", "last-anchor svelte-zou4hy");
     			add_location(div1, file$5, 171, 4, 4740);
-    			attr_dev(article, "class", "rating-box svelte-1ahtif3");
+    			attr_dev(article, "class", "rating-box svelte-zou4hy");
     			add_location(article, file$5, 145, 0, 3864);
     		},
     		l: function claim(nodes) {
@@ -25287,25 +25287,25 @@ var app = (function () {
     			attr_dev(video, "id", "my-video");
     			if (video.src !== (video_src_value = /*src*/ ctx[1])) attr_dev(video, "src", video_src_value);
     			attr_dev(video, "preload", "auto");
-    			attr_dev(video, "class", "svelte-zul7ki");
+    			attr_dev(video, "class", "svelte-1ry1hix");
     			if (/*duration*/ ctx[2] === void 0) add_render_callback(() => /*video_durationchange_handler*/ ctx[11].call(video));
     			add_location(video, file$7, 129, 1, 2501);
     			progress.value = progress_value_value = /*time*/ ctx[0] / /*duration*/ ctx[2] || 0;
-    			attr_dev(progress, "class", "svelte-zul7ki");
+    			attr_dev(progress, "class", "svelte-1ry1hix");
     			add_location(progress, file$7, 140, 2, 2785);
-    			attr_dev(span0, "class", "time svelte-zul7ki");
+    			attr_dev(span0, "class", "time svelte-1ry1hix");
     			add_location(span0, file$7, 142, 3, 2854);
     			attr_dev(span1, "id", "instruction_text");
-    			attr_dev(span1, "class", "svelte-zul7ki");
+    			attr_dev(span1, "class", "svelte-1ry1hix");
     			add_location(span1, file$7, 143, 3, 2898);
-    			attr_dev(span2, "class", "time svelte-zul7ki");
+    			attr_dev(span2, "class", "time svelte-1ry1hix");
     			add_location(span2, file$7, 144, 3, 2979);
-    			attr_dev(div0, "class", "info svelte-zul7ki");
+    			attr_dev(div0, "class", "info svelte-1ry1hix");
     			add_location(div0, file$7, 141, 2, 2832);
-    			attr_dev(div1, "class", "controls svelte-zul7ki");
+    			attr_dev(div1, "class", "controls svelte-1ry1hix");
     			set_style(div1, "opacity", /*duration*/ ctx[2] && /*showControls*/ ctx[4] ? 1 : 0);
     			add_location(div1, file$7, 139, 1, 2708);
-    			attr_dev(div2, "class", "video_cont svelte-zul7ki");
+    			attr_dev(div2, "class", "video_cont svelte-1ry1hix");
     			add_location(div2, file$7, 128, 0, 2475);
     		},
     		l: function claim(nodes) {
