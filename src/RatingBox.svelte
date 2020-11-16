@@ -140,12 +140,11 @@
 
 </style>
 
-
 <svelte:window on:keydown|preventDefault={handleKeyPress} on:keyup|preventDefault={handleKeyUp}/> 
 
 <article class="rating-box">
     <div class="first-anchor">Most {ratingType}</div>
-    <svg viewBox="0 0 {width} {height}" preserveAspectRatio="none" width="100%" height="100%">
+    <svg viewBox="0 0 {width} {height}">
          <line class="reference"
             x1=0
             y1={height / 2}

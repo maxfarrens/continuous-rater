@@ -24424,7 +24424,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (156:12) {#if i < n - 1}
+    // (155:12) {#if i < n - 1}
     function create_if_block$4(ctx) {
     	let circle;
     	let circle_cx_value;
@@ -24442,13 +24442,13 @@ var app = (function () {
     			attr_dev(circle, "cx", circle_cx_value = /*i*/ ctx[22] / /*n*/ ctx[4] * /*width*/ ctx[2]);
     			attr_dev(circle, "cy", circle_cy_value = /*y*/ ctx[20] / 100 * /*height*/ ctx[3]);
     			attr_dev(circle, "r", "1");
-    			add_location(circle, file$5, 156, 16, 4258);
+    			add_location(circle, file$5, 155, 16, 4203);
     			attr_dev(line, "x1", line_x__value = /*i*/ ctx[22] / /*n*/ ctx[4] * /*width*/ ctx[2]);
     			attr_dev(line, "y1", line_y__value = /*y*/ ctx[20] / 100 * /*height*/ ctx[3]);
     			attr_dev(line, "x2", line_x__value_1 = (/*i*/ ctx[22] + 1) / /*n*/ ctx[4] * /*width*/ ctx[2]);
     			attr_dev(line, "y2", line_y__value_1 = /*numbers*/ ctx[1][/*i*/ ctx[22] + 1] / 100 * /*height*/ ctx[3]);
     			attr_dev(line, "class", "svelte-zou4hy");
-    			add_location(line, file$5, 161, 16, 4415);
+    			add_location(line, file$5, 160, 16, 4360);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, circle, anchor);
@@ -24477,14 +24477,14 @@ var app = (function () {
     		block,
     		id: create_if_block$4.name,
     		type: "if",
-    		source: "(156:12) {#if i < n - 1}",
+    		source: "(155:12) {#if i < n - 1}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (155:8) {#each numbers as y, i}
+    // (154:8) {#each numbers as y, i}
     function create_each_block(ctx) {
     	let if_block_anchor;
     	let if_block = /*i*/ ctx[22] < /*n*/ ctx[4] - 1 && create_if_block$4(ctx);
@@ -24511,7 +24511,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(155:8) {#each numbers as y, i}",
+    		source: "(154:8) {#each numbers as y, i}",
     		ctx
     	});
 
@@ -24563,27 +24563,24 @@ var app = (function () {
     			t4 = text("Least ");
     			t5 = text(/*ratingType*/ ctx[0]);
     			attr_dev(div0, "class", "first-anchor svelte-zou4hy");
-    			add_location(div0, file$5, 146, 4, 3897);
+    			add_location(div0, file$5, 145, 4, 3896);
     			attr_dev(line, "class", "reference svelte-zou4hy");
     			attr_dev(line, "x1", "0");
     			attr_dev(line, "y1", line_y__value = /*height*/ ctx[3] / 2);
     			attr_dev(line, "x2", /*width*/ ctx[2]);
     			attr_dev(line, "y2", line_y__value_1 = /*height*/ ctx[3] / 2);
-    			add_location(line, file$5, 148, 9, 4051);
+    			add_location(line, file$5, 147, 9, 3996);
     			attr_dev(circle, "cx", "0");
     			attr_dev(circle, "cy", circle_cy_value = /*numbers*/ ctx[1][0] / 100 * /*height*/ ctx[3]);
     			attr_dev(circle, "r", "5");
-    			add_location(circle, file$5, 169, 8, 4669);
+    			add_location(circle, file$5, 168, 8, 4614);
     			attr_dev(svg, "viewBox", svg_viewBox_value = "0 0 " + /*width*/ ctx[2] + " " + /*height*/ ctx[3]);
-    			attr_dev(svg, "preserveAspectRatio", "none");
-    			attr_dev(svg, "width", "100%");
-    			attr_dev(svg, "height", "100%");
     			attr_dev(svg, "class", "svelte-zou4hy");
-    			add_location(svg, file$5, 147, 4, 3951);
+    			add_location(svg, file$5, 146, 4, 3950);
     			attr_dev(div1, "class", "last-anchor svelte-zou4hy");
-    			add_location(div1, file$5, 171, 4, 4740);
+    			add_location(div1, file$5, 170, 4, 4685);
     			attr_dev(article, "class", "rating-box svelte-zou4hy");
-    			add_location(article, file$5, 145, 0, 3864);
+    			add_location(article, file$5, 144, 0, 3863);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
