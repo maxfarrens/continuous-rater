@@ -16,7 +16,7 @@
 ## <a name=about></a>about
 continuous-rater is <strong>an app that allows participants to continuously rate their emotions while viewing a stimulus</strong>. It is compatible with Amazon Mechanical Turk. This app requires some configuration before use: I have included instructions for all necessary steps in this README.
 
-app built by Max Farrens and COSAN Lab. Visit this [site](https://focused-hugle-d6df19.netlify.app) for a pre-configured demo.
+app built by Max Farrens and COSAN Lab. Visit this [site](https://vibrant-williams-4184f2.netlify.app) for a pre-configured demo.
 
 ## <a name=getting_started></a>getting started
 
