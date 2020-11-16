@@ -1,5 +1,5 @@
 # continuous-rater
-app by Max Farrens and COSAN Lab. Visit this [site](https://jovial-minsky-2b53e0.netlify.app) for a pre-configured demo. See [below](#demo_screenshot) for a screenshot of the app in action.
+app by Max Farrens and COSAN Lab. Visit this [site](https://focused-hugle-d6df19.netlify.app) for a pre-configured demo. See [below](#demo_screenshot) for a screenshot of the app in action.
 
 ---
 ## <a name=about></a>about
