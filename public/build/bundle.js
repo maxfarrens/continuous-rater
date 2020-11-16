@@ -23134,11 +23134,11 @@ var app = (function () {
     const email = ''; // lab email for mturk
     const studyAim = ''; // aim of mturk study 
     const studyTasks = ''; // brief summary of HIT task for consent form
-    const experiment = 'Demo'; // name of experiment (should match collection name in firebase)
+    const experiment = ''; // name of experiment (should match collection name in firebase)
 
     // HIT variables
     const HITPay = ''; // pay for HIT completion (format as X.XX with no dollar sign)
-    const userGroup = 'Group 1'; // name of collection of participants for current HIT
+    const userGroup = ''; // name of collection of participants for current HIT
     const estHITTime = ''; // estimated time to complete HIT (in minutes)
     const totalHITTime = estHITTime * 2; // total time provided for HIT (in minutes)
 
@@ -23148,14 +23148,14 @@ var app = (function () {
     // this configures path to proper firebase
     // COPY AND PASTE YOUR FIREBASE CONFIG HERE
     let firebaseConfig = {
-        apiKey: "AIzaSyB-RA2Pdoea4SsxULDrqtUe1ra1bl0Ze04",
-        authDomain: "svelte-rating.firebaseapp.com",
-        databaseURL: "https://svelte-rating.firebaseio.com",
-        projectId: "svelte-rating",
-        storageBucket: "svelte-rating.appspot.com",
-        messagingSenderId: "16447615457",
-        appId: "1:16447615457:web:92f40fcd143a53e619e2a0",
-        measurementId: "G-0KE9SFH36M"
+        apiKey: "",
+        authDomain: "",
+        databaseURL: "",
+        projectId: "",
+        storageBucket: "",
+        messagingSenderId: "",
+        appId: "",
+        measurementId: ""
     };
 
     // ************************************************

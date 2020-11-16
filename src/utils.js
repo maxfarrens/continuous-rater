@@ -41,7 +41,14 @@ export const ratingTypes = ['', '', '']; // array of rating types
 // this configures path to proper firebase
 // COPY AND PASTE YOUR FIREBASE CONFIG HERE
 let firebaseConfig = {
-
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: ""
 };
 
 // ************************************************
