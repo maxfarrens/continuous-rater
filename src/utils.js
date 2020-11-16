@@ -27,11 +27,11 @@ export const labName = ''; // name of lab running HIT experiment
 export const email = ''; // lab email for mturk
 export const studyAim = ''; // aim of mturk study 
 export const studyTasks = ''; // brief summary of HIT task for consent form
-export const experiment = 'Demo'; // name of experiment (should match collection name in firebase)
+export const experiment = ''; // name of experiment (should match collection name in firebase)
 
 // HIT variables
 export const HITPay = ''; // pay for HIT completion (format as X.XX with no dollar sign)
-export const userGroup = 'Group 1'; // name of collection of participants for current HIT
+export const userGroup = ''; // name of collection of participants for current HIT
 export const estHITTime = ''; // estimated time to complete HIT (in minutes)
 export const totalHITTime = estHITTime * 2; // total time provided for HIT (in minutes)
 
@@ -41,14 +41,7 @@ export const ratingTypes = ['', '', '']; // array of rating types
 // this configures path to proper firebase
 // COPY AND PASTE YOUR FIREBASE CONFIG HERE
 let firebaseConfig = {
-    apiKey: "AIzaSyB-RA2Pdoea4SsxULDrqtUe1ra1bl0Ze04",
-    authDomain: "svelte-rating.firebaseapp.com",
-    databaseURL: "https://svelte-rating.firebaseio.com",
-    projectId: "svelte-rating",
-    storageBucket: "svelte-rating.appspot.com",
-    messagingSenderId: "16447615457",
-    appId: "1:16447615457:web:92f40fcd143a53e619e2a0",
-    measurementId: "G-0KE9SFH36M"
+
 };
 
 // ************************************************
