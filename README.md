@@ -1,5 +1,7 @@
 # continuous-rater
 
+For an in-depth tutorial and instructions, please visit the [continuous-rater website](#https://maxfarrens.github.io/continuous-rater-book/).
+
 ![](./images/demo.gif)
 
 ---
