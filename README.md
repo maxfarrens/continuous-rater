@@ -1,6 +1,6 @@
 # continuous-rater
 
-For an in-depth tutorial and more information, please visit [maxfarrens.github.io/continuous-rater-book](https://maxfarrens.github.io/continuous-rater-book/). Visit [continuous-rater-demo.netlify.app](https://continuous-rater-demo.netlify.app/) to play with a pre-configured demo.
+For an in-depth tutorial and more information, please visit [maxfarrens.github.io/continuous-rater-book](https://maxfarrens.github.io/continuous-rater-book/). Visit [continuous-rater-demo.netlify.app](https://continuous-rater-demo.netlify.app/) to play with a pre-configured demo. Here is a gif of the app in action:
 
 ![](./images/demo.gif)
 
@@ -9,8 +9,7 @@ For an in-depth tutorial and more information, please visit [maxfarrens.github.i
 ## <a name=about></a>about
 `continuous-rater` is **an app that allows participants to continuously rate their emotions while viewing a video stimulus**. It is compatible with Amazon Mechanical Turk. This app requires some configuration before use: click [here](https://maxfarrens.github.io/continuous-rater-book/) for more information.
 
-app built by Max Farrens and [COSAN Lab](https://cosanlab.com/) (with help from Eshin Jolly and Luke Chang). 
-
+app built by Max Farrens and [COSAN Lab](https://cosanlab.com/).
 ## <a name=getting_started></a>getting started
 
 1. If you do not already have it, install [Node.js](https://nodejs.org/en/)
