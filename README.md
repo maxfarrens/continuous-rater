@@ -1,5 +1,7 @@
 # continuous-rater
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4279654.svg)](https://doi.org/10.5281/zenodo.4279654)
+
 For an in-depth tutorial and more information, please visit [maxfarrens.github.io/continuous-rater-book](https://maxfarrens.github.io/continuous-rater-book/). Visit [continuous-rater-demo.netlify.app](https://continuous-rater-demo.netlify.app/) to play with a pre-configured demo. Here is a gif of the app in action:
 
 ![](./images/demo.gif)
