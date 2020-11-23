@@ -46,7 +46,6 @@
     
     // use to validate build type in JS console
     console.log(dev);
-    console.log('tester boiii');
 
     const resetTestWorker = async () => {
         // Change to the new state within Svelte
